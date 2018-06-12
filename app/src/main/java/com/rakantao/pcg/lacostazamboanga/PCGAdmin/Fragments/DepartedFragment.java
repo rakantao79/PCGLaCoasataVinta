@@ -9,22 +9,24 @@ import android.view.ViewGroup;
 
 import com.rakantao.pcg.lacostazamboanga.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class DepartedFragment extends Fragment {
 
+
+    View view;
 
     public DepartedFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_departed, container, false);
+        view = inflater.inflate(R.layout.fragment_departed, container, false);
+
+
+        return view;
     }
 
 }
