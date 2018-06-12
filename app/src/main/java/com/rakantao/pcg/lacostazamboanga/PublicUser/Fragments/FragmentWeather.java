@@ -110,8 +110,16 @@ public class FragmentWeather extends Fragment implements LocationListener {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 2, this);
                 if (locationManager != null) {
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    apiUrl = "http://api.openweathermap.org/data/2.5/weather?lat="+location.getLatitude()+"&lon="+location.getLongitude()+"&APPID="+ Helper.API_KEY+"&units=metric";
-                    makeJsonObject(apiUrl);
+
+                    if (location.getAltitude() == 0.0 || location.getLongitude() == 0.0){
+                        Toast.makeText(getContext(), "Unable to fetch your location", Toast.LENGTH_SHORT).show();
+                        showGPSDisabledAlertToUser();
+                    }else {
+                        apiUrl = "http://api.openweathermap.org/data/2.5/weather?lat="+location.getLatitude()+"&lon="+location.getLongitude()+"&APPID="+ Helper.API_KEY+"&units=metric";
+                        makeJsonObject(apiUrl);
+                    }
+
+
                 }
             }else{
                 // make API call with city name

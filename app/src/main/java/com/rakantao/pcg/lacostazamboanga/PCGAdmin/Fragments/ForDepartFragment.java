@@ -75,6 +75,7 @@ public class ForDepartFragment extends Fragment {
                 ) {
                     @Override
                     protected void populateViewHolder(final PendingViewholder viewHolder, DataVesselSched model, int position) {
+
                         viewHolder.vesseltype.setText(model.getVesselType());
                         viewHolder.vesselname.setText(model.getVesselName());
                         viewHolder.origin.setText(model.getOrigin());
@@ -82,10 +83,6 @@ public class ForDepartFragment extends Fragment {
                         viewHolder.departime.setText(model.getDepartureTime());
                         viewHolder.arrivaltime.setText(model.getArrivalTime());
                         viewHolder.schedday.setText(model.getScheduleDay());
-
-
-
-
 
 
                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(model.getVesselName());
@@ -102,7 +99,7 @@ public class ForDepartFragment extends Fragment {
                                                 .fit().centerCrop()
                                                 .networkPolicy(NetworkPolicy.OFFLINE)
                                                 .placeholder(R.drawable.zz)
-                                                .into(viewHolder.vesselimage, new Callback() {
+                                                .into(viewHolder.vesselimage , new Callback() {
                                                     @Override
                                                     public void onSuccess() {
 
