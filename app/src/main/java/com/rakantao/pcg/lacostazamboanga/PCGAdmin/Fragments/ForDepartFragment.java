@@ -1,7 +1,6 @@
 package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,8 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.SetVesselScheduleActivity;
-import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataShippingProfileList;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.PendingViewholder;
 import com.rakantao.pcg.lacostazamboanga.R;
@@ -70,8 +67,7 @@ public class ForDepartFragment extends Fragment {
                         DataVesselSched.class,
                         R.layout.pending_listrow,
                         PendingViewholder.class,
-                        childRef
-
+                        childRef.orderByChild("VesselStatus").equalTo("Pending")
                 ) {
                     @Override
                     protected void populateViewHolder(final PendingViewholder viewHolder, DataVesselSched model, int position) {

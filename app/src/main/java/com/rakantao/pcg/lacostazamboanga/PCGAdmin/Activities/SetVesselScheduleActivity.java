@@ -552,6 +552,7 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                             HashString1.put("ArrivalTime", getTimeArrival);
                             HashString1.put("VesselType", VesselType);
                             HashString1.put("Decision", "on-going");
+                            HashString1.put("VesselStatus", "Pending");
 
                            DatabaseReference databaseReference1 = firebaseDatabase1.getReference("VesselDetails").child(VesselName);
                             databaseReference1.setValue(HashString1);
