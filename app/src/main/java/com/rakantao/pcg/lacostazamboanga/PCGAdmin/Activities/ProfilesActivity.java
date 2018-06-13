@@ -111,7 +111,7 @@ public class ProfilesActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        startActivity(new Intent(ProfilesActivity.this, ProfilesActivity.class));
+                        startActivity(new Intent(ProfilesActivity.this, PCGAdminHome.class));
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }
 

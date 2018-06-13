@@ -21,30 +21,30 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_width="221dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/black"
-                android:text="PASSENGER"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:text="PASSENGER"
+                android:textColor="@color/black" />
 
             <TextView
-                android:textSize="25dp"
-                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="MV MARY JOY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+
             <TextView
-                android:text="FROM : ZAMBOANGA CITY"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="FROM : ZAMBOANGA CITY" />
 
             <TextView
                 android:id="@+id/textView"
@@ -56,10 +56,10 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:layout_marginTop="5dp"
-                android:text="DESTINATION : LAMITAN CITY"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="DESTINATION : LAMITAN CITY" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -71,51 +71,55 @@
                 android:textSize="13sp" />
 
             <FrameLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_gravity="start"
-                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:orientation="vertical">
+
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:textSize="15dp"
                         android:layout_marginTop="5dp"
                         android:text="Time Arrived"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="15dp" />
+
                     <TextView
-                        android:layout_marginTop="5dp"
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="#000"
-                        android:text="10:11 AM"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp"
+                        android:text="10:11 AM"
+                        android:textColor="#000" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginRight="10dp"
-                    android:textSize="15dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Hours Travelled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="17dp"
-                    android:layout_gravity="end|center"
-                    android:textColor="#000"
-                    android:text="1H : 23M : 24S"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Hours Travelled"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginTop="5dp"
+                        android:text="1H : 23M : 24S"
+                        android:textColor="#000" />
                 </LinearLayout>
             </FrameLayout>
 
