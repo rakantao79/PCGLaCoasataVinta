@@ -36,6 +36,7 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:layout_gravity="center"
                 android:id="@+id/TVArrivedVesselName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,21 +53,23 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_gravity="center"
                 android:id="@+id/TVArrivedOrigin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FROM : ZAMBOANGA CITY" />
 
             <TextView
+                android:layout_gravity="center"
                 android:id="@+id/TVArrivedETD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
                 android:text="8:00 AM"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 
             <TextView
+                android:layout_gravity="center"
                 android:id="@+id/TVArrivedDestination"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,10 +77,10 @@
                 android:text="DESTINATION : LAMITAN CITY" />
 
             <TextView
+                android:layout_gravity="center"
                 android:id="@+id/TVArrivedETA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
                 android:text="10:00 AM"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
@@ -92,6 +95,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:paddingLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
