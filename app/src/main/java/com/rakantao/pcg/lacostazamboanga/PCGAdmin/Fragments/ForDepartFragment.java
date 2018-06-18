@@ -30,7 +30,7 @@ public class ForDepartFragment extends Fragment {
     private DatabaseReference mDatabaseRef;
     private DatabaseReference childRef;
     private LinearLayoutManager linearLayoutManager;
-    private DatabaseReference mUserDatabase;
+    private DatabaseReference mUserDatabase,databaseReference;
     View view;
 
     public ForDepartFragment() {
@@ -70,7 +70,7 @@ public class ForDepartFragment extends Fragment {
                         childRef.orderByChild("VesselStatus").equalTo("Pending")
                 ) {
                     @Override
-                    protected void populateViewHolder(final PendingViewholder viewHolder, DataVesselSched model, int position) {
+                    protected void populateViewHolder(final PendingViewholder viewHolder, final DataVesselSched model, int position) {
 
                         viewHolder.vesseltype.setText(model.getVesselType());
                         viewHolder.vesselname.setText(model.getVesselName());
@@ -79,6 +79,18 @@ public class ForDepartFragment extends Fragment {
                         viewHolder.departime.setText(model.getDepartureTime());
                         viewHolder.arrivaltime.setText(model.getArrivalTime());
                         viewHolder.schedday.setText(model.getScheduleDay());
+
+
+
+
+                        viewHolder.btnclear.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                databaseReference = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("VesselStatus");
+                                databaseReference.setValue("Departed");
+
+                            }
+                        });
 
 
                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(model.getVesselName());

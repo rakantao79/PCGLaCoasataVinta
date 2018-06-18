@@ -34,6 +34,7 @@ import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.NotifAdminFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments.ChatFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments.MoreFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments.NewsFeedFragment;
+import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments.ReportFragment;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Fragments.FragmentWeather;
 import com.rakantao.pcg.lacostazamboanga.R;
 
@@ -80,6 +81,7 @@ public class PCGHomeActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.clouds);
         tabLayout.getTabAt(2).setIcon(R.drawable.chat1);
         tabLayout.getTabAt(3).setIcon(R.drawable.notification);
+        tabLayout.getTabAt(4).setIcon(R.drawable.reports);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -88,6 +90,7 @@ public class PCGHomeActivity extends AppCompatActivity {
         adapter.addFragment(new FragmentWeather(), "");
         adapter.addFragment(new ChatFragment(), "");
         adapter.addFragment(new NotifAdminFragment(), "");
+        adapter.addFragment(new ReportFragment(), "");
         viewPager.setAdapter(adapter);
     }
 

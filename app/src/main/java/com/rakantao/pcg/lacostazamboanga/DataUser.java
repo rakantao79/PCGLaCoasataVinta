@@ -4,6 +4,9 @@ public class DataUser {
     public String Usertype;
     public String email;
     public String Password;
+    public String FirstName;
+    public String MiddleName;
+    public String LastName;
 
     public DataUser(){
 
@@ -15,3 +18,4 @@ public class DataUser {
         this.Password = password;
     }
 }
+

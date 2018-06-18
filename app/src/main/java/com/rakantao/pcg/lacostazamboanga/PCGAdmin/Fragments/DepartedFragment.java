@@ -29,7 +29,7 @@ public class DepartedFragment extends Fragment {
     private DatabaseReference mDatabaseRef;
     private DatabaseReference childRef;
     private LinearLayoutManager linearLayoutManager;
-    private DatabaseReference mUserDatabase;
+    private DatabaseReference mUserDatabase,databaseReference;
     View view;
 
     public DepartedFragment() {
@@ -78,6 +78,14 @@ public class DepartedFragment extends Fragment {
                         viewHolder.vesseldeparttime.setText(model.getDepartureTime());
                         viewHolder.vesselarrivetime.setText(model.getArrivalTime());
                         viewHolder.vesselschedday.setText(model.getScheduleDay());
+
+                        viewHolder.btnarrive.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                databaseReference = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("VesselStatus");
+                                databaseReference.setValue("Arrived");
+                            }
+                        });
 
 
                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(model.getVesselName());
