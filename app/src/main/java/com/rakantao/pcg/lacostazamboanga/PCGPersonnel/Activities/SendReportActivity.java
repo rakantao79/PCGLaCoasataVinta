@@ -184,7 +184,7 @@ public class SendReportActivity extends AppCompatActivity {
 
                             //StorageReference fileToUpload = mStorage.child(uid).child(vesselName).child(format).child("Images").child(filename);
 
-                            StorageReference fileToUpload = mStorage.child(format).child(uid).child(vesselName).child(filename);
+                            StorageReference fileToUpload = mStorage.child("report_images").child(format).child(uid).child(vesselName).child(filename);
 
                             final int finalI = i;
 
