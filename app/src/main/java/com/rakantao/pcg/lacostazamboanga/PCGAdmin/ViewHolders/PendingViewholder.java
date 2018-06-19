@@ -13,10 +13,12 @@ public class PendingViewholder extends RecyclerView.ViewHolder {
     public TextView vesselname,vesseltype,origin,destination,departime,arrivaltime,runnabletime,schedday;
     public ImageView vesselimage;
     public Button btnclear;
+    View view;
 
 
     public PendingViewholder(View itemView) {
         super(itemView);
+        view = itemView;
 
         vesselname = itemView.findViewById(R.id.TVPendingVesselName);
         vesseltype = itemView.findViewById(R.id.TVPendingVesselType);

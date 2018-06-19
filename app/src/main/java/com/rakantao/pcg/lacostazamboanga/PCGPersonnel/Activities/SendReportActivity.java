@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -91,19 +94,38 @@ public class SendReportActivity extends AppCompatActivity {
         etSelectVesselName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference();
+
+                databaseReference.child("VesselDetails").orderByChild("VesselStatus").equalTo("Pending").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        final List<String> areas = new ArrayList<String>();
+
+                        for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+                            String areaName = areaSnapshot.child("VesselName").getValue(String.class);
+                            areas.add(areaName);
+                        }
+                        final CharSequence[] itemsz = areas.toArray(new CharSequence[areas.size()]);
+                        AlertDialog.Builder builderz = new AlertDialog.Builder(SendReportActivity.this);
+                        builderz.setTitle("Make a Selection");
+                        builderz.setItems(itemsz, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                etSelectVesselName.setText(itemsz[i]);
+                            }
+                        });
+                        AlertDialog alertDialogz = builderz.create();
+                        alertDialogz.show();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 final CharSequence[] items2 = {
                         "MV Stephanie", "MV Katrina","MV Mary Joy"
                 };
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(SendReportActivity.this);
-                builder2.setTitle("Make your selection");
-                builder2.setItems(items2, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int item) {
-                        // Do something with the selection
-                        etSelectVesselName.setText(items2[item]);
-                    }
-                });
-                AlertDialog alert2 = builder2.create();
-                alert2.show();
             }
         });
 
@@ -128,11 +150,11 @@ public class SendReportActivity extends AppCompatActivity {
 
         //get vessel name before uploading the images
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm");
         final String format = simpleDateFormat.format(new Date());
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = current_user.getUid();
+        final String uid = current_user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid);
 
         final String vesselName = etSelectVesselName.getText().toString().trim();
@@ -168,56 +190,57 @@ public class SendReportActivity extends AppCompatActivity {
 
                             final int counter = finalI;
 
-                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-                            HashMap<String, String> HashString = new HashMap<String, String>();
 
-                            if (finalI == counter){
-                                HashString.put("imageUrl" + finalI, filename);
-                                databaseReference.child("PersonnelReport").child(uid).child(vesselName).push().setValue(HashString);
-                            }
-
-                            fileToUpload.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            fileToUpload.putFile(fileUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    //Toast.makeText(MainActivity.this, "Done", Toast.LENGTH_SHORT).show();
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                    String thumb_downloadUrl = task.getResult().getDownloadUrl().toString();
 
-                                    fileDoneList.remove(finalI);
-                                    fileDoneList.add(finalI, "done");
-                                    //uploadListAdapter.notifyDataSetChanged();
+                                    if (task.isSuccessful()){
 
-                                    HashMap<String, String> HashString = new HashMap<String, String>();
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
 
-                                    HashString.put("date", format);
-                                    HashString.put("vesselname", vesselName);
-                                    HashString.put("InspectorName", getFullname);
+                                        HashMap<String, String> HashString1 = new HashMap<String, String>();
 
-                                    mDatabase.setValue(HashString).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(SendReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                        if (finalI == counter){
+                                            HashString1.put("imageUrl" ,thumb_downloadUrl);
+                                            databaseReference.child("PersonnelReport").child(uid).child(vesselName).push().setValue(HashString1);
+                                            databaseReference1.child("AdminImagesReport").child(vesselName).push().setValue(HashString1);
                                         }
-                                    });
-                                    uploadListAdapter.notifyDataSetChanged();
+
+                                        fileDoneList.remove(finalI);
+                                        fileDoneList.add(finalI, "done");
+                                        //uploadListAdapter.notifyDataSetChanged();
+
+                                        HashMap<String, String> HashString = new HashMap<String, String>();
+
+                                        HashString.put("timeUploaded", format);
+                                        HashString.put("vesselName", vesselName);
+                                        HashString.put("inspector", getFullname);
+
+
+
+                                        mDatabase.setValue(HashString).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(SendReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+                                        DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("ReportAdmin").child(vesselName);
+                                        databaseReference2.setValue(HashString);
+
+
+                                        uploadListAdapter.notifyDataSetChanged();
+                                    }
+
+
 
                                 }
                             });
-
                     }
-
-//                    fileToUpload.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            //Toast.makeText(MainActivity.this, "Done", Toast.LENGTH_SHORT).show();
-//
-//                            fileDoneList.remove(finalI);
-//                            fileDoneList.add(finalI, "done");
-//
-//
-//                            uploadListAdapter.notifyDataSetChanged();
-//
-//                        }
-//                    });
 
                 }
 
@@ -229,23 +252,6 @@ public class SendReportActivity extends AppCompatActivity {
         }
     }
 
-//    private void vesselName() {
-//
-////        @SuppressLint("SimpleDateFormat")
-////        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-////        String format = simpleDateFormat.format(new Date());
-////
-////        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-////        String uid = current_user.getUid();
-////        mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid);
-////
-////        String vesselName = etSelectVesselName.getText().toString().trim();
-////
-////        if (TextUtils.isEmpty(vesselName)){
-////            Toast.makeText(SetVesselScheduleActivity.this, "Please, Select Vessel Name", Toast.LENGTH_SHORT).show();
-////        }
-//
-//    }
 
     public String getFileName(Uri uri) {
         String result = null;

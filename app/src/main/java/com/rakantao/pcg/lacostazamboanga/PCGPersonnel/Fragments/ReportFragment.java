@@ -43,7 +43,7 @@ public class ReportFragment extends Fragment {
 
         btnreport = view.findViewById(R.id.btnGoSendReport);
         recyclerView = view.findViewById(R.id.recyclerListOfReports);
-
+        linearLayoutManager = new LinearLayoutManager(getContext());
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Report");
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -51,7 +51,7 @@ public class ReportFragment extends Fragment {
         btnreport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), SendReportActivity.class));
+                 startActivity(new Intent(getContext(), SendReportActivity.class));
             }
         });
 
@@ -74,14 +74,12 @@ public class ReportFragment extends Fragment {
             @Override
             protected void populateViewHolder(ReportsViewHiolder viewHolder, DataSendReport model, int position) {
 
-                viewHolder.tvVesselName.setText(model.vesselName);
-                viewHolder.tvInspector.setText(model.inspector);
-                viewHolder.tvTimeUploaded.setText(model.timeUploaded);
+                viewHolder.tvVesselName.setText(model.getVesselName());
+                viewHolder.tvInspector.setText(model.getInspector());
+                viewHolder.tvTimeUploaded.setText(model.getTimeUploaded());
 
             }
         };
-
         recyclerView.setAdapter(firebaseRecyclerAdapter);
-
     }
 }

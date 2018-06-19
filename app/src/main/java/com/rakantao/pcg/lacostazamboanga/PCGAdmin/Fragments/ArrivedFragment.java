@@ -71,7 +71,6 @@ public class ArrivedFragment extends Fragment {
                 ) {
                     @Override
                     protected void populateViewHolder(final ArrivedViewHolder viewHolder, DataArrivedInfo model, int position) {
-
                         viewHolder.vtype.setText(model.getVesselType());
                         viewHolder.vname.setText(model.getVesselName());
                         viewHolder.vOrgin.setText(model.getOrigin());
@@ -81,6 +80,8 @@ public class ArrivedFragment extends Fragment {
                         viewHolder.vdaysched.setText(model.getScheduleDay());
                         viewHolder.vHoursTrav.setText(model.getHoursTravelled());
                         viewHolder.vTimeArrived.setText(model.getActualTimeArrived());
+
+
 
 
                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(model.getVesselName());
@@ -113,7 +114,6 @@ public class ArrivedFragment extends Fragment {
                                                 });
                                     }
                                 }
-
                             }
 
                             @Override

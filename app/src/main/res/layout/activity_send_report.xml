@@ -25,6 +25,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:focusable="false"
         android:id="@+id/etSelectVesselName"
         android:hint="Vessel Name"
         android:textAlignment="center"

@@ -14,7 +14,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataImageReport;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.DetailedVesselViewHolder;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.PendingViewholder;
 import com.rakantao.pcg.lacostazamboanga.R;
 import com.squareup.picasso.Callback;
@@ -25,13 +27,14 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ViewDetailedVessels extends AppCompatActivity {
 
-    ImageView vImage;
+    ImageView vImag1e;
     TextView vName,vType,vOrigin,vDestination,vETA,vETD,vInvestigator,vTimeStamp;
     RecyclerView recyclerView;
     private DatabaseReference mDatabaseRef;
     private DatabaseReference childRef;
     private LinearLayoutManager linearLayoutManager;
-    private DatabaseReference mUserDatabase;
+    private DatabaseReference mUserDatabase,databaseReferencenew;
+    String VesselName;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -44,7 +47,7 @@ public class ViewDetailedVessels extends AppCompatActivity {
         setContentView(R.layout.activity_view_detailed_vessels);
 
 
-        vImage = findViewById(R.id.TVDetailedvImage);
+        vImag1e = findViewById(R.id.TVDetailedvImage);
 
         vName = findViewById(R.id.TVDetailedvName);
         vType = findViewById(R.id.TVDetailedvType);
@@ -57,10 +60,11 @@ public class ViewDetailedVessels extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerVesselDetail);
 
+        VesselName = this.getIntent().getStringExtra("vesselName");
 
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        childRef = mDatabaseRef.child("VesselDetails");
+        childRef = mDatabaseRef.child("AdminImagesReport");
 
         recyclerView.setLayoutManager(linearLayoutManager);
     }
@@ -68,57 +72,92 @@ public class ViewDetailedVessels extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<DataVesselSched, PendingViewholder> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<DataVesselSched, PendingViewholder>(
+        FirebaseRecyclerAdapter<DataImageReport, DetailedVesselViewHolder> firebaseRecyclerAdapter =
+                new FirebaseRecyclerAdapter<DataImageReport, DetailedVesselViewHolder>(
 
-                        DataVesselSched.class,
-                        R.layout.pending_listrow,
-                        PendingViewholder.class,
-                        childRef.orderByChild("VesselStatus").equalTo("Pending")
+                        DataImageReport.class,
+                        R.layout.detailedvessel_listrow,
+                        DetailedVesselViewHolder.class,
+                        childRef.child(VesselName)
                 ) {
                     @Override
-                    protected void populateViewHolder(final PendingViewholder viewHolder, DataVesselSched model, int position) {
+                    protected void populateViewHolder(final DetailedVesselViewHolder viewHolder, final DataImageReport model, int position) {
+                        viewHolder.vImage(model.getImageUrl(), getApplicationContext());
 
-                        viewHolder.vesseltype.setText(model.getVesselType());
-                        viewHolder.vesselname.setText(model.getVesselName());
-                        viewHolder.origin.setText(model.getOrigin());
-                        viewHolder.destination.setText(model.getDestination());
-                        viewHolder.departime.setText(model.getDepartureTime());
-                        viewHolder.arrivaltime.setText(model.getArrivalTime());
-                        viewHolder.schedday.setText(model.getScheduleDay());
+                        mUserDatabase = FirebaseDatabase.getInstance().getReference();
 
-
-                        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(model.getVesselName());
-
-                        mUserDatabase.addValueEventListener(new ValueEventListener() {
+                        mUserDatabase.child("VesselDetails").child(VesselName).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                final DataVesselSched dataVesselSched = dataSnapshot.getValue(DataVesselSched.class);
                                 if (dataSnapshot.exists()){
-                                    final String image = dataSnapshot.child("image").getValue().toString();
 
-                                    if (!image.equals("default")){
-                                        Picasso.with(ViewDetailedVessels.this)
-                                                .load(image)
-                                                .fit().centerCrop()
-                                                .networkPolicy(NetworkPolicy.OFFLINE)
-                                                .placeholder(R.drawable.zz)
-                                                .into(viewHolder.vesselimage , new Callback() {
+                                    vName.setText(dataVesselSched.getVesselName());
+                                    vType.setText(dataVesselSched.getVesselType());
+                                    vDestination.setText(dataVesselSched.getDestination());
+                                    vETA.setText(dataVesselSched.getArrivalTime());
+                                    vETD.setText(dataVesselSched.getDepartureTime());
+                                    vOrigin.setText(dataVesselSched.getOrigin());
+
+                                    databaseReferencenew = FirebaseDatabase.getInstance().getReference();
+
+                                    databaseReferencenew.child("ReportAdmin").child(dataVesselSched.getVesselName()).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()){
+
+                                                vInvestigator.setText(dataSnapshot.child("inspector").getValue().toString());
+                                                vTimeStamp.setText(dataSnapshot.child("timeUploaded").getValue().toString());
+
+
+
+                                               DatabaseReference mUserDatabase1 = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(dataVesselSched.getVesselName());
+
+                                                mUserDatabase1.addValueEventListener(new ValueEventListener() {
                                                     @Override
-                                                    public void onSuccess() {
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        if (dataSnapshot.exists()){
+                                                            final String image = dataSnapshot.child("image").getValue().toString();
 
+                                                            if (!image.equals("default")){
+                                                                Picasso.with(ViewDetailedVessels.this)
+                                                                        .load(image)
+                                                                        .fit().centerCrop()
+                                                                        .networkPolicy(NetworkPolicy.OFFLINE)
+                                                                        .placeholder(R.drawable.zz)
+                                                                        .into(vImag1e , new Callback() {
+                                                                            @Override
+                                                                            public void onSuccess() {
+
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onError() {
+                                                                                Picasso.with(ViewDetailedVessels.this)
+                                                                                        .load(image)
+                                                                                        .placeholder(R.drawable.zz)
+                                                                                        .into(vImag1e);
+                                                                            }
+                                                                        });
+                                                            }
+                                                        }
                                                     }
 
                                                     @Override
-                                                    public void onError() {
-                                                        Picasso.with(ViewDetailedVessels.this)
-                                                                .load(image)
-                                                                .placeholder(R.drawable.zz)
-                                                                .into(viewHolder.vesselimage);
+                                                    public void onCancelled(DatabaseError databaseError) {
+
                                                     }
                                                 });
-                                    }
-                                }
+                                            }
+                                        }
 
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                }
                             }
 
                             @Override

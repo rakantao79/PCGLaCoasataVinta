@@ -15,8 +15,6 @@ public class DataSendReport {
         this.inspector = inspector;
     }
 
-
-
     public String getVesselName() {
         return vesselName;
     }
