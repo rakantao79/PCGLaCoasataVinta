@@ -47,8 +47,7 @@ public class ArrivedFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext());
         Recyclerview = view.findViewById(R.id.recyclerArrived);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-
-
+        
         childRef = mDatabaseRef.child("VesselDetails");
 
         Recyclerview.setLayoutManager(linearLayoutManager);

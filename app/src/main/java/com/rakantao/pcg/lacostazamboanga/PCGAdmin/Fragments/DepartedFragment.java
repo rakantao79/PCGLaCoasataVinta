@@ -1,6 +1,7 @@
 package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.DepartedViewHolder;
 import com.rakantao.pcg.lacostazamboanga.R;
@@ -69,7 +71,7 @@ public class DepartedFragment extends Fragment {
 
                 ) {
                     @Override
-                    protected void populateViewHolder(final DepartedViewHolder viewHolder, DataVesselSched model, int position) {
+                    protected void populateViewHolder(final DepartedViewHolder viewHolder, final DataVesselSched model, int position) {
 
                         viewHolder.vesseltype.setText(model.getVesselType());
                         viewHolder.vesselname.setText(model.getVesselName());
@@ -78,6 +80,15 @@ public class DepartedFragment extends Fragment {
                         viewHolder.vesseldeparttime.setText(model.getDepartureTime());
                         viewHolder.vesselarrivetime.setText(model.getArrivalTime());
                         viewHolder.vesselschedday.setText(model.getScheduleDay());
+
+                        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getContext(), ViewDetailedVessels.class);
+                                intent.putExtra("vesselName", model.getVesselName());
+                                startActivity(intent);
+                            }
+                        });
 
                         viewHolder.btnarrive.setOnClickListener(new View.OnClickListener() {
                             @Override

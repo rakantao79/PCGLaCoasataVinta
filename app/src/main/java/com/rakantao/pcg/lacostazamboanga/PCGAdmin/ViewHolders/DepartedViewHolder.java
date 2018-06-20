@@ -13,9 +13,12 @@ public class DepartedViewHolder extends RecyclerView.ViewHolder {
     public Button btnarrive;
     public ImageView imagevessel;
     public TextView vesselname,vesseltype,vesselorigin,vesseldesination,vesseldeparttime,vesselarrivetime,vesselschedday,vesselhourstravelled;
+    View view;
+
 
     public DepartedViewHolder(View itemView) {
         super(itemView);
+        view = itemView;
 
         btnarrive = itemView.findViewById(R.id.BTNArrived);
         imagevessel = itemView.findViewById(R.id.TVDepartedImageVessel);
