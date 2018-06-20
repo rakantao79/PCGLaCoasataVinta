@@ -1,6 +1,7 @@
 package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ArrivedDetails;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataArrivedInfo;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.ArrivedViewHolder;
@@ -69,7 +72,7 @@ public class ArrivedFragment extends Fragment {
 
                 ) {
                     @Override
-                    protected void populateViewHolder(final ArrivedViewHolder viewHolder, DataArrivedInfo model, int position) {
+                    protected void populateViewHolder(final ArrivedViewHolder viewHolder, final DataArrivedInfo model, int position) {
                         viewHolder.vtype.setText(model.getVesselType());
                         viewHolder.vname.setText(model.getVesselName());
                         viewHolder.vOrgin.setText(model.getOrigin());
@@ -81,6 +84,14 @@ public class ArrivedFragment extends Fragment {
                         viewHolder.vTimeArrived.setText(model.getActualTimeArrived());
 
 
+                        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getContext(), ArrivedDetails.class);
+                                intent.putExtra("vesselName", model.getVesselName());
+                                startActivity(intent);
+                            }
+                        });
 
 
                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(model.getVesselName());

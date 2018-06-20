@@ -11,10 +11,11 @@ public class ArrivedViewHolder extends RecyclerView.ViewHolder {
 
     public TextView vname,vtype,vdaysched,vOrgin,vDestination,vETD,vETA,vHoursTrav,vTimeArrived;
     public ImageView vImage;
-
+    View view;
 
     public ArrivedViewHolder(View itemView) {
         super(itemView);
+        view = itemView;
 
         vname = itemView.findViewById(R.id.TVArrivedVesselName);
         vtype = itemView.findViewById(R.id.TVArrivedVesselType);
