@@ -171,7 +171,7 @@ public class ForDepartFragment extends Fragment {
                         viewHolder.btnclear.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "CLICKED...", Toast.LENGTH_SHORT).show();
 
 
                                /* DateFormat df = new SimpleDateFormat("h:mm a");
