@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -56,10 +57,40 @@ public class ForDepartFragment extends Fragment {
 
         linearLayoutManager = new LinearLayoutManager(getContext());
         Recyclerview = view.findViewById(R.id.recyclerPending);
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
 
-        childRef = mDatabaseRef.child("VesselDetails");
+        switch (day) {
+            case Calendar.SUNDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday");
+                break;
+            case Calendar.MONDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday"));
+                break;
+            case Calendar.TUESDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday"));
+                break;
+            case Calendar.WEDNESDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday"));
+                break;
+            case Calendar.THURSDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday"));
+                break;
+            case Calendar.FRIDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday"));
+                break;
+            case Calendar.SATURDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday"));
+                break;
+        }
 
         Recyclerview.setLayoutManager(linearLayoutManager);
 
@@ -96,8 +127,8 @@ public class ForDepartFragment extends Fragment {
                         handler.postDelayed(new Runnable(){
                             public void run(){
                                 //do something
-                                SimpleDateFormat format = new SimpleDateFormat("h:mm");
-                                DateFormat df = new SimpleDateFormat("h:mm");
+                                SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+                                DateFormat df = new SimpleDateFormat("h:mm a");
                                 String date = df.format(Calendar.getInstance().getTime());
                                 String actualTime = viewHolder.departime.getText().toString();
                                 Date time1;
@@ -109,7 +140,14 @@ public class ForDepartFragment extends Fragment {
 
                                     long diff = time2.getTime() - time1.getTime() ;
                                     long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-                                    viewHolder.runnabletime.setText((int) minutes + " MINS");
+
+                                    if (minutes >= 60){
+                                        long hours = TimeUnit.MILLISECONDS.toHours(diff);
+                                        viewHolder.runnabletime.setText((int) hours + " HOUR(S)");
+                                    }else {
+                                        viewHolder.runnabletime.setText((int) minutes + " MIN(S)");
+                                    }
+
 
                                 } catch (ParseException e) {
                                     e.printStackTrace();
@@ -133,13 +171,16 @@ public class ForDepartFragment extends Fragment {
                         viewHolder.btnclear.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                DateFormat df = new SimpleDateFormat("h:mm a");
+                                Toast.makeText(getContext(), "CLICKED", Toast.LENGTH_SHORT).show();
+
+
+                               /* DateFormat df = new SimpleDateFormat("h:mm a");
                                 String date = df.format(Calendar.getInstance().getTime());
                                 databaseReference = FirebaseDatabase.getInstance().getReference("VesselDetails").child(model.getVesselName()).child("VesselStatus");
                                 databaseReference.setValue("Departed");
 
                                 DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("ActualDepartedTime");
-                                databaseReference1.setValue(date);
+                                databaseReference1.setValue(date);*/
 
                             }
                         });

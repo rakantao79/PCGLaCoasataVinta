@@ -557,6 +557,9 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                            DatabaseReference databaseReference1 = firebaseDatabase1.getReference("VesselDetails").child(VesselName);
                             databaseReference1.setValue(HashString1);
 
+                            DatabaseReference databaseReference2 = firebaseDatabase1.getReference("VesselSchedule").child(getday).push();
+                            databaseReference2.setValue(HashString1);
+
 
                         }
                     }

@@ -54,10 +54,40 @@ public class DepartedFragment extends Fragment {
 
         linearLayoutManager = new LinearLayoutManager(getContext());
         Recyclerview = view.findViewById(R.id.recyclerDeparted);
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
 
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
 
-        childRef = mDatabaseRef.child("VesselDetails");
+        switch (day) {
+            case Calendar.SUNDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday");
+                break;
+            case Calendar.MONDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday"));
+                break;
+            case Calendar.TUESDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday"));
+                break;
+            case Calendar.WEDNESDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday"));
+                break;
+            case Calendar.THURSDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday"));
+                break;
+            case Calendar.FRIDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday"));
+                break;
+            case Calendar.SATURDAY:
+                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday"));
+                break;
+        }
 
         Recyclerview.setLayoutManager(linearLayoutManager);
 
