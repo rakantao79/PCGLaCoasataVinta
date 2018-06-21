@@ -501,9 +501,9 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                                             format = "AM";
                                         }
                                         if (minute < 10){
-                                            etTimeDepart.setText(hourOfDay + ":0" + minute + format);
+                                            etTimeDepart.setText(hourOfDay + ":0" + minute + " " + format);
                                         }else {
-                                            etTimeDepart.setText(hourOfDay + ":" + minute + format);
+                                            etTimeDepart.setText(hourOfDay + ":" + minute + " " + format);
                                         }
 
                                     }

@@ -3,6 +3,7 @@ package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,13 @@ import com.rakantao.pcg.lacostazamboanga.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 public class ForDepartFragment extends Fragment {
@@ -82,6 +90,35 @@ public class ForDepartFragment extends Fragment {
                         viewHolder.arrivaltime.setText(model.getArrivalTime());
                         viewHolder.schedday.setText(model.getScheduleDay());
 
+                        final Handler handler = new Handler();
+                        final int delay = 1000; //milliseconds
+
+                        handler.postDelayed(new Runnable(){
+                            public void run(){
+                                //do something
+                                SimpleDateFormat format = new SimpleDateFormat("h:mm");
+                                DateFormat df = new SimpleDateFormat("h:mm");
+                                String date = df.format(Calendar.getInstance().getTime());
+                                String actualTime = viewHolder.departime.getText().toString();
+                                Date time1;
+                                Date time2;
+
+                                try {
+                                    time1 = format.parse(date);
+                                    time2 = format.parse(actualTime);
+
+                                    long diff = time2.getTime() - time1.getTime() ;
+                                    long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+                                    viewHolder.runnabletime.setText((int) minutes + " MINS");
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+                                handler.postDelayed(this, delay);
+                            }
+                        }, delay);
+
 
                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -96,8 +133,13 @@ public class ForDepartFragment extends Fragment {
                         viewHolder.btnclear.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                DateFormat df = new SimpleDateFormat("h:mm a");
+                                String date = df.format(Calendar.getInstance().getTime());
                                 databaseReference = FirebaseDatabase.getInstance().getReference("VesselDetails").child(model.getVesselName()).child("VesselStatus");
                                 databaseReference.setValue("Departed");
+
+                                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("ActualDepartedTime");
+                                databaseReference1.setValue(date);
 
                             }
                         });

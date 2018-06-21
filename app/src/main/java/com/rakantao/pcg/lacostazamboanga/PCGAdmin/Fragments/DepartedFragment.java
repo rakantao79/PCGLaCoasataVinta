@@ -3,6 +3,7 @@ package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,13 @@ import com.rakantao.pcg.lacostazamboanga.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 
 public class DepartedFragment extends Fragment {
@@ -80,6 +88,41 @@ public class DepartedFragment extends Fragment {
                         viewHolder.vesseldeparttime.setText(model.getDepartureTime());
                         viewHolder.vesselarrivetime.setText(model.getArrivalTime());
                         viewHolder.vesselschedday.setText(model.getScheduleDay());
+                        viewHolder.ATD.setText(model.getActualDepartedTime());
+
+                        final Handler handler = new Handler();
+                        final int delay = 1000; //milliseconds
+
+                        handler.postDelayed(new Runnable(){
+                            public void run(){
+                                //do something
+                                SimpleDateFormat format = new SimpleDateFormat("h:mm");
+                                DateFormat df = new SimpleDateFormat("h:mm");
+                                String date = df.format(Calendar.getInstance().getTime());
+                                String actualTime = viewHolder.ATD.getText().toString();
+                                Date time1;
+                                Date time2;
+
+                                try {
+                                    time2 = format.parse(date);
+                                    time1 = format.parse(actualTime);
+
+                                    long diff = time2.getTime() - time1.getTime()  ;
+                                    long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+                                    viewHolder.vesselhourstravelled.setText((int) minutes + " MINS");
+
+
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                                handler.postDelayed(this, delay);
+                            }
+                        }, delay);
+
+
+
 
                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -93,8 +136,13 @@ public class DepartedFragment extends Fragment {
                         viewHolder.btnarrive.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+
+
+
                                 databaseReference = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("VesselStatus");
                                 databaseReference.setValue("Arrived");
+                               DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("TravelledTime");
+                                databaseReference1.setValue(viewHolder.ATD.getText());
                             }
                         });
 

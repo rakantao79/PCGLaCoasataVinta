@@ -12,7 +12,7 @@ public class DepartedViewHolder extends RecyclerView.ViewHolder {
 
     public Button btnarrive;
     public ImageView imagevessel;
-    public TextView vesselname,vesseltype,vesselorigin,vesseldesination,vesseldeparttime,vesselarrivetime,vesselschedday,vesselhourstravelled;
+    public TextView vesselname,ATD,vesseltype,vesselorigin,vesseldesination,vesseldeparttime,vesselarrivetime,vesselschedday,vesselhourstravelled;
     View view;
 
 
@@ -23,6 +23,7 @@ public class DepartedViewHolder extends RecyclerView.ViewHolder {
         btnarrive = itemView.findViewById(R.id.BTNArrived);
         imagevessel = itemView.findViewById(R.id.TVDepartedImageVessel);
 
+        ATD = itemView.findViewById(R.id.actualtimeDeparted);
         vesselname = itemView.findViewById(R.id.TVDepartedVesselName);
         vesseltype = itemView.findViewById(R.id.TVDepartedVesselType);
         vesselorigin = itemView.findViewById(R.id.TVDepartedOrigin);
