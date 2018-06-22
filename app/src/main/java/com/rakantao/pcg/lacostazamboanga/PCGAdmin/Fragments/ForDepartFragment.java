@@ -171,16 +171,13 @@ public class ForDepartFragment extends Fragment {
                         viewHolder.btnclear.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(getContext(), "CLICKED...", Toast.LENGTH_SHORT).show();
-
-
-                               /* DateFormat df = new SimpleDateFormat("h:mm a");
+                                DateFormat df = new SimpleDateFormat("h:mm a");
                                 String date = df.format(Calendar.getInstance().getTime());
                                 databaseReference = FirebaseDatabase.getInstance().getReference("VesselDetails").child(model.getVesselName()).child("VesselStatus");
                                 databaseReference.setValue("Departed");
 
                                 DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("ActualDepartedTime");
-                                databaseReference1.setValue(date);*/
+                                databaseReference1.setValue(date);
 
                             }
                         });
