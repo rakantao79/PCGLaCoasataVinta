@@ -101,11 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom">
 
-            <TextView
-                android:id="@+id/actualtimeDeparted"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/BTNArrived"
                 android:layout_width="wrap_content"
@@ -115,7 +111,9 @@
                 android:textColor="#5b2eae" />
         </FrameLayout>
 
+
         <LinearLayout
+            android:gravity="center"
             android:padding="10dp"
             android:layout_gravity="bottom|right"
             android:orientation="vertical"
@@ -135,6 +133,17 @@
                 android:layout_gravity="center"
                 android:text="1H : 23M : 24S"
                 android:textColor="#000" />
+
+            <TextView
+                android:text="Actual Time Departed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:text="8:15 AM"
+                android:id="@+id/actualtimeDeparted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </FrameLayout>

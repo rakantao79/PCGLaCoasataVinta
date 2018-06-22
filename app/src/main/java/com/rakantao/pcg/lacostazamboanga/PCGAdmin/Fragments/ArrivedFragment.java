@@ -112,7 +112,7 @@ public class ArrivedFragment extends Fragment {
                         viewHolder.vETD.setText(model.getDepartureTime());
                         viewHolder.vETA.setText(model.getArrivalTime());
                         viewHolder.vdaysched.setText(model.getScheduleDay());
-                        viewHolder.vHoursTrav.setText(model.getHoursTravelled());
+                        viewHolder.vHoursTrav.setText(model.getTravelledTime());
                         viewHolder.vTimeArrived.setText(model.getActualTimeArrived());
 
 

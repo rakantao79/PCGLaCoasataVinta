@@ -10,6 +10,7 @@ public class DataVesselSched {
     private String ArrivalTime;
     private String ScheduleDay;
     private String ActualDepartedTime;
+    private String Key;
 
 
 
@@ -19,7 +20,7 @@ public class DataVesselSched {
     }
 
     public DataVesselSched(String VesselType, String VesselName, String ScheduleDay, String Origin, String DepartureTime,
-                            String Destination,String ArrivalTime,String ActualDepartedTime){
+                            String Destination,String ArrivalTime,String ActualDepartedTime, String Key){
 
         this.VesselType = VesselType;
         this.VesselName = VesselName;
@@ -29,7 +30,16 @@ public class DataVesselSched {
         this.Destination = Destination;
         this.ArrivalTime = ArrivalTime;
         this.ActualDepartedTime = ActualDepartedTime;
+        this.Key = Key;
 
+    }
+
+    public String getKey() {
+        return Key;
+    }
+
+    public void setKey(String key) {
+        Key = key;
     }
 
     public String getVesselType() {

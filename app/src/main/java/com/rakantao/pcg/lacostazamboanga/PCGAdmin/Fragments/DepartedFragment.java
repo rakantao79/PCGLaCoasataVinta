@@ -138,8 +138,17 @@ public class DepartedFragment extends Fragment {
                                     time1 = format.parse(actualTime);
 
                                     long diff = time2.getTime() - time1.getTime()  ;
-                                    long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-                                    viewHolder.vesselhourstravelled.setText((int) minutes + " MINS");
+                                    long secondsInMilli = 1000;
+                                    long minutesInMilli = secondsInMilli * 60;
+                                    long hoursInMilli = minutesInMilli * 60;
+
+                                    long elapsedHours = diff / hoursInMilli;
+                                    diff = diff % hoursInMilli;
+
+                                    long elapsedMinutes = diff / minutesInMilli;
+
+                                    viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
+
 
 
                                 } catch (ParseException e) {
@@ -166,13 +175,50 @@ public class DepartedFragment extends Fragment {
                         viewHolder.btnarrive.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                DateFormat df = new SimpleDateFormat("h:mm a");
+                                String date = df.format(Calendar.getInstance().getTime());
 
-
-
-                                databaseReference = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("VesselStatus");
+                                databaseReference = FirebaseDatabase.getInstance()
+                                        .getReference("VesselDetails")
+                                        .child((String) viewHolder.vesselname.getText())
+                                        .child("VesselStatus");
                                 databaseReference.setValue("Arrived");
-                               DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("TravelledTime");
-                                databaseReference1.setValue(viewHolder.ATD.getText());
+
+                               DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
+                                       .getReference("VesselDetails")
+                                       .child((String) viewHolder.vesselname.getText())
+                                       .child("TravelledTime");
+                                databaseReference1.setValue(viewHolder.vesselhourstravelled.getText());
+
+                                DatabaseReference databaseReference2 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselDetails")
+                                        .child((String) viewHolder.vesselname.getText())
+                                        .child("ActualTimeArrived");
+                                databaseReference2.setValue(date);
+
+
+                                DatabaseReference databaseReference3 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselSchedule")
+                                        .child(model.getScheduleDay())
+                                        .child(model.getKey())
+                                        .child("VesselStatus");
+                                databaseReference3.setValue("Arrived");
+
+                                DatabaseReference databaseReference4 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselSchedule")
+                                        .child(model.getScheduleDay())
+                                        .child(model.getKey())
+                                        .child("TravelledTime");
+                                databaseReference4.setValue(viewHolder.vesselhourstravelled.getText());
+
+                                DatabaseReference databaseReference5 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselSchedule")
+                                        .child(model.getScheduleDay())
+                                        .child(model.getKey())
+                                        .child("ActualTimeArrived");
+                                databaseReference5.setValue(date);
+
+
                             }
                         });
 

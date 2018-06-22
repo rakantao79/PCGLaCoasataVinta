@@ -9,7 +9,7 @@ public class DataArrivedInfo {
     private String Destination;
     private String ArrivalTime;
     private String ScheduleDay;
-    private String HoursTravelled;
+    private String TravelledTime;
     private String ActualTimeArrived;
 
     public DataArrivedInfo(){
@@ -17,7 +17,7 @@ public class DataArrivedInfo {
     }
 
     public DataArrivedInfo(String VesselType, String VesselName, String ScheduleDay, String Origin, String DepartureTime,
-                           String Destination,String ArrivalTime,String HoursTravelled, String ActualTimeArrived){
+                           String Destination,String ArrivalTime,String TravelledTime, String ActualTimeArrived){
         this.VesselType = VesselType;
         this.VesselName = VesselName;
         this.ScheduleDay = ScheduleDay;
@@ -25,7 +25,7 @@ public class DataArrivedInfo {
         this.DepartureTime = DepartureTime;
         this.Destination = Destination;
         this.ArrivalTime = ArrivalTime;
-        this.HoursTravelled = HoursTravelled;
+        this.TravelledTime = TravelledTime;
         this.ActualTimeArrived = ActualTimeArrived;
 
     }
@@ -86,12 +86,12 @@ public class DataArrivedInfo {
         ScheduleDay = scheduleDay;
     }
 
-    public String getHoursTravelled() {
-        return HoursTravelled;
+    public String getTravelledTime() {
+        return TravelledTime;
     }
 
-    public void setHoursTravelled(String hoursTravelled) {
-        HoursTravelled = hoursTravelled;
+    public void setTravelledTime(String travelledTime) {
+        TravelledTime = travelledTime;
     }
 
     public String getActualTimeArrived() {

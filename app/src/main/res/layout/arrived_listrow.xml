@@ -114,12 +114,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="5dp"
                     android:text="10:11 AM"
                     android:textColor="#000" />
             </LinearLayout>
 
             <LinearLayout
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -128,7 +128,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:text="Hours Travelled"
                     android:textSize="15dp" />
@@ -137,9 +136,7 @@
                     android:id="@+id/TVArrivedHoursTravelled"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end|center"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
                     android:text="1H : 23M : 24S"
                     android:textColor="#000" />
             </LinearLayout>

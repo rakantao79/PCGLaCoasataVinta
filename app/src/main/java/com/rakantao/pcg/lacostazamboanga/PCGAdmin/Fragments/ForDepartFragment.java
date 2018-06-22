@@ -139,14 +139,20 @@ public class ForDepartFragment extends Fragment {
                                     time2 = format.parse(actualTime);
 
                                     long diff = time2.getTime() - time1.getTime() ;
-                                    long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+                                    long secondsInMilli = 1000;
+                                    long minutesInMilli = secondsInMilli * 60;
+                                    long hoursInMilli = minutesInMilli * 60;
 
-                                    if (minutes >= 60){
-                                        long hours = TimeUnit.MILLISECONDS.toHours(diff);
-                                        viewHolder.runnabletime.setText((int) hours + " HOUR(S)");
-                                    }else {
-                                        viewHolder.runnabletime.setText((int) minutes + " MIN(S)");
-                                    }
+                                    long elapsedHours = diff / hoursInMilli;
+                                    diff = diff % hoursInMilli;
+
+                                    long elapsedMinutes = diff / minutesInMilli;
+
+
+
+                                    viewHolder.runnabletime.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
+
+
 
 
                                 } catch (ParseException e) {
@@ -173,11 +179,34 @@ public class ForDepartFragment extends Fragment {
                             public void onClick(View view) {
                                 DateFormat df = new SimpleDateFormat("h:mm a");
                                 String date = df.format(Calendar.getInstance().getTime());
-                                databaseReference = FirebaseDatabase.getInstance().getReference("VesselDetails").child(model.getVesselName()).child("VesselStatus");
+
+                                databaseReference = FirebaseDatabase.getInstance()
+                                        .getReference("VesselDetails")
+                                        .child(model.getVesselName())
+                                        .child("VesselStatus");
                                 databaseReference.setValue("Departed");
 
-                                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("VesselDetails").child((String) viewHolder.vesselname.getText()).child("ActualDepartedTime");
+                                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselDetails")
+                                        .child((String) viewHolder.vesselname.getText())
+                                        .child("ActualDepartedTime");
                                 databaseReference1.setValue(date);
+
+
+                                DatabaseReference databaseReference2 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselSchedule")
+                                        .child(model.getScheduleDay())
+                                        .child(model.getKey())
+                                        .child("VesselStatus");
+                                databaseReference2.setValue("Departed");
+
+                                DatabaseReference databaseReference3 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselSchedule")
+                                        .child(model.getScheduleDay())
+                                        .child(model.getKey())
+                                        .child("ActualDepartedTime");
+                                databaseReference3.setValue(date);
+
 
                             }
                         });
