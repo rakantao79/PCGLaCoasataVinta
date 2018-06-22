@@ -134,6 +134,7 @@ public class DepartedFragment extends Fragment {
                                 Date time2;
 
                                 try {
+
                                     time2 = format.parse(date);
                                     time1 = format.parse(actualTime);
 
@@ -148,7 +149,6 @@ public class DepartedFragment extends Fragment {
                                     long elapsedMinutes = diff / minutesInMilli;
 
                                     viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
-
 
 
                                 } catch (ParseException e) {

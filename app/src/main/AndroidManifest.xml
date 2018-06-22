@@ -78,7 +78,8 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".PCGAdmin.Activities.ViewDetailedVessels" />
-        <activity android:name=".PCGAdmin.Activities.ArrivedDetails"></activity>
+        <activity android:name=".PCGAdmin.Activities.ArrivedDetails" />
+        <activity android:name=".RegisterStationAdmin"></activity>
     </application>
 
 </manifest>

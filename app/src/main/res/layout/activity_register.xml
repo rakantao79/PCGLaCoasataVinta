@@ -8,6 +8,7 @@
     tools:context=".RegisterActivity"
     tools:ignore="MissingPrefix">
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -54,7 +55,6 @@
                 android:textSize="20dp" />
 
             <Spinner
-
                 android:id="@+id/spnRank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

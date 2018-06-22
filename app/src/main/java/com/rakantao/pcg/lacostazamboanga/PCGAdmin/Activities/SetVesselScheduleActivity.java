@@ -564,8 +564,6 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                                     .child(key)
                                     .setValue(HashString1);
 
-
-
                         }
                     }
                 });

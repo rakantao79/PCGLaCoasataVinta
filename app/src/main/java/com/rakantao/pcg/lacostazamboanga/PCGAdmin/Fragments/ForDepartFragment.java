@@ -148,11 +148,7 @@ public class ForDepartFragment extends Fragment {
 
                                     long elapsedMinutes = diff / minutesInMilli;
 
-
-
                                     viewHolder.runnabletime.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
-
-
 
 
                                 } catch (ParseException e) {
