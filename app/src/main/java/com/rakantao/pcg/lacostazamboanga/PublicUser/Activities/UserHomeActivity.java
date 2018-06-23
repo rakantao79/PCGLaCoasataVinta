@@ -32,6 +32,7 @@ import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments.NewsFeedFragment
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Fragments.AdvisoryFragment;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Fragments.FragmentWeather;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Fragments.UserReportFragment;
+import com.rakantao.pcg.lacostazamboanga.PublicUser.Fragments.UserSearchScheduleFragment;
 import com.rakantao.pcg.lacostazamboanga.R;
 import com.rakantao.pcg.lacostazamboanga.RegisterUser;
 import com.roughike.bottombar.BottomBar;
@@ -79,7 +80,7 @@ public class UserHomeActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.newspaper);
         tabLayout.getTabAt(1).setIcon(R.drawable.clouds);
         tabLayout.getTabAt(2).setIcon(R.drawable.notification);
-        tabLayout.getTabAt(3).setIcon(R.drawable.notification);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_boat);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -87,6 +88,7 @@ public class UserHomeActivity extends AppCompatActivity {
         adapter.addFragment(new AdvisoryFragment(), "");
         adapter.addFragment(new FragmentWeather(), "");
         adapter.addFragment(new UserReportFragment(), "");
+        adapter.addFragment(new UserSearchScheduleFragment(), "");
         viewPager.setAdapter(adapter);
     }
 
