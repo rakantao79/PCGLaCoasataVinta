@@ -79,7 +79,8 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".PCGAdmin.Activities.ViewDetailedVessels" />
         <activity android:name=".PCGAdmin.Activities.ArrivedDetails" />
-        <activity android:name=".RegisterStationAdmin"></activity>
+        <activity android:name=".RegisterStationAdmin" />
+        <activity android:name=".PCGStations.Activity.PcgStationAdminHome"></activity>
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.PCGAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.PCGHomeActivity;
+import com.rakantao.pcg.lacostazamboanga.PCGStations.Activity.PcgStationAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Activities.UserHomeActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -66,6 +67,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                             startActivity(new Intent(SplashScreenActivity.this, PCGHomeActivity.class));
                         }else if (usertype.equals("user")){
                             startActivity(new Intent(SplashScreenActivity.this, UserHomeActivity.class));
+                        }else if (usertype.equals("pcgstation")){
+                            startActivity(new Intent(SplashScreenActivity.this, PcgStationAdminHome.class));
                         } else {
                             Toast.makeText(SplashScreenActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
                             firebaseAuth.signOut();

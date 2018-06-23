@@ -30,6 +30,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.PCGAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.PCGHomeActivity;
+import com.rakantao.pcg.lacostazamboanga.PCGStations.Activity.PcgStationAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Activities.UserHomeActivity;
 
 import org.json.JSONException;
@@ -234,6 +235,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             }else if (usertype.equals("user")){
                                 startActivity(new Intent(LoginActivity.this, UserHomeActivity.class));
+                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            }else if (usertype.equals("pcgstation")){
+                                startActivity(new Intent(LoginActivity.this, PcgStationAdminHome.class));
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             } else {
                                 Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
