@@ -80,7 +80,7 @@
         <activity android:name=".PCGAdmin.Activities.ViewDetailedVessels" />
         <activity android:name=".PCGAdmin.Activities.ArrivedDetails" />
         <activity android:name=".RegisterStationAdmin" />
-        <activity android:name=".PCGStations.Activity.PcgStationAdminHome"></activity>
+        <activity android:name=".PcgStationAdmin.Activities.PcgStationAdminHome"/>
     </application>
 
 </manifest>
