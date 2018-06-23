@@ -79,6 +79,7 @@ public class UserHomeActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.newspaper);
         tabLayout.getTabAt(1).setIcon(R.drawable.clouds);
         tabLayout.getTabAt(2).setIcon(R.drawable.notification);
+        tabLayout.getTabAt(3).setIcon(R.drawable.notification);
     }
 
     private void setupViewPager(ViewPager viewPager) {
