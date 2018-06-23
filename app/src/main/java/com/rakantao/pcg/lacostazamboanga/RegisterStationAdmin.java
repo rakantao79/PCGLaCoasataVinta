@@ -3,9 +3,9 @@ package com.rakantao.pcg.lacostazamboanga;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,7 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.SetVesselScheduleActivity;
 
 import java.util.HashMap;
 
@@ -34,8 +33,8 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
     private EditText etEmail;
     private EditText etPassword;
     private EditText etStation;
-    private Button btnRegister;
-    private ImageButton btnBack;
+     Button btnRegister;
+     ImageButton btnBack;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
 
@@ -146,10 +145,11 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 FirebaseUser currentUser = mAuth.getCurrentUser();
+                                assert currentUser != null;
                                 String user_id = currentUser.getUid();
                                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-                                HashMap<String, String> User = new HashMap<String, String>();
+                                HashMap<String, String> User = new HashMap<>();
                                 User.put("Station", getStation);
                                 User.put("Email", getEmail);
                                 User.put("Usertype", "pcgstation");
