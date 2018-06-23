@@ -30,7 +30,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.PCGAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.PCGHomeActivity;
-import com.rakantao.pcg.lacostazamboanga.PCGStations.Activity.PcgStationAdminHome;
+import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Activities.PcgStationAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Activities.UserHomeActivity;
 
 import org.json.JSONException;

@@ -3,9 +3,9 @@ package com.rakantao.pcg.lacostazamboanga;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.PCGAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.PCGHomeActivity;
-import com.rakantao.pcg.lacostazamboanga.PCGStations.Activity.PcgStationAdminHome;
+import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Activities.PcgStationAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Activities.UserHomeActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
