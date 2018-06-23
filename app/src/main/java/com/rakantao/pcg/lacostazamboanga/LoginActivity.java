@@ -186,7 +186,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (!container.equals("login")){
                         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                         finish();
-                    }else {
+                    }else if (!container.equals("pcgstation")){
+                        startActivity(new Intent(LoginActivity.this, RegisterStationAdmin.class));
+                        finish();
+                    }
+                    else {
                         Toast.makeText(this, "Invalid QR Code" , Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
@@ -199,6 +203,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     if (var.equals("login")){
                         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+                    }else if (var.equals("pcgstation")){
+                        startActivity(new Intent(LoginActivity.this, RegisterStationAdmin.class));
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
                     }else {
