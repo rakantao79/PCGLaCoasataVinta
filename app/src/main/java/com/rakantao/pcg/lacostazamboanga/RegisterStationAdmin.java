@@ -53,6 +53,10 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
         btnBack = findViewById(R.id.btnBackRegStationAdmin);
         btnRegister = findViewById(R.id.btnRegisterStationAdmin);
         progressBar = findViewById(R.id.progressBarRegStation);
+
+        etStation.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
     }
 
     @Override
@@ -85,7 +89,7 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                                             .setMessage("Sorry, but this station's admin already registered. Please contact the district HQ for more info.")
                                             .setNeutralButton("Ok", null)
                                             .show();
-
+                                    etStation.setText(" ");
                                 }else {
                                     etStation.setText(items2[item]);
                                 }
