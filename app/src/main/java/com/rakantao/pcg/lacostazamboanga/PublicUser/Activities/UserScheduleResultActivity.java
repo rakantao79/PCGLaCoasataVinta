@@ -19,6 +19,7 @@ public class UserScheduleResultActivity extends AppCompatActivity {
 
     private TextView tvUserSchedFrom;
     private TextView tvUserSchedTo;
+    private TextView tvUserSchedDay;
 
     private RecyclerView Recyclerview;
     private DatabaseReference mDatabaseRef;
@@ -40,9 +41,11 @@ public class UserScheduleResultActivity extends AppCompatActivity {
 
         tvUserSchedFrom = (TextView) findViewById(R.id.userSchedResultFrom);
         tvUserSchedTo = (TextView) findViewById(R.id.userSchedResultTo);
+        tvUserSchedDay = (TextView) findViewById(R.id.userSchedResultDay);
 
         tvUserSchedFrom.setText(from);
         tvUserSchedTo.setText(to);
+        tvUserSchedDay.setText(date);
 
         linearLayoutManager = new LinearLayoutManager(this);
         Recyclerview = findViewById(R.id.userSchedRecyclerView);
