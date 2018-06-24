@@ -543,7 +543,7 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
 
                             FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
                             DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference(("VesselSchedule"));
-                            String key = databaseReference2.child(getday).push().getKey();
+                            String key = databaseReference2.child(getday).child("Pendig").push().getKey();
 
                             HashMap<String, String> HashString1 = new HashMap<String, String>();
                             HashString1.put("VesselName", VesselName);
@@ -561,6 +561,7 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                             databaseReference1.setValue(HashString1);
 
                             databaseReference2.child(getday)
+                                    .child("Pending")
                                     .child(key)
                                     .setValue(HashString1);
 

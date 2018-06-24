@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -157,6 +158,8 @@ public class ViewDetailedVessels extends AppCompatActivity {
                                         }
                                     });
 
+                                }else {
+                                    Toast.makeText(ViewDetailedVessels.this, "No Reports have been made yet.", Toast.LENGTH_SHORT).show();
                                 }
                             }
 

@@ -59,10 +59,10 @@ public class PcgStationAdminHome extends AppCompatActivity {
         }
 
         private void setupTabIcons() {
-            tabLayout.getTabAt(1).setIcon(R.drawable.timleft);
-            tabLayout.getTabAt(2).setIcon(R.drawable.clouds);
-            tabLayout.getTabAt(3).setIcon(R.drawable.chat1);
-            tabLayout.getTabAt(4).setIcon(R.drawable.notification);
+            tabLayout.getTabAt(0).setIcon(R.drawable.timleft);
+            tabLayout.getTabAt(1).setIcon(R.drawable.clouds);
+            tabLayout.getTabAt(2).setIcon(R.drawable.chat1);
+            tabLayout.getTabAt(3).setIcon(R.drawable.notification);
         }
 
         private void setupViewPager(ViewPager viewPager) {
