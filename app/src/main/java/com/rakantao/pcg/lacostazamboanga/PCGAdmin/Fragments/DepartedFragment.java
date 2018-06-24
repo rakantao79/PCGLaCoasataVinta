@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -61,31 +62,31 @@ public class DepartedFragment extends Fragment {
         switch (day) {
             case Calendar.SUNDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday");
+                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday").child("Departed");
                 break;
             case Calendar.MONDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday")).child("Departed");
                 break;
             case Calendar.TUESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday")).child("Departed");
                 break;
             case Calendar.WEDNESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday")).child("Departed");
                 break;
             case Calendar.THURSDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday")).child("Departed");
                 break;
             case Calendar.FRIDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday")).child("Departed");
                 break;
             case Calendar.SATURDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday")).child("Departed");
                 break;
         }
 
@@ -105,7 +106,7 @@ public class DepartedFragment extends Fragment {
                         DataVesselSched.class,
                         R.layout.departed_listrow,
                         DepartedViewHolder.class,
-                        childRef.orderByChild("VesselStatus").equalTo("Departed")
+                        childRef
 
                 ) {
                     @Override
@@ -178,16 +179,17 @@ public class DepartedFragment extends Fragment {
                                 DateFormat df = new SimpleDateFormat("h:mm a");
                                 String date = df.format(Calendar.getInstance().getTime());
 
+                                //Details
                                 databaseReference = FirebaseDatabase.getInstance()
                                         .getReference("VesselDetails")
                                         .child((String) viewHolder.vesselname.getText())
                                         .child("VesselStatus");
                                 databaseReference.setValue("Arrived");
 
-                               DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
-                                       .getReference("VesselDetails")
-                                       .child((String) viewHolder.vesselname.getText())
-                                       .child("TravelledTime");
+                                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselDetails")
+                                        .child((String) viewHolder.vesselname.getText())
+                                        .child("TravelledTime");
                                 databaseReference1.setValue(viewHolder.vesselhourstravelled.getText());
 
                                 DatabaseReference databaseReference2 = FirebaseDatabase.getInstance()
@@ -195,11 +197,12 @@ public class DepartedFragment extends Fragment {
                                         .child((String) viewHolder.vesselname.getText())
                                         .child("ActualTimeArrived");
                                 databaseReference2.setValue(date);
-
-
+                                //Details
+                                //Schedule
                                 DatabaseReference databaseReference3 = FirebaseDatabase.getInstance()
                                         .getReference("VesselSchedule")
                                         .child(model.getScheduleDay())
+                                        .child("Departed")
                                         .child(model.getKey())
                                         .child("VesselStatus");
                                 databaseReference3.setValue("Arrived");
@@ -207,6 +210,7 @@ public class DepartedFragment extends Fragment {
                                 DatabaseReference databaseReference4 = FirebaseDatabase.getInstance()
                                         .getReference("VesselSchedule")
                                         .child(model.getScheduleDay())
+                                        .child("Departed")
                                         .child(model.getKey())
                                         .child("TravelledTime");
                                 databaseReference4.setValue(viewHolder.vesselhourstravelled.getText());
@@ -214,10 +218,26 @@ public class DepartedFragment extends Fragment {
                                 DatabaseReference databaseReference5 = FirebaseDatabase.getInstance()
                                         .getReference("VesselSchedule")
                                         .child(model.getScheduleDay())
+                                        .child("Departed")
                                         .child(model.getKey())
                                         .child("ActualTimeArrived");
                                 databaseReference5.setValue(date);
+                                //Schedule
+                                //Move Query
+                                DatabaseReference From = FirebaseDatabase.getInstance()
+                                        .getReference("VesselSchedule")
+                                        .child(model.getScheduleDay())
+                                        .child("Departed")
+                                        .child(model.getKey());
 
+                                DatabaseReference To = FirebaseDatabase.getInstance()
+                                        .getReference("VesselSchedule")
+                                        .child(model.getScheduleDay())
+                                        .child("Arrived")
+                                        .child(model.getKey());
+
+                                moveFirebaseRecord1(From ,To);
+                                //Move Query
 
                             }
                         });
@@ -265,4 +285,31 @@ public class DepartedFragment extends Fragment {
                 };
         Recyclerview.setAdapter(firebaseRecyclerAdapter);
     }
+
+    public void moveFirebaseRecord1(final DatabaseReference fromPath, final DatabaseReference toPath) {
+        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                        if (firebaseError != null) {
+                            Toast.makeText(getContext(), "Copy failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                            fromPath.removeValue();
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+                Toast.makeText(getContext(), "Copy failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
