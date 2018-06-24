@@ -81,6 +81,7 @@
         <activity android:name=".PCGAdmin.Activities.ArrivedDetails" />
         <activity android:name=".RegisterStationAdmin" />
         <activity android:name=".PcgStationAdmin.Activities.PcgStationAdminHome"/>
+        <activity android:name=".PublicUser.Activities.UserScheduleResultActivity"/>
     </application>
 
 </manifest>

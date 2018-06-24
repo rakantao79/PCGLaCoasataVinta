@@ -41,6 +41,13 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
+    <TextView
+        android:textAlignment="center"
+        android:id="@+id/userSchedResultDay"
+        android:text="DAY OF THE WEEK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:padding="@dimen/_8sdp"
         android:background="@color/white"
