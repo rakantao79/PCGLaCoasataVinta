@@ -41,7 +41,7 @@ public class PcgStationAdminHome extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_pcg_station_admin_home);
-
+/////
 
             firebaseAuth = FirebaseAuth.getInstance();
 
