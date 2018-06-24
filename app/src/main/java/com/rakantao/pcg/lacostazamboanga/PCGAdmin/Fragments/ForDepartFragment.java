@@ -64,31 +64,31 @@ public class ForDepartFragment extends Fragment {
         switch (day) {
             case Calendar.SUNDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday");
+                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday").child("Pending");
                 break;
             case Calendar.MONDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday")).child("Pending");
                 break;
             case Calendar.TUESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday")).child("Pending");
                 break;
             case Calendar.WEDNESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday")).child("Pending");
                 break;
             case Calendar.THURSDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday")).child("Pending");
                 break;
             case Calendar.FRIDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday")).child("Pending");
                 break;
             case Calendar.SATURDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday"));
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday")).child("Pending");
                 break;
         }
 
@@ -108,7 +108,7 @@ public class ForDepartFragment extends Fragment {
                         DataVesselSched.class,
                         R.layout.pending_listrow,
                         PendingViewholder.class,
-                        childRef.orderByChild("VesselStatus").equalTo("Pending")
+                        childRef
                 ) {
                     @Override
                     protected void populateViewHolder(final PendingViewholder viewHolder, final DataVesselSched model, int position) {
@@ -192,6 +192,7 @@ public class ForDepartFragment extends Fragment {
                                 DatabaseReference databaseReference2 = FirebaseDatabase.getInstance()
                                         .getReference("VesselSchedule")
                                         .child(model.getScheduleDay())
+                                        .child("Pending")
                                         .child(model.getKey())
                                         .child("VesselStatus");
                                 databaseReference2.setValue("Departed");
@@ -199,9 +200,29 @@ public class ForDepartFragment extends Fragment {
                                 DatabaseReference databaseReference3 = FirebaseDatabase.getInstance()
                                         .getReference("VesselSchedule")
                                         .child(model.getScheduleDay())
+                                        .child("Pending")
                                         .child(model.getKey())
                                         .child("ActualDepartedTime");
                                 databaseReference3.setValue(date);
+
+                                DatabaseReference From = FirebaseDatabase.getInstance()
+                                        .getReference("VesselSchedule")
+                                        .child(model.getScheduleDay())
+                                        .child("Pending")
+                                        .child(model.getKey());
+
+                                DatabaseReference To = FirebaseDatabase.getInstance()
+                                        .getReference("VesselSchedule")
+                                        .child(model.getScheduleDay())
+                                        .child("Departed")
+                                        .child(model.getKey());
+
+
+                                moveFirebaseRecord1(From ,To);
+
+
+
+
 
 
                             }
@@ -250,4 +271,31 @@ public class ForDepartFragment extends Fragment {
                 };
         Recyclerview.setAdapter(firebaseRecyclerAdapter);
     }
+
+    public void moveFirebaseRecord1(final DatabaseReference fromPath, final DatabaseReference toPath) {
+        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
+                        if (firebaseError != null) {
+                            Toast.makeText(getContext(), "Copy failed", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                            fromPath.removeValue();
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError firebaseError) {
+                Toast.makeText(getContext(), "Copy failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }
