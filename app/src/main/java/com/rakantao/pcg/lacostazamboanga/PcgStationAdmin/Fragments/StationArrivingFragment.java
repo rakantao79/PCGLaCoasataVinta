@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
-import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.PendingViewholder;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.DepartedViewHolder;
 import com.rakantao.pcg.lacostazamboanga.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -37,19 +37,19 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PendingFragment extends Fragment {
+public class StationArrivingFragment extends Fragment {
 
     private RecyclerView Recyclerview;
     private DatabaseReference mDatabaseRef;
     private DatabaseReference childRef;
     private LinearLayoutManager linearLayoutManager;
     private DatabaseReference mUserDatabase,databaseReference;
-    private FirebaseAuth firebaseAuth;
     View view;
+    private FirebaseAuth firebaseAuth;
     String userID;
     public String Origin;
 
-    public PendingFragment() {
+    public StationArrivingFragment() {
         // Required empty public constructor
     }
 
@@ -58,12 +58,11 @@ public class PendingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_pending, container, false);
+        view = inflater.inflate(R.layout.fragment_station_arriving, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
         linearLayoutManager = new LinearLayoutManager(getContext());
-        Recyclerview = view.findViewById(R.id.recyclerPendingStationAdmin);
+        Recyclerview = view.findViewById(R.id.recyclerArrivedStationAdmin);
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -71,44 +70,43 @@ public class PendingFragment extends Fragment {
         switch (day) {
             case Calendar.SUNDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday").child("Pending");
+                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday").child("Departed");
                 break;
             case Calendar.MONDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday")).child("Pending");
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday")).child("Departed");
                 break;
             case Calendar.TUESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday")).child("Pending");
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday")).child("Departed");
                 break;
             case Calendar.WEDNESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday")).child("Pending");
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday")).child("Departed");
                 break;
             case Calendar.THURSDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday")).child("Pending");
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday")).child("Departed");
                 break;
             case Calendar.FRIDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday")).child("Pending");
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday")).child("Departed");
                 break;
             case Calendar.SATURDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday")).child("Pending");
+                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday")).child("Departed");
                 break;
         }
 
         Recyclerview.setLayoutManager(linearLayoutManager);
 
 
+
         return view;
     }
-
     @Override
     public void onStart() {
         super.onStart();
-
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         userID =  currentUser.getUid();
 
@@ -117,29 +115,31 @@ public class PendingFragment extends Fragment {
         databaseReference1.child("Users").child(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-
+                if (dataSnapshot.exists()) {
 
                     Origin = dataSnapshot.child("Station").getValue().toString();
 
-                        FirebaseRecyclerAdapter<DataVesselSched, PendingViewholder> firebaseRecyclerAdapter =
-                                new FirebaseRecyclerAdapter<DataVesselSched, PendingViewholder>(
+                        FirebaseRecyclerAdapter<DataVesselSched, DepartedViewHolder> firebaseRecyclerAdapter =
+                                new FirebaseRecyclerAdapter<DataVesselSched, DepartedViewHolder>(
 
                                         DataVesselSched.class,
-                                        R.layout.pending_listrow,
-                                        PendingViewholder.class,
-                                        childRef.orderByChild("OriginStation").equalTo(Origin)
+                                        R.layout.departed_listrow,
+                                        DepartedViewHolder.class,
+                                        childRef.orderByChild("DestinationStation").equalTo(Origin)
+
                                 ) {
                                     @Override
-                                    protected void populateViewHolder(final PendingViewholder viewHolder, final DataVesselSched model, int position) {
+                                    protected void populateViewHolder(final DepartedViewHolder viewHolder, final DataVesselSched model, int position) {
 
                                         viewHolder.vesseltype.setText(model.getVesselType());
                                         viewHolder.vesselname.setText(model.getVesselName());
-                                        viewHolder.origin.setText(model.getOrigin());
-                                        viewHolder.destination.setText(model.getDestination());
-                                        viewHolder.departime.setText(model.getDepartureTime());
-                                        viewHolder.arrivaltime.setText(model.getArrivalTime());
-                                        viewHolder.schedday.setText(model.getScheduleDay());
+                                        viewHolder.vesselorigin.setText(model.getOrigin());
+                                        viewHolder.vesseldesination.setText(model.getDestination());
+                                        viewHolder.vesseldeparttime.setText(model.getDepartureTime());
+                                        viewHolder.vesselarrivetime.setText(model.getArrivalTime());
+                                        viewHolder.vesselschedday.setText(model.getScheduleDay());
+                                        viewHolder.ATD.setText(model.getActualDepartedTime());
+
 
                                         final Handler handler = new Handler();
                                         final int delay = 1000; //milliseconds
@@ -150,15 +150,16 @@ public class PendingFragment extends Fragment {
                                                 SimpleDateFormat format = new SimpleDateFormat("h:mm a");
                                                 DateFormat df = new SimpleDateFormat("h:mm a");
                                                 String date = df.format(Calendar.getInstance().getTime());
-                                                String actualTime = viewHolder.departime.getText().toString();
+                                                String actualTime = viewHolder.ATD.getText().toString();
                                                 Date time1;
                                                 Date time2;
 
                                                 try {
-                                                    time1 = format.parse(date);
-                                                    time2 = format.parse(actualTime);
 
-                                                    long diff = time2.getTime() - time1.getTime() ;
+                                                    time2 = format.parse(date);
+                                                    time1 = format.parse(actualTime);
+
+                                                    long diff = time2.getTime() - time1.getTime()  ;
                                                     long secondsInMilli = 1000;
                                                     long minutesInMilli = secondsInMilli * 60;
                                                     long hoursInMilli = minutesInMilli * 60;
@@ -168,16 +169,19 @@ public class PendingFragment extends Fragment {
 
                                                     long elapsedMinutes = diff / minutesInMilli;
 
-                                                    viewHolder.runnabletime.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
+                                                    viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
 
 
                                                 } catch (ParseException e) {
                                                     e.printStackTrace();
                                                 }
 
+
                                                 handler.postDelayed(this, delay);
                                             }
                                         }, delay);
+
+
 
 
                                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -189,63 +193,71 @@ public class PendingFragment extends Fragment {
                                             }
                                         });
 
-
-                                        viewHolder.btnclear.setOnClickListener(new View.OnClickListener() {
+                                        viewHolder.btnarrive.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
                                                 DateFormat df = new SimpleDateFormat("h:mm a");
                                                 String date = df.format(Calendar.getInstance().getTime());
 
+                                                //Details
                                                 databaseReference = FirebaseDatabase.getInstance()
                                                         .getReference("VesselDetails")
-                                                        .child(model.getVesselName())
+                                                        .child((String) viewHolder.vesselname.getText())
                                                         .child("VesselStatus");
-                                                databaseReference.setValue("Departed");
+                                                databaseReference.setValue("Arrived");
 
                                                 DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
                                                         .getReference("VesselDetails")
                                                         .child((String) viewHolder.vesselname.getText())
-                                                        .child("ActualDepartedTime");
-                                                databaseReference1.setValue(date);
-
+                                                        .child("TravelledTime");
+                                                databaseReference1.setValue(viewHolder.vesselhourstravelled.getText());
 
                                                 DatabaseReference databaseReference2 = FirebaseDatabase.getInstance()
-                                                        .getReference("VesselSchedule")
-                                                        .child(model.getScheduleDay())
-                                                        .child("Pending")
-                                                        .child(model.getKey())
-                                                        .child("VesselStatus");
-                                                databaseReference2.setValue("Departed");
-
+                                                        .getReference("VesselDetails")
+                                                        .child((String) viewHolder.vesselname.getText())
+                                                        .child("ActualTimeArrived");
+                                                databaseReference2.setValue(date);
+                                                //Details
+                                                //Schedule
                                                 DatabaseReference databaseReference3 = FirebaseDatabase.getInstance()
                                                         .getReference("VesselSchedule")
                                                         .child(model.getScheduleDay())
-                                                        .child("Pending")
+                                                        .child("Departed")
                                                         .child(model.getKey())
-                                                        .child("ActualDepartedTime");
-                                                databaseReference3.setValue(date);
-
-                                                //Move Queries
-
-                                                DatabaseReference databaseReference6 = FirebaseDatabase.getInstance()
-                                                        .getReference("VesselSchedule")
-                                                        .child(model.getScheduleDay())
-                                                        .child("Pending")
-                                                        .child(model.getKey());
+                                                        .child("VesselStatus");
+                                                databaseReference3.setValue("Arrived");
 
                                                 DatabaseReference databaseReference4 = FirebaseDatabase.getInstance()
                                                         .getReference("VesselSchedule")
                                                         .child(model.getScheduleDay())
                                                         .child("Departed")
+                                                        .child(model.getKey())
+                                                        .child("TravelledTime");
+                                                databaseReference4.setValue(viewHolder.vesselhourstravelled.getText());
+
+                                                DatabaseReference databaseReference5 = FirebaseDatabase.getInstance()
+                                                        .getReference("VesselSchedule")
+                                                        .child(model.getScheduleDay())
+                                                        .child("Departed")
+                                                        .child(model.getKey())
+                                                        .child("ActualTimeArrived");
+                                                databaseReference5.setValue(date);
+                                                //Schedule
+                                                //Move Query
+                                                DatabaseReference From = FirebaseDatabase.getInstance()
+                                                        .getReference("VesselSchedule")
+                                                        .child(model.getScheduleDay())
+                                                        .child("Departed")
                                                         .child(model.getKey());
 
-                                                //Move Queries
-                                                moveFirebaseRecord1(databaseReference6 ,databaseReference4);
+                                                DatabaseReference To = FirebaseDatabase.getInstance()
+                                                        .getReference("VesselSchedule")
+                                                        .child(model.getScheduleDay())
+                                                        .child("Arrived")
+                                                        .child(model.getKey());
 
-
-
-
-
+                                                moveFirebaseRecord1(From ,To);
+                                                //Move Query
 
                                             }
                                         });
@@ -265,7 +277,7 @@ public class PendingFragment extends Fragment {
                                                                 .fit().centerCrop()
                                                                 .networkPolicy(NetworkPolicy.OFFLINE)
                                                                 .placeholder(R.drawable.zz)
-                                                                .into(viewHolder.vesselimage , new Callback() {
+                                                                .into(viewHolder.imagevessel , new Callback() {
                                                                     @Override
                                                                     public void onSuccess() {
 
@@ -276,7 +288,7 @@ public class PendingFragment extends Fragment {
                                                                         Picasso.with(getContext())
                                                                                 .load(image)
                                                                                 .placeholder(R.drawable.zz)
-                                                                                .into(viewHolder.vesselimage);
+                                                                                .into(viewHolder.imagevessel);
                                                                     }
                                                                 });
                                                     }
@@ -292,6 +304,8 @@ public class PendingFragment extends Fragment {
                                     }
                                 };
                         Recyclerview.setAdapter(firebaseRecyclerAdapter);
+
+
                 }
             }
 
@@ -301,9 +315,7 @@ public class PendingFragment extends Fragment {
             }
         });
 
-
     }
-
     public void moveFirebaseRecord1(final DatabaseReference fromPath, final DatabaseReference toPath) {
         fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
 

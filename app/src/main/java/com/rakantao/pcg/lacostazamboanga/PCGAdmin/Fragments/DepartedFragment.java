@@ -127,8 +127,8 @@ public class DepartedFragment extends Fragment {
                         handler.postDelayed(new Runnable(){
                             public void run(){
                                 //do something
-                                SimpleDateFormat format = new SimpleDateFormat("h:mm");
-                                DateFormat df = new SimpleDateFormat("h:mm");
+                                SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+                                DateFormat df = new SimpleDateFormat("h:mm a");
                                 String date = df.format(Calendar.getInstance().getTime());
                                 String actualTime = viewHolder.ATD.getText().toString();
                                 Date time1;

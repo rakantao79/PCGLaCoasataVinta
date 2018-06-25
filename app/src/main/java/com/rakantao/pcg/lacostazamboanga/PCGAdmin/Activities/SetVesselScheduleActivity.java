@@ -400,14 +400,36 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                     @Override
                     public void onClick(View view) {
                         final CharSequence[] items2 = {
-                                "Zamboanga City", "Isabela City","Lamitan City","Pagadian City","Ipil City","Margossatubig City","Malangas City"
+                                "Cawit",
+                                "Sangali",
+                                "Isabela",
+                                "Lamitan",
+                                "Siasi",
+                                "Pangutaran",
+                                "Sitangkai",
+                                "Sibutu",
+                                "Margosatubig",
+                                "Tukuran",
+                                "Malangas",
+                                "Naga",
+                                "Polloc",
+                                "Kalamansig",
+                                "Mapun",
+                                "Taganak",
+                                "Great Bakkungan"
                         };
                         AlertDialog.Builder builder2 = new AlertDialog.Builder(SetVesselScheduleActivity.this);
                         builder2.setTitle("Make your selection");
                         builder2.setItems(items2, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
                                 // Do something with the selection
-                                etOrigin.setText(items2[item]);
+                                if (etDestination.getText().toString().equals(etOrigin.getText().toString())){
+                                    Toast.makeText(SetVesselScheduleActivity.this, "You can't select the same value for origin and destination. Please select another.", Toast.LENGTH_SHORT).show();
+                                    etOrigin.setText("");
+                                }else {
+                                    etOrigin.setText(items2[item]);
+                                }
+
                             }
                         });
                         AlertDialog alert2 = builder2.create();
@@ -419,14 +441,36 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                     @Override
                     public void onClick(View view) {
                         final CharSequence[] items2 = {
-                                "Zamboanga City", "Isabela City","Lamitan City","Pagadian City","Ipil City","Margossatubig City","Malangas City"
+                                "Cawit",
+                                "Sangali",
+                                "Isabela",
+                                "Lamitan",
+                                "Siasi",
+                                "Pangutaran",
+                                "Sitangkai",
+                                "Sibutu",
+                                "Margosatubig",
+                                "Tukuran",
+                                "Malangas",
+                                "Naga",
+                                "Polloc",
+                                "Kalamansig",
+                                "Mapun",
+                                "Taganak",
+                                "Great Bakkungan"
                         };
                         AlertDialog.Builder builder2 = new AlertDialog.Builder(SetVesselScheduleActivity.this);
                         builder2.setTitle("Make your selection");
                         builder2.setItems(items2, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int item) {
                                 // Do something with the selection
-                                etDestination.setText(items2[item]);
+                                if (etDestination.getText().toString().equals(etOrigin.getText().toString())){
+                                    Toast.makeText(SetVesselScheduleActivity.this, "You can't select the same value for origin and destination. Please select another.", Toast.LENGTH_SHORT).show();
+                                    etDestination.setText("");
+                                }else {
+                                    etDestination.setText(items2[item]);
+                                }
+
                             }
                         });
                         AlertDialog alert2 = builder2.create();
@@ -529,6 +573,48 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                             Toast.makeText(SetVesselScheduleActivity.this, "Please, don't leave a field blank.", Toast.LENGTH_SHORT).show();
                         }else {
 
+                            String originStation = null;
+                            if (getOrigin.equals("Cawit") || getOrigin.equals("Sangali")){
+                                originStation = "CGS ZAMBOANGA";
+                            }else if (getOrigin.equals("Isabela") || getOrigin.equals("Lamitan")){
+                                originStation = "CGS BASILAN";
+                            }else if (getOrigin.equals("Siasi") || getOrigin.equals("Pangutaran")){
+                                originStation = "CGS SULU(JOLO";
+                            }else if (getOrigin.equals("Sitangkai") || getOrigin.equals("Sibutu")){
+                                originStation = "CGS CENTRAL TAWI TAWI (BONGAO)";
+                            }else if (getOrigin.equals("Mapun")){
+                                originStation = "CGS NORTHERN TAWI TAWI (MAPUN)";
+                            }else if (getOrigin.equals("Taganak") || getOrigin.equals("Bakkungan")){
+                                originStation = "CGS WESTERN TAWI TAWI (TAGANAK)";
+                            }else if (getOrigin.equals("Polloc") || getOrigin.equals("Kalamansig")){
+                                originStation = "CGS COTABATO";
+                            }else if (getOrigin.equals("Margosatubig") || getOrigin.equals("Tukuran")){
+                                originStation = "CGS ZAMBOANGA DEL SUR (PAGADIAN)";
+                            }else if (getOrigin.equals("Malangas") || getOrigin.equals("Naga")){
+                                originStation = "CGS SIBUGAY";
+                            }
+
+                            String destinationStation = null;
+                            if (getDestination.equals("Cawit") || getDestination.equals("Sangali")){
+                                destinationStation = "CGS ZAMBOANGA";
+                            }else if (getDestination.equals("Isabela") || getDestination.equals("Lamitan")){
+                                destinationStation = "CGS BASILAN";
+                            }else if (getDestination.equals("Siasi") || getDestination.equals("Pangutaran")){
+                                destinationStation = "CGS SULU(JOLO";
+                            }else if (getDestination.equals("Sitangkai") || getDestination.equals("Sibutu")){
+                                destinationStation = "CGS CENTRAL TAWI TAWI (BONGAO)";
+                            }else if (getDestination.equals("Mapun")){
+                                destinationStation = "CGS NORTHERN TAWI TAWI (MAPUN)";
+                            }else if (getDestination.equals("Taganak") || getDestination.equals("Bakkungan")){
+                                destinationStation = "CGS WESTERN TAWI TAWI (TAGANAK)";
+                            }else if (getDestination.equals("Polloc") || getDestination.equals("Kalamansig")){
+                                destinationStation = "CGS COTABATO";
+                            }else if (getDestination.equals("Margosatubig") || getDestination.equals("Tukuran")){
+                                destinationStation = "CGS ZAMBOANGA DEL SUR (PAGADIAN)";
+                            }else if (getDestination.equals("Malangas") || getDestination.equals("Naga")){
+                                destinationStation = "CGS SIBUGAY";
+                            }
+
                             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
                             HashMap<String, String> HashString = new HashMap<String, String>();
@@ -556,6 +642,8 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                             HashString1.put("Decision", "on-going");
                             HashString1.put("VesselStatus", "Pending");
                             HashString1.put("Key", key);
+                            HashString1.put("OriginStation", originStation);
+                            HashString1.put("DestinationStation", destinationStation);
 
                             DatabaseReference databaseReference1 = firebaseDatabase1.getReference("VesselDetails").child(VesselName);
                             databaseReference1.setValue(HashString1);

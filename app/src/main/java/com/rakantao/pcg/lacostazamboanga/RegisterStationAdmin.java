@@ -37,6 +37,7 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
      ImageButton btnBack;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+    String normalizedStation;
 
 
     @Override
@@ -153,6 +154,7 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                                 User.put("Station", getStation);
                                 User.put("Email", getEmail);
                                 User.put("Usertype", "pcgstation");
+
 
                                 DatabaseReference databaseReference = firebaseDatabase.getReference("Users").child(user_id);
                                 databaseReference.setValue(User);

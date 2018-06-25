@@ -45,6 +45,7 @@ public class ScheduleMonitoringFragment extends Fragment {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new PendingFragment(), "PENDING");
         adapter.addFragment(new StationDepartedFragment(), "DEPARTED");
+        adapter.addFragment(new StationArrivingFragment(), "ARRIVING");
         adapter.addFragment(new StationArrivedFragment(), "ARRIVED");
         viewPager.setAdapter(adapter);
     }

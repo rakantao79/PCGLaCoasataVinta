@@ -101,9 +101,6 @@ public class StationDepartedFragment extends Fragment {
         Recyclerview.setLayoutManager(linearLayoutManager);
 
 
-
-
-
         return view;
     }
     @Override
@@ -121,16 +118,13 @@ public class StationDepartedFragment extends Fragment {
 
                     Origin = dataSnapshot.child("Station").getValue().toString();
 
-                    if (Origin.equals("CGS BASILAN")) {
-                        String StationName = "Isabela City";
-
                         FirebaseRecyclerAdapter<DataVesselSched, DepartedViewHolder> firebaseRecyclerAdapter =
                                 new FirebaseRecyclerAdapter<DataVesselSched, DepartedViewHolder>(
 
                                         DataVesselSched.class,
                                         R.layout.departed_listrow,
                                         DepartedViewHolder.class,
-                                        childRef.orderByChild("Origin").equalTo(StationName)
+                                        childRef.orderByChild("OriginStation").equalTo(Origin)
 
                                 ) {
                                     @Override
@@ -145,14 +139,16 @@ public class StationDepartedFragment extends Fragment {
                                         viewHolder.vesselschedday.setText(model.getScheduleDay());
                                         viewHolder.ATD.setText(model.getActualDepartedTime());
 
+                                        viewHolder.btnarrive.setVisibility(View.GONE);
+
                                         final Handler handler = new Handler();
                                         final int delay = 1000; //milliseconds
 
                                         handler.postDelayed(new Runnable(){
                                             public void run(){
                                                 //do something
-                                                SimpleDateFormat format = new SimpleDateFormat("h:mm");
-                                                DateFormat df = new SimpleDateFormat("h:mm");
+                                                SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+                                                DateFormat df = new SimpleDateFormat("h:mm a");
                                                 String date = df.format(Calendar.getInstance().getTime());
                                                 String actualTime = viewHolder.ATD.getText().toString();
                                                 Date time1;
@@ -309,7 +305,7 @@ public class StationDepartedFragment extends Fragment {
                                 };
                         Recyclerview.setAdapter(firebaseRecyclerAdapter);
 
-                    }
+
                 }
             }
 
