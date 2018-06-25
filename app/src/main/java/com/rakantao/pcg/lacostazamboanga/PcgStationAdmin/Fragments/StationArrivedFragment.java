@@ -51,7 +51,7 @@ public class StationArrivedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_station_arriving, container, false);
+        view = inflater.inflate(R.layout.fragment_station_arrived, container, false);
 
         firebaseAuth = FirebaseAuth.getInstance();
 

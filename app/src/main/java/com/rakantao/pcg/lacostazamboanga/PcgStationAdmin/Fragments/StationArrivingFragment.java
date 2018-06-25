@@ -62,7 +62,7 @@ public class StationArrivingFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         linearLayoutManager = new LinearLayoutManager(getContext());
-        Recyclerview = view.findViewById(R.id.recyclerArrivedStationAdmin);
+        Recyclerview = view.findViewById(R.id.recyclerArrivingStationAdmin);
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);

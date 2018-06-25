@@ -1,5 +1,6 @@
 package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ArrivedDetails extends AppCompatActivity {
 
     private TextView tvVesselName;
@@ -40,6 +43,11 @@ public class ArrivedDetails extends AppCompatActivity {
     private DatabaseReference mUserDatabase,databaseReferencenew;
     private DatabaseReference mDatabaseRef;
     private DatabaseReference childRef;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
 package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -25,11 +26,18 @@ import com.rakantao.pcg.lacostazamboanga.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ProfilesActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     Button btnBack;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
