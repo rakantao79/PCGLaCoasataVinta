@@ -425,7 +425,7 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                                 // Do something with the selection
                                 if (etDestination.getText().toString().equals(etOrigin.getText().toString())){
                                     Toast.makeText(SetVesselScheduleActivity.this, "You can't select the same value for origin and destination. Please select another.", Toast.LENGTH_SHORT).show();
-                                    etOrigin.setText("");
+                                    etOrigin.setText("Origin");
                                 }else {
                                     etOrigin.setText(items2[item]);
                                 }
@@ -466,7 +466,8 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                                 // Do something with the selection
                                 if (etDestination.getText().toString().equals(etOrigin.getText().toString())){
                                     Toast.makeText(SetVesselScheduleActivity.this, "You can't select the same value for origin and destination. Please select another.", Toast.LENGTH_SHORT).show();
-                                    etDestination.setText("");
+                                    etDestination.setText("Destination");
+
                                 }else {
                                     etDestination.setText(items2[item]);
                                 }
@@ -569,7 +570,9 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                                 TextUtils.isEmpty(getOrigin) ||
                                 TextUtils.isEmpty(getDestination) ||
                                 TextUtils.isEmpty(getTimeDepart) ||
-                                TextUtils.isEmpty(getTimeArrival)){
+                                TextUtils.isEmpty(getTimeArrival) ||
+                                getOrigin.equals("Origin") ||
+                                getDestination.equals("Destination")){
                             Toast.makeText(SetVesselScheduleActivity.this, "Please, don't leave a field blank.", Toast.LENGTH_SHORT).show();
                         }else {
 
