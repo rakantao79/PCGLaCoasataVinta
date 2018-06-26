@@ -166,7 +166,7 @@ public class PendingFragment extends Fragment {
                                                     time1 = format.parse(date);
                                                     time2 = format.parse(actualTime);
 
-                                                    long diff = time2.getTime() - time1.getTime() ;
+                                                    long diff = time1.getTime() - time2.getTime();
                                                     long secondsInMilli = 1000;
                                                     long minutesInMilli = secondsInMilli * 60;
                                                     long hoursInMilli = minutesInMilli * 60;
