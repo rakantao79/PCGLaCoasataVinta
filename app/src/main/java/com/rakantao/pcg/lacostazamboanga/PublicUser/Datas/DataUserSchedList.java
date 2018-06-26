@@ -2,39 +2,29 @@ package com.rakantao.pcg.lacostazamboanga.PublicUser.Datas;
 
 public class DataUserSchedList {
 
-    private String VesselName;
-    private String Origin;
+    private String ArrivalTime;
     private String DepartureTime;
     private String Destination;
-    private String ArrivalTime;
-    private String ScheduleDay;
+    private String Origin;
+    private String VesselName;
 
     public DataUserSchedList() {
     }
 
-    public DataUserSchedList(String vesselName, String origin, String departureTime, String destination, String arrivalTime, String scheduleDay) {
-        VesselName = vesselName;
-        Origin = origin;
+    public DataUserSchedList(String arrivalTime, String departureTime, String destination, String origin, String vesselName) {
+        ArrivalTime = arrivalTime;
         DepartureTime = departureTime;
         Destination = destination;
-        ArrivalTime = arrivalTime;
-        ScheduleDay = scheduleDay;
-    }
-
-    public String getVesselName() {
-        return VesselName;
-    }
-
-    public void setVesselName(String vesselName) {
+        Origin = origin;
         VesselName = vesselName;
     }
 
-    public String getOrigin() {
-        return Origin;
+    public String getArrivalTime() {
+        return ArrivalTime;
     }
 
-    public void setOrigin(String origin) {
-        Origin = origin;
+    public void setArrivalTime(String arrivalTime) {
+        ArrivalTime = arrivalTime;
     }
 
     public String getDepartureTime() {
@@ -53,19 +43,19 @@ public class DataUserSchedList {
         Destination = destination;
     }
 
-    public String getArrivalTime() {
-        return ArrivalTime;
+    public String getOrigin() {
+        return Origin;
     }
 
-    public void setArrivalTime(String arrivalTime) {
-        ArrivalTime = arrivalTime;
+    public void setOrigin(String origin) {
+        Origin = origin;
     }
 
-    public String getScheduleDay() {
-        return ScheduleDay;
+    public String getVesselName() {
+        return VesselName;
     }
 
-    public void setScheduleDay(String scheduleDay) {
-        ScheduleDay = scheduleDay;
+    public void setVesselName(String vesselName) {
+        VesselName = vesselName;
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/gray"
-    android:padding="8dp"
+
     tools:context=".PublicUser.Activities.UserScheduleResultActivity">
 
     <LinearLayout
@@ -50,7 +50,6 @@
 
     <LinearLayout
         android:padding="@dimen/_8sdp"
-        android:background="@color/white"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

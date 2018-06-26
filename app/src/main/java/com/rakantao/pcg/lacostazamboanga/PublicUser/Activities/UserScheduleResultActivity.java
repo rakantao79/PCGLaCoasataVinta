@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Datas.DataUserSchedList;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.ViewHolders.UserSchedViewHolder;
 import com.rakantao.pcg.lacostazamboanga.R;
@@ -50,39 +51,11 @@ public class UserScheduleResultActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         Recyclerview = findViewById(R.id.userSchedRecyclerView);
 
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        childRef = mDatabaseRef.child("VesselDetails");
+
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
-
-        switch (day) {
-            case Calendar.SUNDAY:
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday");
-                break;
-            case Calendar.MONDAY:
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday"));
-                break;
-            case Calendar.TUESDAY:
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday"));
-                break;
-            case Calendar.WEDNESDAY:
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday"));
-                break;
-            case Calendar.THURSDAY:
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday"));
-                break;
-            case Calendar.FRIDAY:
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday"));
-                break;
-            case Calendar.SATURDAY:
-                mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday"));
-                break;
-        }
 
         Recyclerview.setLayoutManager(linearLayoutManager);
 

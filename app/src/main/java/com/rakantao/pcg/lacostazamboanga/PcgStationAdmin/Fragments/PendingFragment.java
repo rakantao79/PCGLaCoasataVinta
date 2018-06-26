@@ -129,6 +129,7 @@ public class PendingFragment extends Fragment {
                                         R.layout.pending_listrow,
                                         PendingViewholder.class,
                                         childRef.orderByChild("OriginStation").equalTo(Origin)
+
                                 ) {
                                     @Override
                                     protected void populateViewHolder(final PendingViewholder viewHolder, final DataVesselSched model, int position) {

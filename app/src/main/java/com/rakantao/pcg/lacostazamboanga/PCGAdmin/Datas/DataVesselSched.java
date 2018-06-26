@@ -12,9 +12,6 @@ public class DataVesselSched {
     private String ActualDepartedTime;
     private String Key;
 
-
-
-
     public DataVesselSched(){
 
     }
