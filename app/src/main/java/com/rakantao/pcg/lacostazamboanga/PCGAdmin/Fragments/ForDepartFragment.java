@@ -1,10 +1,16 @@
 package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -149,6 +155,26 @@ public class ForDepartFragment extends Fragment {
                                     long elapsedMinutes = diff / minutesInMilli;
 
                                     viewHolder.runnabletime.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
+
+                                    if (elapsedMinutes == 15){
+
+                                        NotificationCompat.Builder mBuilder =
+                                                new NotificationCompat.Builder(getContext());
+
+                                        mBuilder.setSmallIcon(R.drawable.logo_pcg);
+                                        mBuilder.setContentTitle("You've receive a notification");
+                                        mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in 15 mins");
+                                        mBuilder.setPriority(Notification.PRIORITY_MAX);
+
+                                        long[] vibrate = {0, 100, 200, 300};
+                                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                        mBuilder.setSound(alarmSound);
+                                        mBuilder.setVibrate(vibrate);
+                                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                                        mNotificationManager.notify(001, mBuilder.build());
+
+                                    }
 
 
                                 } catch (ParseException e) {

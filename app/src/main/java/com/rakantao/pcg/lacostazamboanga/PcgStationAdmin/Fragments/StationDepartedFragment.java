@@ -1,10 +1,16 @@
 package com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,9 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class StationDepartedFragment extends Fragment {
 
 
@@ -103,6 +107,7 @@ public class StationDepartedFragment extends Fragment {
 
         return view;
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -149,15 +154,30 @@ public class StationDepartedFragment extends Fragment {
                                                 //do something
                                                 SimpleDateFormat format = new SimpleDateFormat("h:mm a");
                                                 DateFormat df = new SimpleDateFormat("h:mm a");
+                                                String getETA = df.format(model.getArrivalTime().toString());
                                                 String date = df.format(Calendar.getInstance().getTime());
                                                 String actualTime = viewHolder.ATD.getText().toString();
                                                 Date time1;
                                                 Date time2;
+                                                Date time3;
 
                                                 try {
 
+                                                    time3 = format.parse(getETA);
                                                     time2 = format.parse(date);
                                                     time1 = format.parse(actualTime);
+
+                                                     long ONE_MINUTE_IN_MILLIS = 60000;
+
+                                                    long arrivaltime = time3.getTime();
+                                                    long currenttime = time2.getTime();
+
+                                                    Date afterAdding30Mins = new Date(arrivaltime +(30 * ONE_MINUTE_IN_MILLIS));
+
+                                                    Date afterAdding1Hour = new Date(arrivaltime +(60 * ONE_MINUTE_IN_MILLIS));
+
+                                                    long getAfteradd30mins = Long.valueOf(String.valueOf(afterAdding30Mins));
+                                                    long getAfteradd1Hour = Long.valueOf(String.valueOf(afterAdding1Hour));
 
                                                     long diff = time2.getTime() - time1.getTime()  ;
                                                     long secondsInMilli = 1000;
@@ -170,6 +190,26 @@ public class StationDepartedFragment extends Fragment {
                                                     long elapsedMinutes = diff / minutesInMilli;
 
                                                     viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
+
+
+                                                    if (getAfteradd30mins == currenttime || getAfteradd1Hour == currenttime){
+                                                        NotificationCompat.Builder mBuilder =
+                                                                new NotificationCompat.Builder(getContext());
+
+                                                        mBuilder.setSmallIcon(R.drawable.logo_pcg);
+                                                        mBuilder.setContentTitle("You've receive a notification");
+                                                        mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in 15 mins");
+                                                        mBuilder.setPriority(Notification.PRIORITY_MAX);
+
+                                                        long[] vibrate = {0, 100, 200, 300};
+                                                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                                        mBuilder.setSound(alarmSound);
+                                                        mBuilder.setVibrate(vibrate);
+                                                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                                                        mNotificationManager.notify(001, mBuilder.build());
+                                                    }
+
 
 
                                                 } catch (ParseException e) {

@@ -180,12 +180,13 @@ public class PendingFragment extends Fragment {
 
 
                                                     if (elapsedMinutes == 15){
+
                                                         NotificationCompat.Builder mBuilder =
                                                                 new NotificationCompat.Builder(getContext());
 
                                                         mBuilder.setSmallIcon(R.drawable.logo_pcg);
                                                         mBuilder.setContentTitle("You've receive a notification");
-                                                        mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in 10 mins");
+                                                        mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in 15 mins");
                                                         mBuilder.setPriority(Notification.PRIORITY_MAX);
 
                                                         long[] vibrate = {0, 100, 200, 300};
@@ -195,6 +196,7 @@ public class PendingFragment extends Fragment {
                                                         NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
                                                         mNotificationManager.notify(001, mBuilder.build());
+
                                                     }
 
                                                 } catch (ParseException e) {
