@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -29,14 +31,16 @@ public class UserScheduleResultActivity extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
 
     private String date;
+    private String from;
+    private String to;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_schedule_result);
 
-        String from = getIntent().getStringExtra("from");
-        String to = getIntent().getStringExtra("to");
+        from = getIntent().getStringExtra("from");
+        to = getIntent().getStringExtra("to");
         date = getIntent().getStringExtra("date");
 
 
@@ -76,12 +80,16 @@ public class UserScheduleResultActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(UserSchedViewHolder viewHolder, DataUserSchedList model, int position) {
 
-                viewHolder.tvUserSchedVesselName.setText(model.getVesselName());
-                viewHolder.tvUserSchedOrigin.setText(model.getOrigin());
-                viewHolder.tvUserSchedDestination.setText(model.getDestination());
-                viewHolder.tvUserSchedTimeDepart.setText(model.getDepartureTime());
-                viewHolder.tvUserSchedTimeArrival.setText(model.getArrivalTime());
-
+                if (model.getOrigin().equals(from) || model.getDestination().equals(to)){
+                    viewHolder.tvUserSchedVesselName.setText(model.getVesselName());
+                    viewHolder.tvUserSchedOrigin.setText(model.getOrigin());
+                    viewHolder.tvUserSchedDestination.setText(model.getDestination());
+                    viewHolder.tvUserSchedTimeDepart.setText(model.getDepartureTime());
+                    viewHolder.tvUserSchedTimeArrival.setText(model.getArrivalTime());
+                } else {
+                    Toast.makeText(UserScheduleResultActivity.this, "No Vessels Available for this day", Toast.LENGTH_SHORT).show();
+                    Recyclerview.setVisibility(View.INVISIBLE);
+                }
             }
         };
         Recyclerview.setAdapter(firebaseRecyclerAdapter);
