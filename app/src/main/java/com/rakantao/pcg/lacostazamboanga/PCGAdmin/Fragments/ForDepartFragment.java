@@ -130,6 +130,9 @@ public class ForDepartFragment extends Fragment {
                         final Handler handler = new Handler();
                         final int delay = 1000; //milliseconds
 
+
+                        final long[] getMin = new long[1];
+
                         handler.postDelayed(new Runnable(){
                             public void run(){
                                 //do something
@@ -137,53 +140,53 @@ public class ForDepartFragment extends Fragment {
                                 DateFormat df = new SimpleDateFormat("h:mm a");
                                 String date = df.format(Calendar.getInstance().getTime());
                                 String actualTime = viewHolder.departime.getText().toString();
-                                Date time1;
-                                Date time2;
-
+                                Date time1 = null;
+                                Date time2 = null;
                                 try {
                                     time1 = format.parse(date);
                                     time2 = format.parse(actualTime);
-
-                                    long diff = time1.getTime() - time2.getTime();
-                                    long secondsInMilli = 1000;
-                                    long minutesInMilli = secondsInMilli * 60;
-                                    long hoursInMilli = minutesInMilli * 60;
-
-                                    long elapsedHours = diff / hoursInMilli;
-                                    diff = diff % hoursInMilli;
-
-                                    long elapsedMinutes = diff / minutesInMilli;
-
-                                    viewHolder.runnabletime.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
-
-                                    if (elapsedMinutes == 15){
-
-                                        NotificationCompat.Builder mBuilder =
-                                                new NotificationCompat.Builder(getContext());
-
-                                        mBuilder.setSmallIcon(R.drawable.logo_pcg);
-                                        mBuilder.setContentTitle("You've receive a notification");
-                                        mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in 15 mins");
-                                        mBuilder.setPriority(Notification.PRIORITY_MAX);
-
-                                        long[] vibrate = {0, 100, 200, 300};
-                                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                        mBuilder.setSound(alarmSound);
-                                        mBuilder.setVibrate(vibrate);
-                                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-                                        mNotificationManager.notify(001, mBuilder.build());
-
-                                    }
-
-
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
 
+
+                                long diff = time2.getTime() - time1.getTime();
+                                long secondsInMilli = 1000;
+                                long minutesInMilli = secondsInMilli * 60;
+                                long hoursInMilli = minutesInMilli * 60;
+
+                                final long elapsedHours = diff / hoursInMilli;
+                                diff = diff % hoursInMilli;
+
+                                final long elapsedMinutes = diff / minutesInMilli;
+
+                                viewHolder.runnabletime.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
+
+
+                                getMin[0] = elapsedMinutes;
                                 handler.postDelayed(this, delay);
                             }
                         }, delay);
+
+                        if (getMin[0] <= 15){
+
+                            NotificationCompat.Builder mBuilder =
+                                    new NotificationCompat.Builder(getContext());
+
+                            mBuilder.setSmallIcon(R.drawable.logo_pcg);
+                            mBuilder.setContentTitle("You've receive a notification");
+                            mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in less than 15 min");
+                            mBuilder.setPriority(Notification.PRIORITY_MAX);
+
+                            long[] vibrate = {0, 100, 200, 300};
+                            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                            mBuilder.setSound(alarmSound);
+                            mBuilder.setVibrate(vibrate);
+                            NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                            mNotificationManager.notify(001, mBuilder.build());
+
+                        }
 
 
                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

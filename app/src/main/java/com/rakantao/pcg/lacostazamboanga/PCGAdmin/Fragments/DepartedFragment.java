@@ -135,16 +135,17 @@ public class DepartedFragment extends Fragment {
                                 //do something
                                 SimpleDateFormat format = new SimpleDateFormat("h:mm a");
                                 DateFormat df = new SimpleDateFormat("h:mm a");
-                                String getETA = df.format(model.getArrivalTime().toString());
                                 String date = df.format(Calendar.getInstance().getTime());
                                 String actualTime = viewHolder.ATD.getText().toString();
                                 Date time1;
                                 Date time2;
-                                Date time3;
+
+                               /* String getETA = viewHolder.vesselarrivetime.getText().toString();
+                                Date time3;*/
 
                                 try {
 
-                                    time3 = format.parse(getETA);
+
                                     time2 = format.parse(date);
                                     time1 = format.parse(actualTime);
 
@@ -158,6 +159,10 @@ public class DepartedFragment extends Fragment {
 
                                     long elapsedMinutes = diff / minutesInMilli;
 
+                                    viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
+
+                                    /*time3 = format.parse(getETA);
+
                                     long ONE_MINUTE_IN_MILLIS = 60000;
 
                                     long arrivaltime = time3.getTime();
@@ -167,11 +172,8 @@ public class DepartedFragment extends Fragment {
 
                                     Date afterAdding1Hour = new Date(arrivaltime +(60 * ONE_MINUTE_IN_MILLIS));
 
-                                    long getAfteradd30mins = Long.valueOf(String.valueOf(afterAdding30Mins));
-                                    long getAfteradd1Hour = Long.valueOf(String.valueOf(afterAdding1Hour));
-
-                                    viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
-
+                                    long getAfteradd30mins = Long.parseLong(String.valueOf(afterAdding30Mins));
+                                    long getAfteradd1Hour = Long.parseLong((String.valueOf(afterAdding1Hour)));
 
                                     if (getAfteradd30mins == currenttime || getAfteradd1Hour == currenttime){
                                         NotificationCompat.Builder mBuilder =
@@ -189,7 +191,7 @@ public class DepartedFragment extends Fragment {
                                         NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
                                         mNotificationManager.notify(001, mBuilder.build());
-                                    }
+                                    }*/
 
                                 } catch (ParseException e) {
                                     e.printStackTrace();

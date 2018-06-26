@@ -151,6 +151,7 @@ public class PendingFragment extends Fragment {
 
                                         final Handler handler = new Handler();
                                         final int delay = 1000; //milliseconds
+                                        final long[] getMin = new long[1];
 
                                         handler.postDelayed(new Runnable(){
                                             public void run(){
@@ -179,26 +180,7 @@ public class PendingFragment extends Fragment {
                                                     viewHolder.runnabletime.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
 
 
-                                                    if (elapsedMinutes == 15){
-
-                                                        NotificationCompat.Builder mBuilder =
-                                                                new NotificationCompat.Builder(getContext());
-
-                                                        mBuilder.setSmallIcon(R.drawable.logo_pcg);
-                                                        mBuilder.setContentTitle("You've receive a notification");
-                                                        mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in 15 mins");
-                                                        mBuilder.setPriority(Notification.PRIORITY_MAX);
-
-                                                        long[] vibrate = {0, 100, 200, 300};
-                                                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                                        mBuilder.setSound(alarmSound);
-                                                        mBuilder.setVibrate(vibrate);
-                                                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-                                                        mNotificationManager.notify(001, mBuilder.build());
-
-                                                    }
-
+                                                    getMin[0] = elapsedMinutes;
                                                 } catch (ParseException e) {
                                                     e.printStackTrace();
                                                 }
@@ -206,6 +188,26 @@ public class PendingFragment extends Fragment {
                                                 handler.postDelayed(this, delay);
                                             }
                                         }, delay);
+
+                                        if (getMin[0] <= 15){
+
+                                            NotificationCompat.Builder mBuilder =
+                                                    new NotificationCompat.Builder(getContext());
+
+                                            mBuilder.setSmallIcon(R.drawable.logo_pcg);
+                                            mBuilder.setContentTitle("You've receive a notification");
+                                            mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in less than 15 min");
+                                            mBuilder.setPriority(Notification.PRIORITY_MAX);
+
+                                            long[] vibrate = {0, 100, 200, 300};
+                                            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                            mBuilder.setSound(alarmSound);
+                                            mBuilder.setVibrate(vibrate);
+                                            NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                                            mNotificationManager.notify(001, mBuilder.build());
+
+                                        }
 
 
                                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -154,11 +154,11 @@ public class StationDepartedFragment extends Fragment {
                                                 //do something
                                                 SimpleDateFormat format = new SimpleDateFormat("h:mm a");
                                                 DateFormat df = new SimpleDateFormat("h:mm a");
-                                                String getETA = df.format(model.getArrivalTime().toString());
                                                 String date = df.format(Calendar.getInstance().getTime());
                                                 String actualTime = viewHolder.ATD.getText().toString();
                                                 Date time1;
                                                 Date time2;
+                                                String getETA = (model.getArrivalTime().toString());
                                                 Date time3;
 
                                                 try {
@@ -167,17 +167,7 @@ public class StationDepartedFragment extends Fragment {
                                                     time2 = format.parse(date);
                                                     time1 = format.parse(actualTime);
 
-                                                     long ONE_MINUTE_IN_MILLIS = 60000;
 
-                                                    long arrivaltime = time3.getTime();
-                                                    long currenttime = time2.getTime();
-
-                                                    Date afterAdding30Mins = new Date(arrivaltime +(30 * ONE_MINUTE_IN_MILLIS));
-
-                                                    Date afterAdding1Hour = new Date(arrivaltime +(60 * ONE_MINUTE_IN_MILLIS));
-
-                                                    long getAfteradd30mins = Long.valueOf(String.valueOf(afterAdding30Mins));
-                                                    long getAfteradd1Hour = Long.valueOf(String.valueOf(afterAdding1Hour));
 
                                                     long diff = time2.getTime() - time1.getTime()  ;
                                                     long secondsInMilli = 1000;
@@ -191,8 +181,19 @@ public class StationDepartedFragment extends Fragment {
 
                                                     viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
 
+                                                     /*long ONE_MINUTE_IN_MILLIS = 60000;
 
-                                                    if (getAfteradd30mins == currenttime || getAfteradd1Hour == currenttime){
+                                                    long arrivaltime = time3.getTime();
+                                                    long currenttime = time2.getTime();
+
+                                                    Date afterAdding30Mins = new Date(arrivaltime +(30 * ONE_MINUTE_IN_MILLIS));
+
+                                                    Date afterAdding1Hour = new Date(arrivaltime +(60 * ONE_MINUTE_IN_MILLIS));
+
+                                                    long getAfteradd30mins = Long.valueOf(String.valueOf(afterAdding30Mins));
+                                                    long getAfteradd1Hour = Long.valueOf(String.valueOf(afterAdding1Hour));*/
+
+                                                    /*if (getAfteradd30mins == currenttime || getAfteradd1Hour == currenttime){
                                                         NotificationCompat.Builder mBuilder =
                                                                 new NotificationCompat.Builder(getContext());
 
@@ -208,7 +209,7 @@ public class StationDepartedFragment extends Fragment {
                                                         NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
                                                         mNotificationManager.notify(001, mBuilder.build());
-                                                    }
+                                                    }*/
 
 
 
