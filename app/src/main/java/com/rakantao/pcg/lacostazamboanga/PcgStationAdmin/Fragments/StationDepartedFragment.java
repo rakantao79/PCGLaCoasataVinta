@@ -161,27 +161,25 @@ public class StationDepartedFragment extends Fragment {
                                                 String getETA = (model.getArrivalTime().toString());
                                                 Date time3;
 
+
                                                 try {
 
-                                                    time3 = format.parse(getETA);
-                                                    time2 = format.parse(date);
+
                                                     time1 = format.parse(actualTime);
-
-
+                                                    time2 = format.parse(date);
+                                                    time3 = format.parse(getETA);
 
                                                     long diff = time2.getTime() - time1.getTime()  ;
                                                     long secondsInMilli = 1000;
                                                     long minutesInMilli = secondsInMilli * 60;
                                                     long hoursInMilli = minutesInMilli * 60;
-
                                                     long elapsedHours = diff / hoursInMilli;
                                                     diff = diff % hoursInMilli;
-
                                                     long elapsedMinutes = diff / minutesInMilli;
 
                                                     viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
 
-                                                     /*long ONE_MINUTE_IN_MILLIS = 60000;
+                                                    long ONE_MINUTE_IN_MILLIS = 60000;
 
                                                     long arrivaltime = time3.getTime();
                                                     long currenttime = time2.getTime();
@@ -190,16 +188,14 @@ public class StationDepartedFragment extends Fragment {
 
                                                     Date afterAdding1Hour = new Date(arrivaltime +(60 * ONE_MINUTE_IN_MILLIS));
 
-                                                    long getAfteradd30mins = Long.valueOf(String.valueOf(afterAdding30Mins));
-                                                    long getAfteradd1Hour = Long.valueOf(String.valueOf(afterAdding1Hour));*/
 
-                                                    /*if (getAfteradd30mins == currenttime || getAfteradd1Hour == currenttime){
+                                                    if (afterAdding30Mins.equals(currenttime)){
                                                         NotificationCompat.Builder mBuilder =
                                                                 new NotificationCompat.Builder(getContext());
 
                                                         mBuilder.setSmallIcon(R.drawable.logo_pcg);
                                                         mBuilder.setContentTitle("You've receive a notification");
-                                                        mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in 15 mins");
+                                                        mBuilder.setContentText("Vessel "+ model.getVesselName() +" is late for already 30 minutes.");
                                                         mBuilder.setPriority(Notification.PRIORITY_MAX);
 
                                                         long[] vibrate = {0, 100, 200, 300};
@@ -209,18 +205,33 @@ public class StationDepartedFragment extends Fragment {
                                                         NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
                                                         mNotificationManager.notify(001, mBuilder.build());
-                                                    }*/
+                                                    }else if (afterAdding1Hour.equals(currenttime)){
+                                                        NotificationCompat.Builder mBuilder =
+                                                                new NotificationCompat.Builder(getContext());
 
+                                                        mBuilder.setSmallIcon(R.drawable.logo_pcg);
+                                                        mBuilder.setContentTitle("You've receive a notification");
+                                                        mBuilder.setContentText("Vessel "+ model.getVesselName() +" is late for already 1 hour.");
+                                                        mBuilder.setPriority(Notification.PRIORITY_MAX);
 
+                                                        long[] vibrate = {0, 100, 200, 300};
+                                                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                                        mBuilder.setSound(alarmSound);
+                                                        mBuilder.setVibrate(vibrate);
+                                                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                                                        mNotificationManager.notify(001, mBuilder.build());
+                                                    }
 
                                                 } catch (ParseException e) {
                                                     e.printStackTrace();
                                                 }
-
-
                                                 handler.postDelayed(this, delay);
                                             }
                                         }, delay);
+
+
+
 
 
 

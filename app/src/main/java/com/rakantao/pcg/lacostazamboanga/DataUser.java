@@ -1,6 +1,7 @@
 package com.rakantao.pcg.lacostazamboanga;
 
 public class DataUser {
+
     public String Usertype;
     public String email;
     public String Password;

@@ -1,5 +1,7 @@
 package com.rakantao.pcg.lacostazamboanga;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class Application extends android.app.Application {
@@ -13,6 +15,8 @@ public class Application extends android.app.Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+        JodaTimeAndroid.init(this);
 
     }
 }

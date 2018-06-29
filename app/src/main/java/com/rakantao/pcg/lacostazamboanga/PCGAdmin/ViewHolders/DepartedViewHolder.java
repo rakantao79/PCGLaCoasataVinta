@@ -12,7 +12,7 @@ public class DepartedViewHolder extends RecyclerView.ViewHolder {
 
     public Button btnarrive;
     public ImageView imagevessel;
-    public TextView vesselname,ATD,vesseltype,vesselorigin,vesseldesination,vesseldeparttime,vesselarrivetime,vesselschedday,vesselhourstravelled;
+    public TextView vesselname,ATD,vesseltype,vesselorigin,vesseldesination,vesseldeparttime,vesselarrivetime,vesselschedday,vesselhourstravelled,timefornotif,minfornotif;
     View view;
 
 
@@ -32,6 +32,9 @@ public class DepartedViewHolder extends RecyclerView.ViewHolder {
         vesselarrivetime = itemView.findViewById(R.id.TVDepartedArrivalTime);
         vesselschedday = itemView.findViewById(R.id.TVDepartedSchedDay);
         vesselhourstravelled = itemView.findViewById(R.id.TVDepartedHoursTravelled);
+
+        timefornotif = itemView.findViewById(R.id.hourfornotif);
+        minfornotif = itemView.findViewById(R.id.minfornotif);
 
     }
 }

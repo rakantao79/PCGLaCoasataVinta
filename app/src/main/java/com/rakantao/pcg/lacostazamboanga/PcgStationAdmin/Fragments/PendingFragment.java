@@ -189,7 +189,7 @@ public class PendingFragment extends Fragment {
                                             }
                                         }, delay);
 
-                                        if (getMin[0] <= 15){
+                                        if (getMin[0] == 15){
 
                                             NotificationCompat.Builder mBuilder =
                                                     new NotificationCompat.Builder(getContext());

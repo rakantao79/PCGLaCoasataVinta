@@ -135,6 +135,13 @@
             android:layout_margin="10dp"
             android:scaleType="fitXY"
             android:src="@drawable/qz" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/getMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </FrameLayout>
 
 </android.support.v7.widget.CardView>

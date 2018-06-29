@@ -145,6 +145,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:text="8:15 AM"
+                android:id="@+id/hourfornotif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:visibility="gone"
+                android:textColor="@color/black"
+                android:text="8:15 AM"
+                android:id="@+id/minfornotif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
     </FrameLayout>
 
