@@ -99,8 +99,6 @@ public class DepartedFragment extends Fragment {
 
         Recyclerview.setLayoutManager(linearLayoutManager);
 
-
-
         return view;
     }
     @Override

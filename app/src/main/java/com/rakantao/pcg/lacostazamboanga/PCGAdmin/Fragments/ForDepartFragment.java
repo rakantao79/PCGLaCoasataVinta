@@ -131,8 +131,6 @@ public class ForDepartFragment extends Fragment {
                         final int delay = 1000; //milliseconds
 
 
-                        final long[] getMin = new long[1];
-
                         handler.postDelayed(new Runnable(){
                             public void run(){
                                 //do something
@@ -161,17 +159,12 @@ public class ForDepartFragment extends Fragment {
                                 final long elapsedMinutes = diff / minutesInMilli;
 
                                 viewHolder.runnabletime.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
-
-
-
-
                                 Log.i("Minutes to Depart", String.valueOf(elapsedMinutes));
 
 
                                 if (elapsedMinutes == 15){
 
-                                    NotificationCompat.Builder mBuilder =
-                                            new NotificationCompat.Builder(getContext());
+                                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
 
                                     mBuilder.setSmallIcon(R.drawable.logo_pcg);
                                     mBuilder.setContentTitle("You've receive a notification");
@@ -185,13 +178,10 @@ public class ForDepartFragment extends Fragment {
                                     NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
                                     mNotificationManager.notify(001, mBuilder.build());
-
                                 }
-
                                 handler.postDelayed(this, delay);
                             }
                         }, delay);
-
 
                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -201,7 +191,6 @@ public class ForDepartFragment extends Fragment {
                                 startActivity(intent);
                             }
                         });
-
 
                         viewHolder.btnclear.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -252,11 +241,6 @@ public class ForDepartFragment extends Fragment {
 
 
                                 moveFirebaseRecord1(From ,To);
-
-
-
-
-
 
                             }
                         });
