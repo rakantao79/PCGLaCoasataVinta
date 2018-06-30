@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:weightSum="10"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                fontPath="fonts/Lato-Bold.ttf"
+                tools:ignore="MissingPrefix"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="@dimen/_17sdp"
+                android:textColor="@color/white"
+                android:text="Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                fontPath="fonts/Lato-Bold.ttf"
+                tools:ignore="MissingPrefix"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:textSize="@dimen/_17sdp"
+                android:textColor="@color/white"
+                android:text="Origin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                fontPath="fonts/Lato-Bold.ttf"
+                tools:ignore="MissingPrefix"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:textSize="@dimen/_17sdp"
+                android:textColor="@color/white"
+                android:text="Vessel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                fontPath="fonts/Lato-Bold.ttf"
+                tools:ignore="MissingPrefix"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:textSize="@dimen/_17sdp"
+                android:textColor="@color/white"
+                android:text="Remarks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:weightSum="10"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/ArrivalsDashboardTime"
+                fontPath="fonts/AlegreyaSans-Light.ttf"
+                tools:ignore="MissingPrefix"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/white"
+                android:text="12:30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/ArrivalsDashboardOrigin"
+                fontPath="fonts/AlegreyaSans-Light.ttf"
+                tools:ignore="MissingPrefix"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/white"
+                android:text="Cawit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/ArrivalsDashboardVessel"
+                fontPath="fonts/AlegreyaSans-Light.ttf"
+                tools:ignore="MissingPrefix"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/white"
+                android:text="MV Katrina"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/ArrivalsDashboardRemarks"
+                fontPath="fonts/AlegreyaSans-Light.ttf"
+                tools:ignore="MissingPrefix"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:textSize="@dimen/_14sdp"
+                android:textColor="@color/white"
+                android:text="DELAYED"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
