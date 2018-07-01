@@ -166,8 +166,5 @@ public class ArrivedFragment extends Fragment {
                     }
                 };
         Recyclerview.setAdapter(firebaseRecyclerAdapter);
-
-
-
     }
 }

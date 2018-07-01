@@ -4,7 +4,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-public class Application extends android.app.Application {
+public class Application extends android.support.multidex.MultiDexApplication {
 
 
     @Override

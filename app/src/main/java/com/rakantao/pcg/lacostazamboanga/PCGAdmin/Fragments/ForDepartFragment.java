@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.DashboardActivity;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.PendingViewholder;
@@ -49,6 +51,7 @@ public class ForDepartFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private DatabaseReference mUserDatabase,databaseReference;
     View view;
+    Button viewdash;
 
     public ForDepartFragment() {
         // Required empty public constructor
@@ -99,6 +102,15 @@ public class ForDepartFragment extends Fragment {
         }
 
         Recyclerview.setLayoutManager(linearLayoutManager);
+
+        viewdash = view.findViewById(R.id.viewdash);
+
+        viewdash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), DashboardActivity.class));
+            }
+        });
 
 
         return view;

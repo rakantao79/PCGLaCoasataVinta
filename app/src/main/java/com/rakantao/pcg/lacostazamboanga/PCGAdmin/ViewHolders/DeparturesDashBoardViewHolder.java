@@ -8,7 +8,7 @@ import com.rakantao.pcg.lacostazamboanga.R;
 
 public class DeparturesDashBoardViewHolder extends RecyclerView.ViewHolder {
 
-    TextView tvdes,tvvesNme,tvTime,tvRemarks;
+    public TextView tvdes,tvvesNme,tvTime,tvRemarks;
 
     public DeparturesDashBoardViewHolder(View itemView) {
         super(itemView);

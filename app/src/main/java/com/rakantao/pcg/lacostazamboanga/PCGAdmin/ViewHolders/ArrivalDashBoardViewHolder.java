@@ -9,7 +9,7 @@ import com.rakantao.pcg.lacostazamboanga.R;
 public class ArrivalDashBoardViewHolder extends RecyclerView.ViewHolder {
 
 
-    TextView tvorig,tvvesNme,tvTime,tvRemarks;
+    public TextView tvorig,tvvesNme,tvTime,tvRemarks;
 
     public ArrivalDashBoardViewHolder(View itemView) {
         super(itemView);

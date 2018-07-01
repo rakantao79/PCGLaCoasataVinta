@@ -80,8 +80,16 @@
         <activity android:name=".PCGAdmin.Activities.ViewDetailedVessels" />
         <activity android:name=".PCGAdmin.Activities.ArrivedDetails" />
         <activity android:name=".RegisterStationAdmin" />
-        <activity android:name=".PcgStationAdmin.Activities.PcgStationAdminHome"/>
-        <activity android:name=".PublicUser.Activities.UserScheduleResultActivity"/>
+        <activity android:name=".PcgStationAdmin.Activities.PcgStationAdminHome" />
+        <activity android:name=".PublicUser.Activities.UserScheduleResultActivity" />
+        <activity android:name=".PCGAdmin.Activities.DashboardActivity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
