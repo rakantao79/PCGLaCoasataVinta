@@ -178,6 +178,8 @@ public class ForDepartFragment extends Fragment {
 
                                     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
 
+
+
                                     mBuilder.setSmallIcon(R.drawable.logo_pcg);
                                     mBuilder.setContentTitle("You've receive a notification");
                                     mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in less than 15 min");
