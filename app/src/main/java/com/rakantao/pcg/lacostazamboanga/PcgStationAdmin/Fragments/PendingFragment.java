@@ -209,7 +209,6 @@ public class PendingFragment extends Fragment {
 
                                         }
 
-
                                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
@@ -271,11 +270,6 @@ public class PendingFragment extends Fragment {
 
                                                 //Move Queries
                                                 moveFirebaseRecord1(databaseReference6 ,databaseReference4);
-
-
-
-
-
 
                                             }
                                         });

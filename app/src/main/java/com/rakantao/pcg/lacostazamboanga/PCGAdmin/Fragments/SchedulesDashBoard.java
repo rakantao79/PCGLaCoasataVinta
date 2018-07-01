@@ -144,6 +144,5 @@ public class SchedulesDashBoard extends Fragment {
                 };
         arrival.setAdapter(firebaseRecyclerAdapter2);
 
-
     }
 }

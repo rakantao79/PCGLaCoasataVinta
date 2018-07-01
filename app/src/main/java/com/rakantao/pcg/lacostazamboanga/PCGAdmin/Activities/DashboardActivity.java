@@ -16,10 +16,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.dashContainer,new SchedulesDashBoard());
-        fragmentTransaction.commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.dashContainer, new SchedulesDashBoard()).commit();
 
     }
 }

@@ -10,115 +10,111 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+
     <LinearLayout
-        android:weightSum="10"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             fontPath="fonts/Lato-Bold.ttf"
             tools:ignore="MissingPrefix"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:textSize="@dimen/_17sdp"
-            android:textColor="@color/white"
             android:text="Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             />
-
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:layout_weight="1.2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <TextView
             fontPath="fonts/Lato-Bold.ttf"
             tools:ignore="MissingPrefix"
-            android:gravity="center"
-            android:layout_weight="3"
-            android:textSize="@dimen/_17sdp"
-            android:textColor="@color/white"
             android:text="Destination"
-            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
             fontPath="fonts/Lato-Bold.ttf"
             tools:ignore="MissingPrefix"
-            android:gravity="center"
-            android:layout_weight="3"
-            android:textSize="@dimen/_17sdp"
-            android:textColor="@color/white"
             android:text="Vessel"
-            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
             fontPath="fonts/Lato-Bold.ttf"
             tools:ignore="MissingPrefix"
-            android:gravity="center"
-            android:layout_weight="3"
-            android:textSize="@dimen/_17sdp"
-            android:textColor="@color/white"
             android:text="Remarks"
-            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:layout_weight="1.2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
     <LinearLayout
-
-        android:weightSum="10"
         android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <TextView
             android:id="@+id/DeparturesDashboardTime"
-            fontPath="fonts/AlegreyaSans-Light.ttf"
+            fontPath="fonts/Lato-Bold.ttf"
             tools:ignore="MissingPrefix"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/white"
             android:text="12:30"
-            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:layout_weight="1.2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
         <TextView
             android:id="@+id/DeparturesDashboardDestination"
-            fontPath="fonts/AlegreyaSans-Light.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.6"
-            android:gravity="center"
-            android:text="Cawit"
+            fontPath="fonts/Lato-Bold.ttf"
+            tools:ignore="MissingPrefix"
+            android:text="Destination"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sdp"
-            tools:ignore="MissingPrefix" />
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/DeparturesDashboardVessel"
-            fontPath="fonts/AlegreyaSans-Light.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3.9"
-            android:gravity="center"
-            android:text="MV Katrina"
+            fontPath="fonts/Lato-Bold.ttf"
+            tools:ignore="MissingPrefix"
+            android:text="Vessel"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sdp"
-            tools:ignore="MissingPrefix" />
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/DeparturesDashboardRemarks"
-            fontPath="fonts/AlegreyaSans-Light.ttf"
+            fontPath="fonts/Lato-Bold.ttf"
             tools:ignore="MissingPrefix"
-            android:textSize="@dimen/_15sdp"
+            android:text="Remarks"
             android:textColor="@color/white"
-            android:text="DELAYED"
-            android:layout_width="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:layout_weight="1.2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+
 </LinearLayout>
 </android.support.v7.widget.CardView>
