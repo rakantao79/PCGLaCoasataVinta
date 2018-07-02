@@ -2,6 +2,7 @@ package com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments;
 
 
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,12 +13,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.SendReportActivity;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Datas.DataSendReport;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.ViewHolders.ReportsViewHiolder;
 import com.rakantao.pcg.lacostazamboanga.R;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class ReportFragment extends Fragment {
@@ -40,13 +49,14 @@ public class ReportFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_report, container, false);
 
+        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = current_user.getUid();
 
         btnreport = view.findViewById(R.id.btnGoSendReport);
         recyclerView = view.findViewById(R.id.recyclerListOfReports);
         linearLayoutManager = new LinearLayoutManager(getContext());
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Report");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid);
         recyclerView.setLayoutManager(linearLayoutManager);
-
 
         btnreport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +64,6 @@ public class ReportFragment extends Fragment {
                  startActivity(new Intent(getContext(), SendReportActivity.class));
             }
         });
-
 
         return view;
     }
@@ -72,11 +81,21 @@ public class ReportFragment extends Fragment {
 
         ) {
             @Override
-            protected void populateViewHolder(ReportsViewHiolder viewHolder, DataSendReport model, int position) {
+            protected void populateViewHolder(ReportsViewHiolder viewHolder, final DataSendReport model, int position) {
 
-                viewHolder.tvVesselName.setText(model.getVesselName());
-                viewHolder.tvInspector.setText(model.getInspector());
-                viewHolder.tvTimeUploaded.setText(model.getTimeUploaded());
+                viewHolder.tvVesselName.setText("Vessel Name : " + model.getVesselName());
+                viewHolder.tvInspector.setText("Inspected by : " + model.getInspector());
+                viewHolder.tvTimeUploaded.setText("Date/Time Inspected : " + model.getTimeUploaded());
+                viewHolder.tvActualNumOfPassengers.setText("Actual No. Passengers : " + model.actualNumberPassenger);
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), ViewDetailedVessels.class);
+                        intent.putExtra("vesselName", model.getVesselName());
+                        startActivity(intent);
+                    }
+                });
 
             }
         };

@@ -5,14 +5,16 @@ public class DataSendReport {
     public String vesselName;
     public String timeUploaded;
     public String inspector;
+    public String actualNumberPassenger;
 
     public DataSendReport() {
     }
 
-    public DataSendReport(String vesselName, String timeUploaded, String inspector) {
+    public DataSendReport(String vesselName, String timeUploaded, String inspector, String actualNumberPassenger) {
         this.vesselName = vesselName;
         this.timeUploaded = timeUploaded;
         this.inspector = inspector;
+        this.actualNumberPassenger = actualNumberPassenger;
     }
 
     public String getVesselName() {
@@ -37,5 +39,13 @@ public class DataSendReport {
 
     public void setInspector(String inspector) {
         this.inspector = inspector;
+    }
+
+    public String getActualNumberPassenger() {
+        return actualNumberPassenger;
+    }
+
+    public void setActualNumberPassenger(String actualNumberPassenger) {
+        this.actualNumberPassenger = actualNumberPassenger;
     }
 }

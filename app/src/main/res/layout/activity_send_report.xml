@@ -9,6 +9,13 @@
     tools:context=".PCGPersonnel.Activities.SendReportActivity">
 
     <TextView
+        android:textSize="@dimen/_15sdp"
+        android:text="PreDeparture Inspection"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
         android:visibility="gone"
         android:id="@+id/fullname"
         android:layout_width="wrap_content"
@@ -28,6 +35,22 @@
         android:focusable="false"
         android:id="@+id/etSelectVesselName"
         android:hint="Vessel Name"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:inputType="number"
+        android:textAlignment="center"
+        android:hint="Actual Passenger Number"
+        android:id="@+id/etVesselActualPassengerNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:focusable="false"
+        android:id="@+id/etSelectVesselInspectionRemarks"
+        android:hint="Inspection Remarks"
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +34,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rakantao.pcg.lacostazamboanga.DataUser;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.SetVesselScheduleActivity;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.UploadListAdapter;
 import com.rakantao.pcg.lacostazamboanga.R;
 
@@ -54,6 +56,8 @@ public class SendReportActivity extends AppCompatActivity {
     private UploadListAdapter uploadListAdapter;
 
     private EditText etSelectVesselName;
+    private EditText etVesselActualPassengerNumber;
+    private EditText etSelectVesselInspectionRemarks;
 
     public TextView fullname;
 
@@ -73,14 +77,13 @@ public class SendReportActivity extends AppCompatActivity {
 
         getPersonnalDatas = FirebaseDatabase.getInstance().getReference();
 
-
-
-
         fullname = findViewById(R.id.fullname);
         mSelectBtn = findViewById(R.id.btnPersonnelSendReport);
         mUploadList = findViewById(R.id.recyclerPersonnelImageList);
 
         etSelectVesselName = findViewById(R.id.etSelectVesselName);
+        etVesselActualPassengerNumber = (EditText) findViewById(R.id.etVesselActualPassengerNumber);
+        etSelectVesselInspectionRemarks = findViewById(R.id.etSelectVesselInspectionRemarks);
 
         fileNameList = new ArrayList<>();
         fileDoneList = new ArrayList<>();
@@ -129,6 +132,32 @@ public class SendReportActivity extends AppCompatActivity {
             }
         });
 
+        etSelectVesselInspectionRemarks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final String inspectionRemarks = etSelectVesselInspectionRemarks.getText().toString().trim();
+
+                final CharSequence[] items2 = {
+                        "Clear",
+                        "OnHold",
+                        "Defiencies"
+                };
+
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(SendReportActivity.this);
+                builder2.setTitle("Make your selection");
+                builder2.setItems(items2, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Do something with the selection
+                            etSelectVesselInspectionRemarks.setText(items2[item]);
+
+                    }
+                });
+                AlertDialog alert2 = builder2.create();
+                alert2.show();
+            }
+        });
+
         mSelectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,12 +182,17 @@ public class SendReportActivity extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm");
         final String format = simpleDateFormat.format(new Date());
 
+        final Long tsLong = System.currentTimeMillis()/1000;
+        final String timestamp = tsLong.toString();
+
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = current_user.getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid).push();
 
         final String vesselName = etSelectVesselName.getText().toString().trim();
         final String getFullname = fullname.getText().toString().trim();
+        final String actualNumberOfPassenger = etVesselActualPassengerNumber.getText().toString();
+        final String vesselRemarks =  etSelectVesselInspectionRemarks.getText().toString();
 
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
 
@@ -168,6 +202,10 @@ public class SendReportActivity extends AppCompatActivity {
 
                     if (TextUtils.isEmpty(vesselName)){
                         Toast.makeText(SendReportActivity.this, "Please, Select Vessel Name", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(actualNumberOfPassenger)){
+                        Toast.makeText(SendReportActivity.this, "Please Enter Actual Number of Passengers", Toast.LENGTH_SHORT).show();
+                    } else if (TextUtils.isEmpty(vesselRemarks)){
+                        Toast.makeText(SendReportActivity.this, "Select Inspection Remarks", Toast.LENGTH_SHORT).show();
                     } else {
                         int totalItemSelected = data.getClipData().getItemCount();
 
@@ -189,8 +227,6 @@ public class SendReportActivity extends AppCompatActivity {
                             final int finalI = i;
 
                             final int counter = finalI;
-
-
 
                             fileToUpload.putFile(fileUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
@@ -214,30 +250,30 @@ public class SendReportActivity extends AppCompatActivity {
                                         fileDoneList.add(finalI, "done");
                                         //uploadListAdapter.notifyDataSetChanged();
 
+                                        DatabaseReference AddReport = mDatabase;
+
                                         HashMap<String, String> HashString = new HashMap<String, String>();
 
                                         HashString.put("timeUploaded", format);
                                         HashString.put("vesselName", vesselName);
                                         HashString.put("inspector", getFullname);
-
+                                        HashString.put("actualNumberPassenger", actualNumberOfPassenger);
+                                        HashString.put("inspectionRemarks", vesselRemarks);
 
 
                                         mDatabase.setValue(HashString).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(SendReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(SendReportActivity.this, "Upload Complete", Toast.LENGTH_SHORT).show();
+                                                finish();
                                             }
                                         });
 
                                         DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("ReportAdmin").child(vesselName);
                                         databaseReference2.setValue(HashString);
 
-
                                         uploadListAdapter.notifyDataSetChanged();
                                     }
-
-
-
                                 }
                             });
                     }

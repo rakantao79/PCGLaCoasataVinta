@@ -13,6 +13,7 @@ public class ReportsViewHiolder extends RecyclerView.ViewHolder {
     public TextView tvTimeUploaded;
     public TextView tvInspector;
     public ImageView tvImageVessel;
+    public TextView tvActualNumOfPassengers;
 
     public ReportsViewHiolder(View itemView) {
         super(itemView);
@@ -21,6 +22,7 @@ public class ReportsViewHiolder extends RecyclerView.ViewHolder {
         tvTimeUploaded = itemView.findViewById(R.id.reportDate);
         tvInspector = itemView.findViewById(R.id.reportInspector);
         tvImageVessel = itemView.findViewById(R.id.reportImageVesselThumb);
+        tvActualNumOfPassengers = itemView.findViewById(R.id.reportActualNumOfPassenger);
 
     }
 }
