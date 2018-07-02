@@ -8,12 +8,13 @@ import com.rakantao.pcg.lacostazamboanga.R;
 
 public class DeparturesDashBoardViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView tvdes,tvvesNme,tvTime,tvRemarks;
+    public TextView tvdes,tvorigin,tvvesNme,tvTime,tvRemarks;
 
     public DeparturesDashBoardViewHolder(View itemView) {
         super(itemView);
 
         tvdes = itemView.findViewById(R.id.DeparturesDashboardDestination);
+        tvorigin = itemView.findViewById(R.id.DeparturesDashboardOrigin);
         tvvesNme = itemView.findViewById(R.id.DeparturesDashboardVessel);
         tvTime = itemView.findViewById(R.id.DeparturesDashboardTime);
         tvRemarks = itemView.findViewById(R.id.DeparturesDashboardRemarks);

@@ -157,62 +157,11 @@ public class DepartedFragment extends Fragment {
 
                                     viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
 
-                                    long diff1 = time2.getTime() - time3.getTime()  ;
-                                    long secondsInMilli1 = 1000;
-                                    long minutesInMilli1 = secondsInMilli1 * 60;
-                                    long hoursInMilli1 = minutesInMilli1 * 60;
-
-                                    long elapsedHours1 = diff1 / hoursInMilli1;
-                                    diff1 = diff1 % hoursInMilli;
-
-                                    long elapsedMinutes1 = diff1 / minutesInMilli1;
-
-
-
-                                    viewHolder.minfornotif.setText(""+elapsedMinutes1);
-                                    viewHolder.timefornotif.setText(""+elapsedHours1);
-
-                                    Log.i("Hour :" , String.valueOf(elapsedHours1));
-                                    Log.d("Minutes", String.valueOf(elapsedMinutes1));
-
-
-                                    if (elapsedMinutes1 == 15){
-                                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
-
-                                        mBuilder.setSmallIcon(R.drawable.logo_pcg);
-                                        mBuilder.setContentTitle("You've receive a notification");
-                                        mBuilder.setContentText("Vessel "+ model.getVesselName() +" is late for already 30 minutes.");
-                                        mBuilder.setPriority(Notification.PRIORITY_MAX);
-
-                                        long[] vibrate = {0, 100, 200, 300};
-                                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                        mBuilder.setSound(alarmSound);
-                                        mBuilder.setVibrate(vibrate);
-                                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-                                        mNotificationManager.notify(001, mBuilder.build());
-                                    }else if (elapsedHours1 == 1){
-                                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
-
-                                        mBuilder.setSmallIcon(R.drawable.logo_pcg);
-                                        mBuilder.setContentTitle("You've receive a notification");
-                                        mBuilder.setContentText("Vessel "+ model.getVesselName() +" is late for already 1 hour.");
-                                        mBuilder.setPriority(Notification.PRIORITY_MAX);
-
-                                        long[] vibrate = {0, 100, 200, 300};
-                                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                        mBuilder.setSound(alarmSound);
-                                        mBuilder.setVibrate(vibrate);
-                                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-                                        mNotificationManager.notify(001, mBuilder.build());
-                                    }
 
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }
-
-
+                                
                                 handler.postDelayed(this, delay);
                             }
                         }, delay);

@@ -82,8 +82,11 @@
         <activity android:name=".RegisterStationAdmin" />
         <activity android:name=".PcgStationAdmin.Activities.PcgStationAdminHome" />
         <activity android:name=".PublicUser.Activities.UserScheduleResultActivity" />
-        <activity android:name=".PCGAdmin.Activities.DashboardActivity"
-            android:screenOrientation="landscape">
-        </activity>
+        <activity
+            android:name=".PCGAdmin.Activities.DashboardActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".PcgStationAdmin.Activities.StationDashBoard"
+            android:screenOrientation="landscape"></activity>
     </application>
+
 </manifest>

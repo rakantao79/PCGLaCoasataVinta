@@ -11,13 +11,14 @@ public class DataVesselSched {
     private String ScheduleDay;
     private String ActualDepartedTime;
     private String Key;
+    private String VesselStatus;
 
     public DataVesselSched(){
 
     }
 
     public DataVesselSched(String VesselType, String VesselName, String ScheduleDay, String Origin, String DepartureTime,
-                            String Destination,String ArrivalTime,String ActualDepartedTime, String Key){
+                           String Destination, String ArrivalTime, String ActualDepartedTime, String Key, String VesselStatus){
 
         this.VesselType = VesselType;
         this.VesselName = VesselName;
@@ -28,7 +29,16 @@ public class DataVesselSched {
         this.ArrivalTime = ArrivalTime;
         this.ActualDepartedTime = ActualDepartedTime;
         this.Key = Key;
+        this.VesselStatus = VesselStatus;
 
+    }
+
+    public String getVesselStatus() {
+        return VesselStatus;
+    }
+
+    public void setVesselStatus(String vesselStatus) {
+        VesselStatus = vesselStatus;
     }
 
     public String getKey() {

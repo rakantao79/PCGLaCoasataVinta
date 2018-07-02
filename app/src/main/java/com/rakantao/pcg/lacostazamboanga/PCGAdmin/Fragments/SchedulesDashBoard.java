@@ -24,12 +24,10 @@ public class SchedulesDashBoard extends Fragment {
 
     View view;
     RecyclerView depart;
-    RecyclerView arrival;
     private DatabaseReference mDatabaseRef;
     private DatabaseReference childRef,childRef2;
     private LinearLayoutManager linearLayoutManager;
-    private DatabaseReference mUserDatabase;
-    private LinearLayoutManager linearLayoutManager2;
+
 
     public SchedulesDashBoard() {
         // Required empty public constructor
@@ -43,10 +41,10 @@ public class SchedulesDashBoard extends Fragment {
         view = inflater.inflate(R.layout.fragment_schedules_dash_board, container, false);
 
         linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager2 = new LinearLayoutManager(getContext());
+
 
         depart = view.findViewById(R.id.RecyclerDepartures);
-        arrival = view.findViewById(R.id.RecyclerArrivals);
+
 
 
         Calendar calendar = Calendar.getInstance();
@@ -55,50 +53,45 @@ public class SchedulesDashBoard extends Fragment {
         switch (day) {
             case Calendar.SUNDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child("Sunday").child("Departed");
+                childRef = mDatabaseRef.child("VesselsDashBoardAdmin").child("Sunday");
 
-                childRef2 = mDatabaseRef.child("VesselSchedule").child("Sunday").child("Departed");
+
                 break;
             case Calendar.MONDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday")).child("Departed");
+                childRef = mDatabaseRef.child("VesselsDashBoardAdmin").child(String.valueOf("Monday"));
 
-                childRef2 = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday")).child("Departed");
                 break;
             case Calendar.TUESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday")).child("Departed");
+                childRef = mDatabaseRef.child("VesselsDashBoardAdmin").child(String.valueOf("Tuesday"));
 
-                childRef2 = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday")).child("Departed");
                 break;
             case Calendar.WEDNESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday")).child("Departed");
+                childRef = mDatabaseRef.child("VesselsDashBoardAdmin").child(String.valueOf("Wednesday"));
 
-                childRef2 = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday")).child("Departed");
                 break;
             case Calendar.THURSDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday")).child("Departed");
+                childRef = mDatabaseRef.child("VesselsDashBoardAdmin").child(String.valueOf("Thursday"));
 
-                childRef2 = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday")).child("Departed");
+
                 break;
             case Calendar.FRIDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday")).child("Departed");
+                childRef = mDatabaseRef.child("VesselsDashBoardAdmin").child(String.valueOf("Friday"));
 
-                childRef2 = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday")).child("Departed");
                 break;
             case Calendar.SATURDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday")).child("Departed");
+                childRef = mDatabaseRef.child("VesselsDashBoardAdmin").child(String.valueOf("Saturday"));
 
-                childRef2 = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday")).child("Departed");
                 break;
         }
 
         depart.setLayoutManager(linearLayoutManager);
-        arrival.setLayoutManager(linearLayoutManager2);
+
 
         return view;
     }
@@ -112,37 +105,20 @@ public class SchedulesDashBoard extends Fragment {
                         DataVesselSched.class,
                         R.layout.departed_dashboard_listrow,
                         DeparturesDashBoardViewHolder.class,
-                        childRef.orderByChild("DestinationStation").equalTo("CGS ZAMBOANGA")
+                        childRef
 
                 ) {
                     @Override
                     protected void populateViewHolder(DeparturesDashBoardViewHolder viewHolder, DataVesselSched model, int position) {
 
                         viewHolder.tvdes.setText(model.getDestination());
+                        viewHolder.tvorigin.setText(model.getOrigin());
                         viewHolder.tvTime.setText(model.getDepartureTime());
                         viewHolder.tvvesNme.setText(model.getVesselName());
+                        viewHolder.tvRemarks.setText(model.getVesselStatus());
+
                     }
                 };
         depart.setAdapter(firebaseRecyclerAdapter);
-
-        FirebaseRecyclerAdapter<DataVesselSched, ArrivalDashBoardViewHolder> firebaseRecyclerAdapter2 =
-                new FirebaseRecyclerAdapter<DataVesselSched, ArrivalDashBoardViewHolder>(
-
-                        DataVesselSched.class,
-                        R.layout.arrivals_dashboard_listrow,
-                        ArrivalDashBoardViewHolder.class,
-                        childRef2.orderByChild("OriginStation").equalTo("CGS ZAMBOANGA")
-
-                ) {
-                    @Override
-                    protected void populateViewHolder(ArrivalDashBoardViewHolder viewHolder, DataVesselSched model, int position) {
-
-                        viewHolder.tvorig.setText(model.getOrigin());
-                        viewHolder.tvTime.setText(model.getArrivalTime());
-                        viewHolder.tvvesNme.setText(model.getVesselName());
-                    }
-                };
-        arrival.setAdapter(firebaseRecyclerAdapter2);
-
     }
 }

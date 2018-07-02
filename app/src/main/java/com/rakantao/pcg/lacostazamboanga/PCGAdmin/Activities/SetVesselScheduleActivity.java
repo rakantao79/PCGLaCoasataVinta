@@ -71,6 +71,8 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
     private LinearLayoutManager linearLayoutManager;
     String VesselName;
     String VesselType;
+    String PassengerCapacity;
+    String NumberOfCrew;
     private static final int GALLERY_PICK = 1;
     private StorageReference mImageStorage;
     private DatabaseReference mUserDatabase;
@@ -89,8 +91,10 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
 
-         VesselName = this.getIntent().getStringExtra("vesselName");
-         VesselType = this.getIntent().getStringExtra("vesselType");
+        VesselName = this.getIntent().getStringExtra("vesselName");
+        VesselType = this.getIntent().getStringExtra("vesselType");
+        PassengerCapacity = this.getIntent().getStringExtra("passengerCapacity");
+        NumberOfCrew = this.getIntent().getStringExtra("numberOfCrew");
 
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(VesselName);
@@ -370,11 +374,31 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                 final EditText etDestination = dialogView.findViewById(R.id.ETDestination);
                 final EditText etTimeDepart = dialogView.findViewById(R.id.ETDepartTme);
                 final EditText etTimeArrive = dialogView.findViewById(R.id.ETArrivalTime);
+                final EditText etdayOfArrival = dialogView.findViewById(R.id.ETDayArrival);
 
                 Button btnSaveSched = dialogView.findViewById(R.id.btnSaveSched);
 
 
                 final AlertDialog dialog = dialogBuilder.create();
+
+                etdayOfArrival.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final CharSequence[] items2 = {
+                                "Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
+                        };
+                        AlertDialog.Builder builder2 = new AlertDialog.Builder(SetVesselScheduleActivity.this);
+                        builder2.setTitle("Make your selection");
+                        builder2.setItems(items2, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int item) {
+                                // Do something with the selection
+                                etdayOfArrival.setText(items2[item]);
+                            }
+                        });
+                        AlertDialog alert2 = builder2.create();
+                        alert2.show();
+                    }
+                });
 
 
                 etday.setOnClickListener(new View.OnClickListener() {
@@ -400,23 +424,27 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                     @Override
                     public void onClick(View view) {
                         final CharSequence[] items2 = {
-                                "Cawit",
-                                "Sangali",
-                                "Isabela",
-                                "Lamitan",
-                                "Siasi",
-                                "Pangutaran",
-                                "Sitangkai",
-                                "Sibutu",
-                                "Margosatubig",
-                                "Tukuran",
-                                "Malangas",
-                                "Naga",
-                                "Polloc",
-                                "Kalamansig",
-                                "Mapun",
-                                "Taganak",
-                                "Great Bakkungan"
+                                "MANDAUE",
+                                "HAGNAYA",
+                                "NAGA",
+                                "TOLEDO",
+                                "CAMOTES",
+                                "DANAO",
+                                "BANTAYAN",
+                                "ADUANA",
+                                "TABUELAN",
+                                "TINAGO",
+                                "BATO",
+                                "ARGAO",
+                                "TANGIL",
+                                "JAGNA",
+                                "UBAY",
+                                "TALIBON",
+                                "TUBIGON",
+                                "PANGLAO",
+                                "LOAY",
+                                "GETAFE",
+                                "PRESIDENT CARLOS P GARCIA"
                         };
                         AlertDialog.Builder builder2 = new AlertDialog.Builder(SetVesselScheduleActivity.this);
                         builder2.setTitle("Make your selection");
@@ -441,23 +469,27 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                     @Override
                     public void onClick(View view) {
                         final CharSequence[] items2 = {
-                                "Cawit",
-                                "Sangali",
-                                "Isabela",
-                                "Lamitan",
-                                "Siasi",
-                                "Pangutaran",
-                                "Sitangkai",
-                                "Sibutu",
-                                "Margosatubig",
-                                "Tukuran",
-                                "Malangas",
-                                "Naga",
-                                "Polloc",
-                                "Kalamansig",
-                                "Mapun",
-                                "Taganak",
-                                "Great Bakkungan"
+                                "MANDAUE",
+                                "HAGNAYA",
+                                "NAGA",
+                                "TOLEDO",
+                                "CAMOTES",
+                                "DANAO",
+                                "BANTAYAN",
+                                "ADUANA",
+                                "TABUELAN",
+                                "TINAGO",
+                                "BATO",
+                                "ARGAO",
+                                "TANGIL",
+                                "JAGNA",
+                                "UBAY",
+                                "TALIBON",
+                                "TUBIGON",
+                                "PANGLAO",
+                                "LOAY",
+                                "GETAFE",
+                                "PRESIDENT CARLOS P GARCIA"
                         };
                         AlertDialog.Builder builder2 = new AlertDialog.Builder(SetVesselScheduleActivity.this);
                         builder2.setTitle("Make your selection");
@@ -565,6 +597,7 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                         String getDestination = etDestination.getText().toString().trim();
                         String getTimeDepart = etTimeDepart.getText().toString().trim();
                         String getTimeArrival = etTimeArrive.getText().toString().trim();
+                        String getDayofArrival = etdayOfArrival.getText().toString().trim();
 
                         if (TextUtils.isEmpty(getday) ||
                                 TextUtils.isEmpty(getOrigin) ||
@@ -577,45 +610,59 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                         }else {
 
                             String originStation = null;
-                            if (getOrigin.equals("Cawit") || getOrigin.equals("Sangali")){
-                                originStation = "CGS ZAMBOANGA";
-                            }else if (getOrigin.equals("Isabela") || getOrigin.equals("Lamitan")){
-                                originStation = "CGS BASILAN";
-                            }else if (getOrigin.equals("Siasi") || getOrigin.equals("Pangutaran")){
-                                originStation = "CGS SULU(JOLO";
-                            }else if (getOrigin.equals("Sitangkai") || getOrigin.equals("Sibutu")){
-                                originStation = "CGS CENTRAL TAWI TAWI (BONGAO)";
-                            }else if (getOrigin.equals("Mapun")){
-                                originStation = "CGS NORTHERN TAWI TAWI (MAPUN)";
-                            }else if (getOrigin.equals("Taganak") || getOrigin.equals("Bakkungan")){
-                                originStation = "CGS WESTERN TAWI TAWI (TAGANAK)";
-                            }else if (getOrigin.equals("Polloc") || getOrigin.equals("Kalamansig")){
-                                originStation = "CGS COTABATO";
-                            }else if (getOrigin.equals("Margosatubig") || getOrigin.equals("Tukuran")){
-                                originStation = "CGS ZAMBOANGA DEL SUR (PAGADIAN)";
-                            }else if (getOrigin.equals("Malangas") || getOrigin.equals("Naga")){
-                                originStation = "CGS SIBUGAY";
+                            if (getOrigin.equals("MANDAUE")
+                                    || getOrigin.equals("HAGNAYA")
+                                    || getOrigin.equals("NAGA")
+                                    || getOrigin.equals("TOLEDO")
+                                    || getOrigin.equals("CAMOTES")
+                                    || getOrigin.equals("DANAO")
+                                    || getOrigin.equals("BANTAYAN")
+                                    || getOrigin.equals("ADUANA")
+                                    || getOrigin.equals("TABUELAN")
+                                    || getOrigin.equals("TINAGO")
+                                    || getOrigin.equals("BATO")
+                                    || getOrigin.equals("ARGAO")
+                                    || getOrigin.equals("TANGIL")){
+
+                                originStation = "CGS CEBU";
+                            }else if ((getOrigin.equals("JAGNA")
+                                    || getOrigin.equals("UBAY")
+                                    || getOrigin.equals("TALIBON")
+                                    || getOrigin.equals("TUBIGON")
+                                    || getOrigin.equals("PANGLAO")
+                                    || getOrigin.equals("LOAY")
+                                    || getOrigin.equals("GETAFE")
+                                    || getOrigin.equals("PRESIDENT CARLOS P GARCIA"))){
+
+                                originStation = "CGS BOHOL";
                             }
 
                             String destinationStation = null;
-                            if (getDestination.equals("Cawit") || getDestination.equals("Sangali")){
-                                destinationStation = "CGS ZAMBOANGA";
-                            }else if (getDestination.equals("Isabela") || getDestination.equals("Lamitan")){
-                                destinationStation = "CGS BASILAN";
-                            }else if (getDestination.equals("Siasi") || getDestination.equals("Pangutaran")){
-                                destinationStation = "CGS SULU(JOLO";
-                            }else if (getDestination.equals("Sitangkai") || getDestination.equals("Sibutu")){
-                                destinationStation = "CGS CENTRAL TAWI TAWI (BONGAO)";
-                            }else if (getDestination.equals("Mapun")){
-                                destinationStation = "CGS NORTHERN TAWI TAWI (MAPUN)";
-                            }else if (getDestination.equals("Taganak") || getDestination.equals("Bakkungan")){
-                                destinationStation = "CGS WESTERN TAWI TAWI (TAGANAK)";
-                            }else if (getDestination.equals("Polloc") || getDestination.equals("Kalamansig")){
-                                destinationStation = "CGS COTABATO";
-                            }else if (getDestination.equals("Margosatubig") || getDestination.equals("Tukuran")){
-                                destinationStation = "CGS ZAMBOANGA DEL SUR (PAGADIAN)";
-                            }else if (getDestination.equals("Malangas") || getDestination.equals("Naga")){
-                                destinationStation = "CGS SIBUGAY";
+                            if (getOrigin.equals("MANDAUE")
+                                    || getOrigin.equals("HAGNAYA")
+                                    || getOrigin.equals("NAGA")
+                                    || getOrigin.equals("TOLEDO")
+                                    || getOrigin.equals("CAMOTES")
+                                    || getOrigin.equals("DANAO")
+                                    || getOrigin.equals("BANTAYAN")
+                                    || getOrigin.equals("ADUANA")
+                                    || getOrigin.equals("TABUELAN")
+                                    || getOrigin.equals("TINAGO")
+                                    || getOrigin.equals("BATO")
+                                    || getOrigin.equals("ARGAO")
+                                    || getOrigin.equals("TANGIL")){
+
+                                destinationStation = "CGS CEBU";
+                            }else if (getOrigin.equals("JAGNA")
+                                    || getOrigin.equals("UBAY")
+                                    || getOrigin.equals("TALIBON")
+                                    || getOrigin.equals("TUBIGON")
+                                    || getOrigin.equals("PANGLAO")
+                                    || getOrigin.equals("LOAY")
+                                    || getOrigin.equals("GETAFE")
+                                    || getOrigin.equals("PRESIDENT CARLOS P GARCIA")) {
+
+                                destinationStation = "CGS BOHOL";
                             }
 
                             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -626,13 +673,15 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                             HashString.put("times", "ETD : " +getTimeDepart+ " ETA : "+getTimeArrival);
                             HashString.put("decision", "on-going");
 
-
-                            databaseReference = firebaseDatabase.getReference(VesselName+"DaysSched").child(getday);
-                            databaseReference.setValue(HashString);
-
                             FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
                             DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference(("VesselSchedule"));
-                            String key = databaseReference2.child(getday).child("Pendig").push().getKey();
+                            String key = databaseReference2.child(getday).child("Pending").push().getKey();
+
+
+                            databaseReference = firebaseDatabase.getReference(VesselName+"DaysSched");
+                            databaseReference.child(key).setValue(HashString);
+
+
 
                             HashMap<String, String> HashString1 = new HashMap<String, String>();
                             HashString1.put("VesselName", VesselName);
@@ -647,6 +696,9 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                             HashString1.put("Key", key);
                             HashString1.put("OriginStation", originStation);
                             HashString1.put("DestinationStation", destinationStation);
+                            HashString1.put("DayOfArrival", getDayofArrival);
+                            HashString1.put("PassengerCapacity", PassengerCapacity);
+                            HashString1.put("NumberOfCrew", NumberOfCrew);
 
                             DatabaseReference databaseReference1 = firebaseDatabase1.getReference("VesselDetails").child(VesselName);
                             databaseReference1.setValue(HashString1);
@@ -656,6 +708,11 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                                     .child(key)
                                     .setValue(HashString1);
 
+                            DatabaseReference databaseReference3 = firebaseDatabase1.getReference("VesselsDashBoardAdmin");
+
+                            databaseReference3.child(getday)
+                                    .child(key)
+                                    .setValue(HashString1);
                         }
                     }
                 });

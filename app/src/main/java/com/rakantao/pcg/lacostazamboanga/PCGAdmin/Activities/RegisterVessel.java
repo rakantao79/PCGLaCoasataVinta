@@ -26,7 +26,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RegisterVessel extends AppCompatActivity {
 
-    EditText VesselName, VesselType, VesselDesc;
+    EditText VesselName, VesselType, VesselDesc, VesselCapacity, VesselCrew;
     Button btnNext, btnBackRegVessel;
     DatabaseReference databaseReference, getDatabaseReference;
 
@@ -45,6 +45,8 @@ public class RegisterVessel extends AppCompatActivity {
         VesselName = findViewById(R.id.ETVesselName);
         VesselType = findViewById(R.id.ETVesselType);
         VesselDesc = findViewById(R.id.ETVesselDesc);
+        VesselCapacity = findViewById(R.id.ETEstimatedCapaticity);
+        VesselCrew = findViewById(R.id.ETNumOfCrew);
 
         btnNext = findViewById(R.id.btnNext);
         btnBackRegVessel = findViewById(R.id.btnBackRegVessel);
@@ -74,6 +76,8 @@ public class RegisterVessel extends AppCompatActivity {
                 final String getVesselName = VesselName.getText().toString().trim();
                 final String getVesselType = VesselType.getText().toString().trim();
                 final String getVesselDesc = VesselDesc.getText().toString().trim();
+                final String getNumberOfPassenger = VesselCapacity.getText().toString().trim();
+                final String getNumberOfCrew = VesselCrew.getText().toString().trim();
 
 
                 if (TextUtils.isEmpty(getVesselName) ||
@@ -98,10 +102,12 @@ public class RegisterVessel extends AppCompatActivity {
 
                                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-                                    HashMap<String, String> HashString = new HashMap<String, String>();
-                                    HashString.put("Vessel_Name", getVesselName);
-                                    HashString.put("Vessel_Type", getVesselType);
-                                    HashString.put("Vessel_Desc", getVesselDesc);
+                                HashMap<String, String> HashString = new HashMap<String, String>();
+                                HashString.put("Vessel_Name", getVesselName);
+                                HashString.put("Vessel_Type", getVesselType);
+                                HashString.put("Vessel_Desc", getVesselDesc);
+                                HashString.put("VesselPassengerCapacity", getNumberOfPassenger);
+                                HashString.put("VesselNumberOfCrew", getNumberOfCrew);
 
 
                                     databaseReference = firebaseDatabase.getReference("Vessels").child(getVesselName);
@@ -110,6 +116,8 @@ public class RegisterVessel extends AppCompatActivity {
                                 Intent myIntent = new Intent(RegisterVessel.this, SetVesselScheduleActivity.class);
                                 myIntent.putExtra("vesselName", getVesselName);
                                 myIntent.putExtra("vesselType", getVesselType);
+                                myIntent.putExtra("passengerCapacity", getNumberOfPassenger);
+                                myIntent.putExtra("numberOfCrew", getNumberOfCrew);
 
                                     startActivity(myIntent);
 

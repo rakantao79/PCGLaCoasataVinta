@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -30,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.PendingViewholder;
+import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Activities.StationDashBoard;
 import com.rakantao.pcg.lacostazamboanga.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -55,6 +57,7 @@ public class PendingFragment extends Fragment {
     View view;
     String userID;
     public String Origin;
+    Button btnViewDash;
 
     public PendingFragment() {
         // Required empty public constructor
@@ -71,6 +74,14 @@ public class PendingFragment extends Fragment {
 
         linearLayoutManager = new LinearLayoutManager(getContext());
         Recyclerview = view.findViewById(R.id.recyclerPendingStationAdmin);
+        btnViewDash = view.findViewById(R.id.Stationviewdash);
+
+        btnViewDash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), StationDashBoard.class));
+            }
+        });
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);

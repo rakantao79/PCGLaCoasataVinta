@@ -77,7 +77,7 @@ public class ForDepartFragment extends Fragment {
                 break;
             case Calendar.MONDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday")).child("Pending");
+                childRef = mDatabaseRef.child("VesselSchedule").child("Monday").child("Pending");
                 break;
             case Calendar.TUESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
@@ -171,28 +171,7 @@ public class ForDepartFragment extends Fragment {
                                 final long elapsedMinutes = diff / minutesInMilli;
 
                                 viewHolder.runnabletime.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
-                                Log.i("Minutes to Depart", String.valueOf(elapsedMinutes));
 
-
-                                if (elapsedMinutes == 15){
-
-                                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
-
-
-
-                                    mBuilder.setSmallIcon(R.drawable.logo_pcg);
-                                    mBuilder.setContentTitle("You've receive a notification");
-                                    mBuilder.setContentText("The vessel "+ model.getVesselName() +" is leaving in less than 15 min");
-                                    mBuilder.setPriority(Notification.PRIORITY_MAX);
-
-                                    long[] vibrate = {0, 100, 200, 300};
-                                    Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                                    mBuilder.setSound(alarmSound);
-                                    mBuilder.setVibrate(vibrate);
-                                    NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-
-                                    mNotificationManager.notify(001, mBuilder.build());
-                                }
                                 handler.postDelayed(this, delay);
                             }
                         }, delay);

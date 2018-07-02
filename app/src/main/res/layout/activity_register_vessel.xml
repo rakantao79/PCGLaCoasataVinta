@@ -109,6 +109,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Vessel Description"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorYellow" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorWhite">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/ETEstimatedCapaticity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Passenger Capacity"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorYellow" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorWhite">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/ETNumOfCrew"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Number of Crews"
                     android:imeOptions="actionDone"
                     android:maxLines="1"
                     android:singleLine="true"
