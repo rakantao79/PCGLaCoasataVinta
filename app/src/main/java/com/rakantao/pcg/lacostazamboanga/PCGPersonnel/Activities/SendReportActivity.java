@@ -40,6 +40,7 @@ import com.rakantao.pcg.lacostazamboanga.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +66,7 @@ public class SendReportActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase,getPersonnalDatas;
     public String userID;
+    private String dayOfWeek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,33 @@ public class SendReportActivity extends AppCompatActivity {
         mUploadList.setLayoutManager(new LinearLayoutManager(this));
         mUploadList.setHasFixedSize(true);
         mUploadList.setAdapter(uploadListAdapter);
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        switch (day) {
+            case Calendar.SUNDAY:
+                dayOfWeek = "Sunday";
+                break;
+            case Calendar.MONDAY:
+                dayOfWeek = "Monday";
+                break;
+            case Calendar.TUESDAY:
+                dayOfWeek = "Tuesday";
+                break;
+            case Calendar.WEDNESDAY:
+                dayOfWeek = "Wednesday";
+                break;
+            case Calendar.THURSDAY:
+                dayOfWeek = "Thursday";
+                break;
+            case Calendar.FRIDAY:
+                dayOfWeek = "Friday";
+                break;
+            case Calendar.SATURDAY:
+                dayOfWeek = "Saturday";
+                break;
+        }
 
         etSelectVesselName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +203,7 @@ public class SendReportActivity extends AppCompatActivity {
         getData();
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         //get vessel name before uploading the images
@@ -187,7 +216,9 @@ public class SendReportActivity extends AppCompatActivity {
 
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = current_user.getUid();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid).push();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid).child(dayOfWeek).push();
+
+        final DatabaseReference databaseNumberPassenger = FirebaseDatabase.getInstance().getReference().child("ReportAdminPassengerStats").child(dayOfWeek).push();
 
         final String vesselName = etSelectVesselName.getText().toString().trim();
         final String getFullname = fullname.getText().toString().trim();
@@ -252,7 +283,7 @@ public class SendReportActivity extends AppCompatActivity {
 
                                         DatabaseReference AddReport = mDatabase;
 
-                                        HashMap<String, String> HashString = new HashMap<String, String>();
+                                        final HashMap<String, String> HashString = new HashMap<String, String>();
 
                                         HashString.put("timeUploaded", format);
                                         HashString.put("vesselName", vesselName);
@@ -261,16 +292,24 @@ public class SendReportActivity extends AppCompatActivity {
                                         HashString.put("inspectionRemarks", vesselRemarks);
 
 
+
                                         mDatabase.setValue(HashString).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(SendReportActivity.this, "Upload Complete", Toast.LENGTH_SHORT).show();
+
+                                                databaseNumberPassenger.setValue(HashString);
+
                                                 finish();
                                             }
                                         });
 
+
+
                                         DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("ReportAdmin").child(vesselName);
                                         databaseReference2.setValue(HashString);
+
+
 
                                         uploadListAdapter.notifyDataSetChanged();
                                     }

@@ -35,6 +35,8 @@ public class ReportFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
 
+    private String dayOfWeek;
+
     private DatabaseReference mDatabase;
     private LinearLayoutManager linearLayoutManager;
 
@@ -52,10 +54,37 @@ public class ReportFragment extends Fragment {
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
 
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        switch (day) {
+            case Calendar.SUNDAY:
+                dayOfWeek = "Sunday";
+                break;
+            case Calendar.MONDAY:
+                dayOfWeek = "Monday";
+                break;
+            case Calendar.TUESDAY:
+                dayOfWeek = "Tuesday";
+                break;
+            case Calendar.WEDNESDAY:
+                dayOfWeek = "Wednesday";
+                break;
+            case Calendar.THURSDAY:
+                dayOfWeek = "Thursday";
+                break;
+            case Calendar.FRIDAY:
+                dayOfWeek = "Friday";
+                break;
+            case Calendar.SATURDAY:
+                dayOfWeek = "Saturday";
+                break;
+        }
+
         btnreport = view.findViewById(R.id.btnGoSendReport);
         recyclerView = view.findViewById(R.id.recyclerListOfReports);
         linearLayoutManager = new LinearLayoutManager(getContext());
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid).child(dayOfWeek);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         btnreport.setOnClickListener(new View.OnClickListener() {

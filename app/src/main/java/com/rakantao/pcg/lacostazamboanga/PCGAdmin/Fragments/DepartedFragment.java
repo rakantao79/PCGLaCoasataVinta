@@ -166,11 +166,6 @@ public class DepartedFragment extends Fragment {
                             }
                         }, delay);
 
-
-
-
-
-
                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -229,6 +224,15 @@ public class DepartedFragment extends Fragment {
                                         .child(model.getKey())
                                         .child("ActualTimeArrived");
                                 databaseReference5.setValue(date);
+
+                                DatabaseReference databaseReference6 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselsDashBoardAdmin")
+                                        .child(model.getScheduleDay())
+                                        .child(model.getKey())
+                                        .child("VesselStatus");
+                                databaseReference6.setValue("Arrived");
+
+
                                 //Schedule
                                 //Move Query
                                 DatabaseReference From = FirebaseDatabase.getInstance()
