@@ -73,7 +73,8 @@
         <activity android:name=".PCGAdmin.Activities.ProfilesActivity" />
         <activity android:name=".PCGAdmin.Activities.RegisterVessel" />
         <activity android:name=".PCGAdmin.Activities.SetVesselScheduleActivity" />
-        <activity android:name=".PCGPersonnel.Activities.SendReportActivity" />
+        <activity android:name=".PCGPersonnel.Activities.SendReportActivity"
+            android:parentActivityName=".PCGPersonnel.Activities.PCGHomeActivity"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
