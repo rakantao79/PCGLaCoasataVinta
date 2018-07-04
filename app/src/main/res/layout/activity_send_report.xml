@@ -8,13 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".PCGPersonnel.Activities.SendReportActivity">
 
-    <TextView
-        android:padding="10dp"
-        android:textSize="@dimen/_15sdp"
-        android:text="PreDeparture Inspection"
-        android:textAlignment="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/toolbar_layout" android:id="@+id/toolbar_sendReport"/>
 
     <TextView
         android:visibility="gone"

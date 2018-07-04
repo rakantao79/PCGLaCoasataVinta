@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -72,6 +73,14 @@ public class SendReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_report);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_sendReport);
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("Predeparture Inspections");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         mStorage = FirebaseStorage.getInstance().getReference();
 
