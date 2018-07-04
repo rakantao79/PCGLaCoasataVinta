@@ -11,6 +11,7 @@ import com.rakantao.pcg.lacostazamboanga.R;
 public class DepartedViewHolder extends RecyclerView.ViewHolder {
 
     public Button btnarrive;
+    public Button btnDistress;
     public ImageView imagevessel;
     public TextView vesselname,ATD,vesseltype,vesselorigin,vesseldesination,vesseldeparttime,vesselarrivetime,vesselschedday,vesselhourstravelled,timefornotif,minfornotif;
     View view;
@@ -21,6 +22,7 @@ public class DepartedViewHolder extends RecyclerView.ViewHolder {
         view = itemView;
 
         btnarrive = itemView.findViewById(R.id.BTNArrived);
+        btnDistress = itemView.findViewById(R.id.btnDistress);
         imagevessel = itemView.findViewById(R.id.TVDepartedImageVessel);
 
         ATD = itemView.findViewById(R.id.actualtimeDeparted);
