@@ -220,15 +220,6 @@ public class ForDepartFragment extends Fragment {
                                         .child("ActualDepartedTime");
                                 databaseReference3.setValue(date);
 
-                                DatabaseReference databaseReference4 = FirebaseDatabase.getInstance()
-                                        .getReference("VesselsDashBoardAdmin")
-                                        .child(model.getScheduleDay())
-                                        .child(model.getKey())
-                                        .child("VesselStatus");
-                                databaseReference4.setValue("Departed");
-
-
-
                                 DatabaseReference From = FirebaseDatabase.getInstance()
                                         .getReference("VesselSchedule")
                                         .child(model.getScheduleDay())
