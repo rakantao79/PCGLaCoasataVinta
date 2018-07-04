@@ -51,7 +51,28 @@ public class UserSearchScheduleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final CharSequence[] items2 = {
-                        "Zamboanga City", "Isabela City","Lamitan City","Pagadian City","Ipil City","Margossatubig City","Malangas City"
+
+                        "MANDAUE",
+                        "HAGNAYA",
+                        "NAGA",
+                        "TOLEDO",
+                        "CAMOTES",
+                        "DANAO",
+                        "BANTAYAN",
+                        "ADUANA",
+                        "TABUELAN",
+                        "TINAGO",
+                        "BATO",
+                        "ARGAO",
+                        "TANGIL",
+                        "JAGNA",
+                        "UBAY",
+                        "TALIBON",
+                        "TUBIGON",
+                        "PANGLAO",
+                        "LOAY",
+                        "GETAFE",
+                        "PRESIDENT CARLOS P GARCIA"
                 };
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
                 builder2.setTitle("Make your selection");
@@ -70,7 +91,27 @@ public class UserSearchScheduleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 final CharSequence[] items2 = {
-                        "Zamboanga City", "Isabela City","Lamitan City","Pagadian City","Ipil City","Margossatubig City","Malangas City"
+                        "MANDAUE",
+                        "HAGNAYA",
+                        "NAGA",
+                        "TOLEDO",
+                        "CAMOTES",
+                        "DANAO",
+                        "BANTAYAN",
+                        "ADUANA",
+                        "TABUELAN",
+                        "TINAGO",
+                        "BATO",
+                        "ARGAO",
+                        "TANGIL",
+                        "JAGNA",
+                        "UBAY",
+                        "TALIBON",
+                        "TUBIGON",
+                        "PANGLAO",
+                        "LOAY",
+                        "GETAFE",
+                        "PRESIDENT CARLOS P GARCIA"
                 };
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
                 builder2.setTitle("Make your selection");
