@@ -22,7 +22,6 @@ public class PostContentActivity extends AppCompatActivity implements View.OnCli
     ImageView btnBack;
     Button btnChoose;
     ImageButton camImage;
-    Compressor compressor;
 
 
     @Override

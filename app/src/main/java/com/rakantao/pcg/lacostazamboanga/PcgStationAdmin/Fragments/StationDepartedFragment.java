@@ -4,21 +4,29 @@ package com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +47,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class StationDepartedFragment extends Fragment {
@@ -144,7 +153,6 @@ public class StationDepartedFragment extends Fragment {
                                         viewHolder.vesselschedday.setText(model.getScheduleDay());
                                         viewHolder.ATD.setText(model.getActualDepartedTime());
 
-                                        viewHolder.btnarrive.setVisibility(View.GONE);
 
                                         final Handler handler = new Handler();
                                         final int delay = 1000; //milliseconds
@@ -231,6 +239,90 @@ public class StationDepartedFragment extends Fragment {
                                         }, delay);
 
 
+
+                                        viewHolder.btnDistress.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                                LayoutInflater inflater = getActivity().getLayoutInflater();
+                                                final View dialogView = inflater.inflate(R.layout.distress_layout, null);
+                                                dialogBuilder.setView(dialogView);
+
+                                                final EditText etdistresstype = dialogView.findViewById(R.id.ETDistressType);
+                                                final EditText etDestription = dialogView.findViewById(R.id.ETDistressDescription);
+                                                final EditText etRemarks = dialogView.findViewById(R.id.ETDistressRemarks);
+                                                Button btnSendDistress = dialogView.findViewById(R.id.btnDistress);
+
+                                                final AlertDialog dialog = dialogBuilder.create();
+
+                                                etdistresstype.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        final CharSequence[] items2 = {
+                                                                "Men overboard",
+                                                                "Fire at port",
+                                                                "Fire at board",
+                                                                "Derangement",
+                                                                "Steering wheel",
+                                                                "Abandon Ship"
+                                                        };
+                                                        android.app.AlertDialog.Builder builder2 = new android.app.AlertDialog.Builder(getActivity());
+                                                        builder2.setTitle("Make your selection");
+                                                        builder2.setItems(items2, new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int item) {
+                                                                // Do something with the selection
+                                                                etdistresstype.setText(items2[item]);
+
+                                                            }
+                                                        });
+                                                        android.app.AlertDialog alert2 = builder2.create();
+                                                        alert2.show();
+                                                    }
+                                                });
+
+                                                btnSendDistress.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        String getDistressType = etdistresstype.getText().toString();
+                                                        String getDistressDescription = etDestription.getText().toString();
+                                                        String getDistressRemarks = etRemarks.getText().toString();
+
+                                                        if (TextUtils.isEmpty(getDistressDescription) ||
+                                                                TextUtils.isEmpty(getDistressType) ||
+                                                                TextUtils.isEmpty(getDistressRemarks)){
+                                                            Toast.makeText(getContext(), "Please, Don't leave any field blank.", Toast.LENGTH_SHORT).show();
+                                                        }else {
+
+                                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DistressReport");
+
+                                                            String key = databaseReference.push().getKey();
+
+                                                            HashMap<String, String> HashString1 = new HashMap<String, String>();
+                                                            HashString1.put("DistressType", getDistressType);
+                                                            HashString1.put("DistressDescription", getDistressDescription);
+                                                            HashString1.put("Key", key);
+                                                            HashString1.put("OriginStation", model.getOriginStation());
+                                                            HashString1.put("DestinationStation", model.getDestinationStation());
+
+                                                            databaseReference.child(key)
+                                                                    .setValue(HashString1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if(task.isSuccessful()){
+                                                                        Toast.makeText(getActivity(), "Distress Successfully Sent!", Toast.LENGTH_SHORT).show();
+
+                                                                        dialog.dismiss();
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                });
+
+
+                                                dialog.show();
+                                            }
+                                        });
 
 
 

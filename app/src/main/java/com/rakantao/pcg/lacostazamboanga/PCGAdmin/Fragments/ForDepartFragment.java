@@ -142,6 +142,8 @@ public class ForDepartFragment extends Fragment {
                         final Handler handler = new Handler();
                         final int delay = 1000; //milliseconds
 
+                        viewHolder.btnclear.setVisibility(View.GONE);
+
 
                         handler.postDelayed(new Runnable(){
                             public void run(){
@@ -219,6 +221,13 @@ public class ForDepartFragment extends Fragment {
                                         .child(model.getKey())
                                         .child("ActualDepartedTime");
                                 databaseReference3.setValue(date);
+
+                                DatabaseReference databaseReference4 = FirebaseDatabase.getInstance()
+                                        .getReference("VesselsDashBoardAdmin")
+                                        .child(model.getScheduleDay())
+                                        .child(model.getKey())
+                                        .child("VesselStatus");
+                                databaseReference4.setValue("Departed");
 
                                 DatabaseReference From = FirebaseDatabase.getInstance()
                                         .getReference("VesselSchedule")

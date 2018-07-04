@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/colorPrimaryDark"
+    android:layout_gravity="center"
+    android:padding="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <EditText
+        android:focusable="false"
+        android:id="@+id/ETDistressType"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textColorHint="@color/black"
+        android:hint="Distress Type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.rakantao.pcg.lacostazamboanga.PCGAdmin.AutoResizeEditText
+        android:id="@+id/ETDistressDescription"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="Description"
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:isScrollContainer="false"
+        android:maxLength="240"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        android:textSize="@dimen/_30sdp" />
+    <EditText
+        android:focusable="false"
+        android:id="@+id/ETDistressRemarks"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColorHint="@color/black"
+        android:hint="Remarks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/BTNSendDistress"
+        android:background="@drawable/btn_background"
+        android:text="send ditress"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>
