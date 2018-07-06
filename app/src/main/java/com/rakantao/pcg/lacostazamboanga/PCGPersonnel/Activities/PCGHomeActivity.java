@@ -5,17 +5,12 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,16 +21,10 @@ import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 import com.rakantao.pcg.lacostazamboanga.LoginActivity;
-import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.PCGAdminHome;
-import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.TrackActivity;
-import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.ChatAdminFragment;
-import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.NewsFeedAdminFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.NotifAdminFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments.ChatFragment;
-import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments.MoreFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments.NewsFeedFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Fragments.ReportFragment;
-import com.rakantao.pcg.lacostazamboanga.PublicUser.Fragments.FragmentWeather;
 import com.rakantao.pcg.lacostazamboanga.R;
 
 import java.util.ArrayList;
@@ -78,16 +67,14 @@ public class PCGHomeActivity extends AppCompatActivity {
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(R.drawable.newspaper);
-        tabLayout.getTabAt(1).setIcon(R.drawable.clouds);
-        tabLayout.getTabAt(2).setIcon(R.drawable.chat1);
-        tabLayout.getTabAt(3).setIcon(R.drawable.notification);
-        tabLayout.getTabAt(4).setIcon(R.drawable.reports);
+        tabLayout.getTabAt(1).setIcon(R.drawable.chat1);
+        tabLayout.getTabAt(2).setIcon(R.drawable.notification);
+        tabLayout.getTabAt(3).setIcon(R.drawable.reports);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new NewsFeedFragment(), "");
-        adapter.addFragment(new FragmentWeather(), "");
         adapter.addFragment(new ChatFragment(), "");
         adapter.addFragment(new NotifAdminFragment(), "");
         adapter.addFragment(new ReportFragment(), "");

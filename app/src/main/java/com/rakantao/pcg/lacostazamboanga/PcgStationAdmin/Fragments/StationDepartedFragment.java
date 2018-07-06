@@ -171,8 +171,6 @@ public class StationDepartedFragment extends Fragment {
 
 
                                                 try {
-
-
                                                     time1 = format.parse(actualTime);
                                                     time2 = format.parse(date);
                                                     time3 = format.parse(getETA);

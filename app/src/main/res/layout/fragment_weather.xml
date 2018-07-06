@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/sun" />
+            app:srcCompat="@drawable/sun" />
 
         <com.github.pavlospt.CircleView
             android:id="@+id/weather_result"

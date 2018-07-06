@@ -8,7 +8,8 @@
     android:layout_height="match_parent"
     tools:context=".PCGPersonnel.Activities.SendReportActivity">
 
-    <include layout="@layout/toolbar_layout" android:id="@+id/toolbar_sendReport"/>
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar_sendReport"/>
 
     <TextView
         android:visibility="gone"
