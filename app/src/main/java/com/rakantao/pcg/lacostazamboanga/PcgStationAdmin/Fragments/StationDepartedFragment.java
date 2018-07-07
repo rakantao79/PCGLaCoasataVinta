@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
@@ -237,7 +238,6 @@ public class StationDepartedFragment extends Fragment {
                                         }, delay);
 
 
-
                                         viewHolder.btnDistress.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
@@ -249,7 +249,7 @@ public class StationDepartedFragment extends Fragment {
                                                 final EditText etdistresstype = dialogView.findViewById(R.id.ETDistressType);
                                                 final EditText etDestription = dialogView.findViewById(R.id.ETDistressDescription);
                                                 final EditText etRemarks = dialogView.findViewById(R.id.ETDistressRemarks);
-                                                Button btnSendDistress = dialogView.findViewById(R.id.btnDistress);
+                                                Button btnSendDistress = dialogView.findViewById(R.id.BTNSendDistress);
 
                                                 final AlertDialog dialog = dialogBuilder.create();
 
@@ -281,8 +281,8 @@ public class StationDepartedFragment extends Fragment {
                                                 btnSendDistress.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View view) {
-                                                        String getDistressType = etdistresstype.getText().toString();
-                                                        String getDistressDescription = etDestription.getText().toString();
+                                                        final String getDistressType = etdistresstype.getText().toString();
+                                                        final String getDistressDescription = etDestription.getText().toString();
                                                         String getDistressRemarks = etRemarks.getText().toString();
 
                                                         if (TextUtils.isEmpty(getDistressDescription) ||
@@ -291,24 +291,138 @@ public class StationDepartedFragment extends Fragment {
                                                             Toast.makeText(getContext(), "Please, Don't leave any field blank.", Toast.LENGTH_SHORT).show();
                                                         }else {
 
+                                                            DateFormat df = new SimpleDateFormat("yyyy/MM/dd h:mm a");
+                                                            final String date = df.format(Calendar.getInstance().getTime());
                                                             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DistressReport");
 
-                                                            String key = databaseReference.push().getKey();
+                                                            final String key = databaseReference.push().getKey();
 
-                                                            HashMap<String, String> HashString1 = new HashMap<String, String>();
+                                                            final HashMap<String, String> HashString1 = new HashMap<String, String>();
+                                                            HashString1.put("NotificationType", "Distress");
                                                             HashString1.put("DistressType", getDistressType);
                                                             HashString1.put("DistressDescription", getDistressDescription);
+                                                            HashString1.put("DistressRemarks", getDistressRemarks);
                                                             HashString1.put("Key", key);
                                                             HashString1.put("OriginStation", model.getOriginStation());
                                                             HashString1.put("DestinationStation", model.getDestinationStation());
+                                                            HashString1.put("NotifDate",date);
+                                                            HashString1.put("NotifStatus", "unread");
+                                                            HashString1.put("VesselName", model.getVesselName());
 
                                                             databaseReference.child(key)
                                                                     .setValue(HashString1).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if(task.isSuccessful()){
-                                                                        Toast.makeText(getActivity(), "Distress Successfully Sent!", Toast.LENGTH_SHORT).show();
+                                                                        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                                                                        userID =  currentUser.getUid();
 
+                                                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+
+                                                                        databaseReference1.child("Users").child(userID).addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                if (dataSnapshot.exists()){
+                                                                                    Origin = dataSnapshot.child("Station").getValue().toString();
+
+
+                                                                                    if (Origin.equals(model.getDestinationStation()) && Origin.equals(model.getOriginStation())){
+                                                                                                    DatabaseReference datanotifAdmin = FirebaseDatabase.getInstance().getReference("AdminNotifHeader");
+
+                                                                                                    datanotifAdmin.child(key)
+                                                                                                            .setValue(HashString1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                                        @Override
+                                                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                                                            if (task.isSuccessful()){
+                                                                                                                Snackbar snackbar = Snackbar
+                                                                                                                        .make(getActivity().findViewById(R.id.myFrame), "Distress Sent.", Snackbar.LENGTH_LONG)
+                                                                                                                        .setAction("Review", new View.OnClickListener() {
+                                                                                                                            @Override
+                                                                                                                            public void onClick(View view) {
+
+                                                                                                                            }
+                                                                                                                        });
+
+                                                                                                                snackbar.show();
+                                                                                                            }
+                                                                                                        }
+                                                                                                    });
+
+                                                                                    }else if (Origin.equals(model.getDestinationStation())){
+                                                                                        DatabaseReference datanotiforigin = FirebaseDatabase.getInstance().getReference("StationNotifHeader");
+
+                                                                                        datanotiforigin.child(model.getOriginStation())
+                                                                                                .child(key)
+                                                                                                .setValue(HashString1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                            @Override
+                                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                                if (task.isSuccessful()){
+                                                                                                    DatabaseReference datanotifAdmin = FirebaseDatabase.getInstance().getReference("AdminNotifHeader");
+
+                                                                                                    datanotifAdmin.child(key)
+                                                                                                            .setValue(HashString1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                                        @Override
+                                                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                                                            if (task.isSuccessful()){
+                                                                                                                Snackbar snackbar = Snackbar
+                                                                                                                        .make(getActivity().findViewById(R.id.myFrame), "Distress Sent.", Snackbar.LENGTH_LONG)
+                                                                                                                        .setAction("Review", new View.OnClickListener() {
+                                                                                                                            @Override
+                                                                                                                            public void onClick(View view) {
+
+                                                                                                                            }
+                                                                                                                        });
+
+                                                                                                                snackbar.show();
+                                                                                                            }
+                                                                                                        }
+                                                                                                    });
+                                                                                                }
+                                                                                            }
+                                                                                        });
+                                                                                    }else {
+                                                                                        DatabaseReference datanotifdestination = FirebaseDatabase.getInstance().getReference("StationNotifHeader");
+
+                                                                                        datanotifdestination.child(model.getDestinationStation())
+                                                                                                .child(key)
+                                                                                                .setValue(HashString1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                            @Override
+                                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                                if (task.isSuccessful()){
+
+                                                                                                    DatabaseReference datanotifAdmin = FirebaseDatabase.getInstance().getReference("AdminNotifHeader");
+
+                                                                                                    datanotifAdmin.child(key)
+                                                                                                            .setValue(HashString1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                                        @Override
+                                                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                                                            if (task.isSuccessful()){
+                                                                                                                Snackbar snackbar = Snackbar
+                                                                                                                        .make(getActivity().findViewById(R.id.myFrame), "Distress Sent.", Snackbar.LENGTH_LONG)
+                                                                                                                        .setAction("Review", new View.OnClickListener() {
+                                                                                                                            @Override
+                                                                                                                            public void onClick(View view) {
+
+                                                                                                                            }
+                                                                                                                        });
+
+                                                                                                                snackbar.show();
+                                                                                                            }
+                                                                                                        }
+                                                                                                    });
+
+                                                                                                }
+                                                                                            }
+                                                                                        });
+                                                                                    }
+                                                                                }
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onCancelled(DatabaseError databaseError) {
+
+                                                                            }
+                                                                        });
                                                                         dialog.dismiss();
                                                                     }
                                                                 }
@@ -321,6 +435,7 @@ public class StationDepartedFragment extends Fragment {
                                                 dialog.show();
                                             }
                                         });
+
 
 
 

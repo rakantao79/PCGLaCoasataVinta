@@ -638,29 +638,29 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                             }
 
                             String destinationStation = null;
-                            if (getOrigin.equals("MANDAUE")
-                                    || getOrigin.equals("HAGNAYA")
-                                    || getOrigin.equals("NAGA")
-                                    || getOrigin.equals("TOLEDO")
-                                    || getOrigin.equals("CAMOTES")
-                                    || getOrigin.equals("DANAO")
-                                    || getOrigin.equals("BANTAYAN")
-                                    || getOrigin.equals("ADUANA")
-                                    || getOrigin.equals("TABUELAN")
-                                    || getOrigin.equals("TINAGO")
-                                    || getOrigin.equals("BATO")
-                                    || getOrigin.equals("ARGAO")
-                                    || getOrigin.equals("TANGIL")){
+                            if (getDestination.equals("MANDAUE")
+                                    || getDestination.equals("HAGNAYA")
+                                    || getDestination.equals("NAGA")
+                                    || getDestination.equals("TOLEDO")
+                                    || getDestination.equals("CAMOTES")
+                                    || getDestination.equals("DANAO")
+                                    || getDestination.equals("BANTAYAN")
+                                    || getDestination.equals("ADUANA")
+                                    || getDestination.equals("TABUELAN")
+                                    || getDestination.equals("TINAGO")
+                                    || getDestination.equals("BATO")
+                                    || getDestination.equals("ARGAO")
+                                    || getDestination.equals("TANGIL")){
 
                                 destinationStation = "CGS CEBU";
-                            }else if (getOrigin.equals("JAGNA")
-                                    || getOrigin.equals("UBAY")
-                                    || getOrigin.equals("TALIBON")
-                                    || getOrigin.equals("TUBIGON")
-                                    || getOrigin.equals("PANGLAO")
-                                    || getOrigin.equals("LOAY")
-                                    || getOrigin.equals("GETAFE")
-                                    || getOrigin.equals("PRESIDENT CARLOS P GARCIA")) {
+                            }else if (getDestination.equals("JAGNA")
+                                    || getDestination.equals("UBAY")
+                                    || getDestination.equals("TALIBON")
+                                    || getDestination.equals("TUBIGON")
+                                    || getDestination.equals("PANGLAO")
+                                    || getDestination.equals("LOAY")
+                                    || getDestination.equals("GETAFE")
+                                    || getDestination.equals("PRESIDENT CARLOS P GARCIA")) {
 
                                 destinationStation = "CGS BOHOL";
                             }

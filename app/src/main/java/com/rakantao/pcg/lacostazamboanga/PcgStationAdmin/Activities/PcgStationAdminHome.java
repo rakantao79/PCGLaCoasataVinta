@@ -25,6 +25,7 @@ import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.ChatAdminFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.NotifAdminFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.ParentTabTimeMonitorFragment;
 import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments.ScheduleMonitoringFragment;
+import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments.StationAdminNotif;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Fragments.FragmentWeather;
 import com.rakantao.pcg.lacostazamboanga.R;
 
@@ -75,7 +76,7 @@ public class PcgStationAdminHome extends AppCompatActivity {
             ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
             adapter.addFragment(new ScheduleMonitoringFragment(), "");
             adapter.addFragment(new ChatAdminFragment(), "");
-            adapter.addFragment(new NotifAdminFragment(), "");
+            adapter.addFragment(new StationAdminNotif(), "");
             viewPager.setAdapter(adapter);
         }
 
