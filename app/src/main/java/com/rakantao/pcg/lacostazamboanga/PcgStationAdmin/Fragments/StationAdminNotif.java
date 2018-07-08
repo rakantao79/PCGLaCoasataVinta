@@ -2,10 +2,15 @@ package com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +33,14 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import org.joda.time.Interval;
+import org.joda.time.Period;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,12 +107,32 @@ public class StationAdminNotif extends Fragment {
                                     StationNotifViewHolder.class,
                                     childRef
 
-                            ) {
+                            )
+                            {
                                 @Override
                                 protected void populateViewHolder(final StationNotifViewHolder viewHolder, final DataStationAdminNotif model, int position) {
+                                    String boldText = model.getOriginStation();
+                                    SpannableString str = new SpannableString(boldText);
+                                    str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                    viewHolder.stationname.setText(str);
 
-                                    viewHolder.stationname.setText(model.getVesselName());
-                                    viewHolder.notifdesc.setText(model.getDistressDescription());
+
+                                    if (model.getNotificationType().equals("Distress")){
+
+                                        String boldVessel = model.getVesselName();
+                                        SpannableString strz = new SpannableString(boldVessel);
+                                        strz.setSpan(new StyleSpan(Typeface.BOLD), 0, boldVessel.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                                        String boldStatus = "Distress status";
+                                        SpannableString strzq = new SpannableString(boldStatus);
+                                        strzq.setSpan(new StyleSpan(Typeface.BOLD), 0, boldStatus.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+                                        viewHolder.notifdesc.setText("Had reported that " +  strz +" is in "+ strzq);
+
+
+                                    }
+
 
                                     if (!model.getNotifStatus().equals("unread")){
                                         viewHolder.notifLayout.setBackgroundColor(getResources().getColor(R.color.white));
@@ -109,9 +141,52 @@ public class StationAdminNotif extends Fragment {
 
 
 
+                                    final Handler handler = new Handler();
+                                    final int delay = 1000; //milliseconds
+
+                                    handler.postDelayed(new Runnable(){
+                                        public void run(){
+
+                                            SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd h:mm a");
+                                            DateFormat df = new SimpleDateFormat("yyyy/MM/dd h:mm a");
+                                            String date = df.format(Calendar.getInstance().getTime());
+                                            String actualTime = model.getNotifDate().toString();
+                                            Date time1;
+                                            Date time2;
+
+                                    try {
+
+                                        time2 = format.parse(date);
+                                        time1 = format.parse(actualTime);
+
+                                        Interval interval =
+                                                new Interval(time1.getTime(), time2.getTime());
+                                        Period period = interval.toPeriod();
+
+                                        if (period.getMinutes() == 59) {
+                                            viewHolder.notifduration.setText(period.getMinutes()+ " min(s) ago");
+                                        }else if (period.getHours() >= 1) {
+                                            viewHolder.notifduration.setText(period.getHours()+ " hr(s) ago");
+                                        }else if (period.getDays() >= 1){
+                                            viewHolder.notifduration.setText(period.getDays() +" day(s) ago");
+                                        }
+
+
+
+
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    handler.postDelayed(this, delay);
+                                }
+                        }, delay);
+
                                 }
                             };
+
                     Recyclerview.setAdapter(firebaseRecyclerAdapter);
+
                 }
             }
 

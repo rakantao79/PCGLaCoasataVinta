@@ -2,16 +2,16 @@ package com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Datas;
 
 public class DataStationAdminNotif {
 
-    public String DistressType;
-    public String DistressDescription;
-    public String DistressRemarks;
-    public String Key;
-    public String OriginStation;
-    public String DestinationStation;
-    public String NotifDate;
-    public String NotifStatus;
-    public String VesselName;
-    public String NotificationType;
+    private String DistressType;
+    private String DistressDescription;
+    private String DistressRemarks;
+    private String Key;
+    private String OriginStation;
+    private String DestinationStation;
+    private String NotifDate;
+    private String NotifStatus;
+    private String VesselName;
+    private String NotificationType;
 
     public DataStationAdminNotif(){
 

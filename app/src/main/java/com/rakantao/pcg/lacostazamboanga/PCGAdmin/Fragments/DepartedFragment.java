@@ -144,7 +144,6 @@ public class DepartedFragment extends Fragment {
                                 DateFormat df = new SimpleDateFormat("h:mm a");
                                 String date = df.format(Calendar.getInstance().getTime());
                                 String actualTime = viewHolder.ATD.getText().toString();
-                                String arrivaltime = model.getArrivalTime().toString();
                                 Date time1;
                                 Date time2;
 

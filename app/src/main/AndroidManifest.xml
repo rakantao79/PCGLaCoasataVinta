@@ -90,7 +90,8 @@
         <activity
             android:name=".PcgStationAdmin.Activities.StationDashBoard"
             android:screenOrientation="landscape" />
-        <activity android:name=".PcgSubStationAdmin.Activities.SubStationAdminHome"></activity>
+        <activity android:name=".PcgSubStationAdmin.Activities.SubStationAdminHome" />
+        <activity android:name=".PcgStationAdmin.Activities.DetailedReport"></activity>
     </application>
 
 </manifest>
