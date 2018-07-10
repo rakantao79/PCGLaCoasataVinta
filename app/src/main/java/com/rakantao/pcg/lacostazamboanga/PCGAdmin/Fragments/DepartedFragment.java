@@ -162,7 +162,6 @@ public class DepartedFragment extends Fragment {
 
                                     viewHolder.vesselhourstravelled.setText(elapsedHours+ " Hr(s) : "+ elapsedMinutes+" Min(s)");
 
-
                                 } catch (ParseException e) {
                                     e.printStackTrace();
                                 }

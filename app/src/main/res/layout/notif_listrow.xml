@@ -2,7 +2,9 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground">
+
     <LinearLayout
         android:id="@+id/notifLayout"
         android:background="#56cfcfcf"
@@ -10,6 +12,7 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:layout_gravity="center"
             android:src="@drawable/logo_pcg"
@@ -29,6 +32,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/TVNotifMessage"
                 android:textSize="15dp"
@@ -44,7 +48,7 @@
                 android:textSize="14dp"
                 android:textColor="@color/black"
                 android:layout_gravity="end"
-                android:text="1 Hour ago"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

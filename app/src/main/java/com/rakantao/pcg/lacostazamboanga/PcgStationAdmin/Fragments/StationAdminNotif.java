@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ArrivedDetails;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataArrivedInfo;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.ArrivedViewHolder;
+import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Activities.DetailedReport;
 import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Datas.DataStationAdminNotif;
 import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.ViewHolders.StationNotifViewHolder;
 import com.rakantao.pcg.lacostazamboanga.R;
@@ -116,7 +117,6 @@ public class StationAdminNotif extends Fragment {
                                     str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                     viewHolder.stationname.setText(str);
 
-
                                     if (model.getNotificationType().equals("Distress")){
 
                                         String boldVessel = model.getVesselName();
@@ -127,10 +127,7 @@ public class StationAdminNotif extends Fragment {
                                         SpannableString strzq = new SpannableString(boldStatus);
                                         strzq.setSpan(new StyleSpan(Typeface.BOLD), 0, boldStatus.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-
                                         viewHolder.notifdesc.setText("Had reported that " +  strz +" is in "+ strzq);
-
-
                                     }
 
 
@@ -154,34 +151,45 @@ public class StationAdminNotif extends Fragment {
                                             Date time1;
                                             Date time2;
 
-                                    try {
+                                            try {
 
-                                        time2 = format.parse(date);
-                                        time1 = format.parse(actualTime);
+                                                time2 = format.parse(date);
+                                                time1 = format.parse(actualTime);
 
-                                        Interval interval =
-                                                new Interval(time1.getTime(), time2.getTime());
-                                        Period period = interval.toPeriod();
+                                                Interval interval =
+                                                        new Interval(time1.getTime(), time2.getTime());
+                                                Period period = interval.toPeriod();
 
-                                        if (period.getMinutes() == 59) {
-                                            viewHolder.notifduration.setText(period.getMinutes()+ " min(s) ago");
-                                        }else if (period.getHours() >= 1) {
-                                            viewHolder.notifduration.setText(period.getHours()+ " hr(s) ago");
-                                        }else if (period.getDays() >= 1){
-                                            viewHolder.notifduration.setText(period.getDays() +" day(s) ago");
+
+                                                viewHolder.notifduration.setText(period.getMinutes()+ " min(s) ago");
+
+                                                if ( (period.getHours() >= 1)) {
+                                                    if (period.getDays() >= 1){
+                                                        viewHolder.notifduration.setText(period.getDays() +" day(s) ago");
+                                                    }else {
+                                                        viewHolder.notifduration.setText(period.getHours()+ " hr(s) ago");
+                                                    }
+                                                }
+
+
+
+
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            handler.postDelayed(this, delay);
                                         }
+                                    }, delay);
 
 
+                                    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            startActivity(new Intent(getContext(), DetailedReport.class));
 
-
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    handler.postDelayed(this, delay);
-                                }
-                        }, delay);
-
+                                        }
+                                    });
                                 }
                             };
 
