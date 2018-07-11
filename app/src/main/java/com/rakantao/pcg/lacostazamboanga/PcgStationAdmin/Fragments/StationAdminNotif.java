@@ -186,7 +186,10 @@ public class StationAdminNotif extends Fragment {
                                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            startActivity(new Intent(getContext(), DetailedReport.class));
+                                            Intent intent = new Intent(getContext(), DetailedReport.class);
+                                            intent.putExtra("key", model.getKey());
+                                            intent.putExtra("vesselName", model.getVesselName());
+                                            startActivity(intent);
 
                                         }
                                     });

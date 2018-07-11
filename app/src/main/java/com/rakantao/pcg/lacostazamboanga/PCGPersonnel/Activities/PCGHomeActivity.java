@@ -65,6 +65,13 @@ public class PCGHomeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(R.drawable.newspaper);
         tabLayout.getTabAt(1).setIcon(R.drawable.chat1);
