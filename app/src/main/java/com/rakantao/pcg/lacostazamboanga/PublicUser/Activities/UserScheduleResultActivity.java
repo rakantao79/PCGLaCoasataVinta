@@ -39,8 +39,6 @@ public class UserScheduleResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_schedule_result);
 
-
-
         from = getIntent().getStringExtra("from");
         to = getIntent().getStringExtra("to");
         date = getIntent().getStringExtra("date");

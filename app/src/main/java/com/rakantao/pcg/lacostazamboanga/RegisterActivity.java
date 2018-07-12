@@ -47,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String rank = null;
     private String mGender = null;
     private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference2;
     private FirebaseAuth mAuth;
     private ImageButton btnBack;
 
@@ -199,6 +200,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 databaseReference = firebaseDatabase.getReference("Users").child(user_id);
                                 databaseReference.setValue(User);
+
+                                //adding personnel table
+                                databaseReference2 = firebaseDatabase.getReference("Personnel").child(user_id);
+                                databaseReference2.setValue(User);
 
                                 Toast.makeText(RegisterActivity.this, "You've Successfully Registered", Toast.LENGTH_LONG).show();
                                 mProgressBar.setVisibility(View.INVISIBLE);

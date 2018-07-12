@@ -255,7 +255,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }else {
                         Toast.makeText(LoginActivity.this, "Please, check your internet connection", Toast.LENGTH_LONG).show();
                     }
-
                 }
             }
 

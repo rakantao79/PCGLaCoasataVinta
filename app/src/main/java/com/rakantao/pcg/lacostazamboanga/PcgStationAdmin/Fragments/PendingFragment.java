@@ -1,6 +1,5 @@
 package com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments;
 
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -63,7 +62,6 @@ public class PendingFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -118,7 +116,6 @@ public class PendingFragment extends Fragment {
         }
 
         Recyclerview.setLayoutManager(linearLayoutManager);
-
 
         return view;
     }
@@ -362,7 +359,6 @@ public class PendingFragment extends Fragment {
                         }
                     }
                 });
-
             }
 
             @Override
