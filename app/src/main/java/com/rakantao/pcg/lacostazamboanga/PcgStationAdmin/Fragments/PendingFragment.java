@@ -265,6 +265,13 @@ public class PendingFragment extends Fragment {
                                                         .child("ActualDepartedTime");
                                                 databaseReference3.setValue(date);
 
+                                                DatabaseReference databaseReference7 = FirebaseDatabase.getInstance()
+                                                        .getReference("VesselsDashBoardAdmin")
+                                                        .child(model.getScheduleDay())
+                                                        .child(model.getKey())
+                                                        .child("VesselStatus");
+                                                databaseReference7.setValue("Departed");
+
                                                 //Move Queries
 
                                                 DatabaseReference databaseReference6 = FirebaseDatabase.getInstance()

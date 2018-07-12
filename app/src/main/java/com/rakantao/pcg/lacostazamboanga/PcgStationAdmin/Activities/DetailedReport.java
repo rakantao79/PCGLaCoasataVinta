@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,7 +31,7 @@ public class DetailedReport extends AppCompatActivity {
     private DatabaseReference childRef;
     private LinearLayoutManager linearLayoutManager;
     private DatabaseReference mUserDatabase,databaseReferencenew;
-    String getkey,getVesselname;
+    String getkey,getVesselname,getOrigin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,20 @@ public class DetailedReport extends AppCompatActivity {
 
         getkey = getIntent().getStringExtra("key");
         getVesselname = getIntent().getStringExtra("vesselName");
+        getOrigin = getIntent().getStringExtra("Origin");
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference("StationNotifHeader")
+                .child(getOrigin)
+                .child(getkey)
+                .child("NotifStatus");
+        databaseReference.setValue("read");
+
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
+                .getReference("DistressReport")
+                .child(getkey)
+                .child("NotifStatus");
+        databaseReference1.setValue("read");
 
         vImag1e = findViewById(R.id.DetailReportImage);
 

@@ -38,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.DepartedViewHolder;
+import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Activities.DetailedReport;
 import com.rakantao.pcg.lacostazamboanga.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -339,7 +340,11 @@ public class StationDepartedFragment extends Fragment {
                                                                                                                         .setAction("Review", new View.OnClickListener() {
                                                                                                                             @Override
                                                                                                                             public void onClick(View view) {
-
+                                                                                                                                Intent intent = new Intent(getContext(), DetailedReport.class);
+                                                                                                                                intent.putExtra("key", model.getKey());
+                                                                                                                                intent.putExtra("vesselName", model.getVesselName());
+                                                                                                                                intent.putExtra("Origin", Origin);
+                                                                                                                                startActivity(intent);
                                                                                                                             }
                                                                                                                         });
 
@@ -369,7 +374,11 @@ public class StationDepartedFragment extends Fragment {
                                                                                                                         .setAction("Review", new View.OnClickListener() {
                                                                                                                             @Override
                                                                                                                             public void onClick(View view) {
-
+                                                                                                                                Intent intent = new Intent(getContext(), DetailedReport.class);
+                                                                                                                                intent.putExtra("key", model.getKey());
+                                                                                                                                intent.putExtra("vesselName", model.getVesselName());
+                                                                                                                                intent.putExtra("Origin", Origin);
+                                                                                                                                startActivity(intent);
                                                                                                                             }
                                                                                                                         });
 
@@ -402,7 +411,11 @@ public class StationDepartedFragment extends Fragment {
                                                                                                                         .setAction("Review", new View.OnClickListener() {
                                                                                                                             @Override
                                                                                                                             public void onClick(View view) {
-
+                                                                                                                                Intent intent = new Intent(getContext(), DetailedReport.class);
+                                                                                                                                intent.putExtra("key", model.getKey());
+                                                                                                                                intent.putExtra("vesselName", model.getVesselName());
+                                                                                                                                intent.putExtra("Origin", Origin);
+                                                                                                                                startActivity(intent);
                                                                                                                             }
                                                                                                                         });
 

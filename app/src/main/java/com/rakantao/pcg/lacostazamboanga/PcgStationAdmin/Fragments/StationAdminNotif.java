@@ -1,11 +1,18 @@
 package com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -130,6 +137,30 @@ public class StationAdminNotif extends Fragment {
                                         viewHolder.notifdesc.setText("Had reported that " +  strz +" is in "+ strzq);
                                     }
 
+                                    if (model.getNotifStatus().equals("unread")){
+                                        NotificationCompat.Builder mBuilder =
+                                                new NotificationCompat.Builder(getContext());
+                                        Intent intent = new Intent(getContext(), DetailedReport.class);
+                                        intent.putExtra("key", model.getKey());
+                                        intent.putExtra("vesselName", model.getVesselName());
+                                        intent.putExtra("Origin", Origin);
+                                        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
+
+                                        mBuilder.setContentIntent(pendingIntent);
+
+                                        mBuilder.setSmallIcon(R.drawable.logo_pcg);
+                                        mBuilder.setContentTitle("You've receive a notification");
+                                        mBuilder.setContentText("CGS Bohol have reported that MV Katerine is in Distress Status");
+
+                                        long[] vibrate = {0, 100, 200, 300};
+                                        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                                        mBuilder.setSound(alarmSound);
+                                        mBuilder.setVibrate(vibrate);
+                                        NotificationManager mNotificationManager = (NotificationManager)getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                                        mNotificationManager.notify(001, mBuilder.build());
+                                        
+                                    }
 
                                     if (!model.getNotifStatus().equals("unread")){
                                         viewHolder.notifLayout.setBackgroundColor(getResources().getColor(R.color.white));
@@ -171,9 +202,6 @@ public class StationAdminNotif extends Fragment {
                                                     }
                                                 }
 
-
-
-
                                             } catch (ParseException e) {
                                                 e.printStackTrace();
                                             }
@@ -189,6 +217,7 @@ public class StationAdminNotif extends Fragment {
                                             Intent intent = new Intent(getContext(), DetailedReport.class);
                                             intent.putExtra("key", model.getKey());
                                             intent.putExtra("vesselName", model.getVesselName());
+                                            intent.putExtra("Origin", Origin);
                                             startActivity(intent);
 
                                         }
