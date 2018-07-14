@@ -65,6 +65,8 @@ public class StationAdminNotif extends Fragment {
     String userID;
     public String Origin;
 
+
+
     public StationAdminNotif() {
         // Required empty public constructor
     }
@@ -119,6 +121,7 @@ public class StationAdminNotif extends Fragment {
                             {
                                 @Override
                                 protected void populateViewHolder(final StationNotifViewHolder viewHolder, final DataStationAdminNotif model, int position) {
+
                                     String boldText = model.getOriginStation();
                                     SpannableString str = new SpannableString(boldText);
                                     str.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -214,10 +217,17 @@ public class StationAdminNotif extends Fragment {
                                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
+
+                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                                                    .getReference("StationNotifHeader")
+                                                    .child(Origin)
+                                                    .child(model.getKey())
+                                                    .child("NotifStatus");
+                                            databaseReference.setValue("read");
+
                                             Intent intent = new Intent(getContext(), DetailedReport.class);
                                             intent.putExtra("key", model.getKey());
                                             intent.putExtra("vesselName", model.getVesselName());
-                                            intent.putExtra("Origin", Origin);
                                             startActivity(intent);
 
                                         }

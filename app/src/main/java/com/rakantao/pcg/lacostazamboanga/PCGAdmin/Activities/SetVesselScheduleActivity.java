@@ -91,10 +91,10 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
 
-        VesselName = this.getIntent().getStringExtra("vesselName");
-        VesselType = this.getIntent().getStringExtra("vesselType");
-        PassengerCapacity = this.getIntent().getStringExtra("passengerCapacity");
-        NumberOfCrew = this.getIntent().getStringExtra("numberOfCrew");
+        VesselName = getIntent().getStringExtra("vesselName");
+        VesselType = getIntent().getStringExtra("vesselType");
+        PassengerCapacity = getIntent().getStringExtra("passengerCapacity");
+        NumberOfCrew = getIntent().getStringExtra("numberOfCrew");
 
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(VesselName);

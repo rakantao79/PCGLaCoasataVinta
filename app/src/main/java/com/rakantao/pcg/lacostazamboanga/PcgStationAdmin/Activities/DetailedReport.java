@@ -31,7 +31,7 @@ public class DetailedReport extends AppCompatActivity {
     private DatabaseReference childRef;
     private LinearLayoutManager linearLayoutManager;
     private DatabaseReference mUserDatabase,databaseReferencenew;
-    String getkey,getVesselname,getOrigin;
+    String getkey,getVesselname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +40,6 @@ public class DetailedReport extends AppCompatActivity {
 
         getkey = getIntent().getStringExtra("key");
         getVesselname = getIntent().getStringExtra("vesselName");
-        getOrigin = getIntent().getStringExtra("Origin");
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
-                .getReference("StationNotifHeader")
-                .child(getOrigin)
-                .child(getkey)
-                .child("NotifStatus");
-        databaseReference.setValue("read");
-
-        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
-                .getReference("DistressReport")
-                .child(getkey)
-                .child("NotifStatus");
-        databaseReference1.setValue("read");
 
         vImag1e = findViewById(R.id.DetailReportImage);
 
@@ -114,13 +100,13 @@ public class DetailedReport extends AppCompatActivity {
                                     vETA.setText(dataVesselSched.getArrivalTime());
                                     vETD.setText(dataVesselSched.getDepartureTime());
                                     vOrigin.setText(dataVesselSched.getOrigin());
-                                    vPassengerCap.setText(dataSnapshot.child("PassengerCapacity").getValue().toString());
-                                    vNoOfCrew.setText(dataSnapshot.child("NumberOfCrew").getValue().toString());
+                                    vPassengerCap.setText(dataVesselSched.getPassengerCapacity());
+                                    vNoOfCrew.setText(dataVesselSched.getNumberOfCrew());
 
 
                                     databaseReferencenew = FirebaseDatabase.getInstance().getReference();
 
-                                    databaseReferencenew.child("ReportAdmin").child(dataVesselSched.getVesselName()).addValueEventListener(new ValueEventListener() {
+                                    databaseReferencenew.child("ReportAdminPassengerStats").child(dataVesselSched.getVesselName()).addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             if (dataSnapshot.exists()){

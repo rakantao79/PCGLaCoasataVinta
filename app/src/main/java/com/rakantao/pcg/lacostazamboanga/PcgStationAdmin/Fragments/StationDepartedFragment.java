@@ -341,9 +341,8 @@ public class StationDepartedFragment extends Fragment {
                                                                                                                             @Override
                                                                                                                             public void onClick(View view) {
                                                                                                                                 Intent intent = new Intent(getContext(), DetailedReport.class);
-                                                                                                                                intent.putExtra("key", model.getKey());
+                                                                                                                                intent.putExtra("key", key);
                                                                                                                                 intent.putExtra("vesselName", model.getVesselName());
-                                                                                                                                intent.putExtra("Origin", Origin);
                                                                                                                                 startActivity(intent);
                                                                                                                             }
                                                                                                                         });
@@ -375,9 +374,8 @@ public class StationDepartedFragment extends Fragment {
                                                                                                                             @Override
                                                                                                                             public void onClick(View view) {
                                                                                                                                 Intent intent = new Intent(getContext(), DetailedReport.class);
-                                                                                                                                intent.putExtra("key", model.getKey());
+                                                                                                                                intent.putExtra("key", key);
                                                                                                                                 intent.putExtra("vesselName", model.getVesselName());
-                                                                                                                                intent.putExtra("Origin", Origin);
                                                                                                                                 startActivity(intent);
                                                                                                                             }
                                                                                                                         });
@@ -412,9 +410,8 @@ public class StationDepartedFragment extends Fragment {
                                                                                                                             @Override
                                                                                                                             public void onClick(View view) {
                                                                                                                                 Intent intent = new Intent(getContext(), DetailedReport.class);
-                                                                                                                                intent.putExtra("key", model.getKey());
+                                                                                                                                intent.putExtra("key", key);
                                                                                                                                 intent.putExtra("vesselName", model.getVesselName());
-                                                                                                                                intent.putExtra("Origin", Origin);
                                                                                                                                 startActivity(intent);
                                                                                                                             }
                                                                                                                         });
