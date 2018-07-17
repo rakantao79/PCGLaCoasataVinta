@@ -47,7 +47,6 @@ public class ViewDetailedVessels extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_detailed_vessels);
 
-
         vImag1e = findViewById(R.id.TVDetailedvImage);
 
         vName = findViewById(R.id.TVDetailedvName);
@@ -112,7 +111,7 @@ public class ViewDetailedVessels extends AppCompatActivity {
 
 
 
-                                               DatabaseReference mUserDatabase1 = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(dataVesselSched.getVesselName());
+                                                DatabaseReference mUserDatabase1 = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(dataVesselSched.getVesselName());
 
                                                 mUserDatabase1.addValueEventListener(new ValueEventListener() {
                                                     @Override

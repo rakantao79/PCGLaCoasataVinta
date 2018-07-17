@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
@@ -42,6 +43,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rakantao.pcg.lacostazamboanga.DataUser;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.SetVesselScheduleActivity;
+import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Datas.DataHistoryReport;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.UploadListAdapter;
 import com.rakantao.pcg.lacostazamboanga.R;
 
@@ -93,6 +95,7 @@ public class SendReportActivity extends AppCompatActivity {
     private String dayOfWeek;
 
     private String mRemarks;
+    private String pushKey;
 
 
 
@@ -377,8 +380,9 @@ public class SendReportActivity extends AppCompatActivity {
 
                             for (DataSnapshot personSnap: dataSnapshot.getChildren()) {
                                 String personas = personSnap.child("LastName").getValue(String.class);
+                                String fname = personSnap.child("FirstName").getValue(String.class);
                                 Log.d("personas", personas);
-                                persons.add(personas);
+                                persons.add(personas + ", " + fname);
                             }
                             final CharSequence[] boardingB = persons.toArray(new CharSequence[persons.size()]);
                             AlertDialog.Builder builderz = new AlertDialog.Builder(SendReportActivity.this);
@@ -418,8 +422,9 @@ public class SendReportActivity extends AppCompatActivity {
 
                             for (DataSnapshot personSnap: dataSnapshot.getChildren()) {
                                 String personas = personSnap.child("LastName").getValue(String.class);
+                                String fname = personSnap.child("FirstName").getValue(String.class);
                                 Log.d("personas", personas);
-                                persons.add(personas);
+                                persons.add(personas + ", " + fname);
                             }
                             final CharSequence[] boardingC = persons.toArray(new CharSequence[persons.size()]);
                             AlertDialog.Builder builderz = new AlertDialog.Builder(SendReportActivity.this);
@@ -459,8 +464,9 @@ public class SendReportActivity extends AppCompatActivity {
 
                             for (DataSnapshot personSnap: dataSnapshot.getChildren()) {
                                 String personas = personSnap.child("LastName").getValue(String.class);
+                                String fname = personSnap.child("FirstName").getValue(String.class);
                                 Log.d("personas", personas);
-                                persons.add(personas);
+                                persons.add(personas + ", " + fname);
                             }
                             final CharSequence[] boardingD = persons.toArray(new CharSequence[persons.size()]);
                             AlertDialog.Builder builderz = new AlertDialog.Builder(SendReportActivity.this);
@@ -521,8 +527,10 @@ public class SendReportActivity extends AppCompatActivity {
         final String uid = current_user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid).child(dayOfWeek).push();
 
-        final DatabaseReference databaseNumberPassenger = FirebaseDatabase.getInstance().getReference().child("ReportAdminPassengerStats").child(dayOfWeek).push();
+        //final DatabaseReference databaseNumberPassenger = FirebaseDatabase.getInstance().getReference().child("ReportAdminPassengerStats").child(dayOfWeek).push();
+        final DatabaseReference databaseNumberPassenger = FirebaseDatabase.getInstance().getReference().child("ReportAdminPassengerStats");
         final DatabaseReference databaseReport = FirebaseDatabase.getInstance().getReference().child("HistoryReportRecords").push();
+        final DatabaseReference databaseReportImages = FirebaseDatabase.getInstance().getReference().child("HistoryReportImages");
 
         final String vesselName = etSelectVesselName.getText().toString().trim();
         final String getFullname = fullname.getText().toString().trim();
@@ -586,7 +594,6 @@ public class SendReportActivity extends AppCompatActivity {
                             fileDoneList.add("Uploading");
                             uploadListAdapter.notifyDataSetChanged();
 
-
                             //StorageReference fileToUpload = mStorage.child(uid).child(vesselName).child(format).child("Images").child(filename);
 
                             StorageReference fileToUpload = mStorage.child("report_images").child(format).child(uid).child(vesselName).child(filename);
@@ -603,16 +610,18 @@ public class SendReportActivity extends AppCompatActivity {
                                     if (task.isSuccessful()){
 
                                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        final DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
                                         DatabaseReference databaseReference3 = FirebaseDatabase.getInstance().getReference();
 
                                         final HashMap<String, String> HashString1 = new HashMap<String, String>();
 
                                         if (finalI == counter){
+                                            String imageKey = databaseReference1.child("AdminImagesReport").child(vesselName).push().getKey();
                                             HashString1.put("imageUrl" ,thumb_downloadUrl);
+                                            //HashString1.put("imageKey",imageKey);
                                             //HashString1.put("vesselName", vesselName);
                                             databaseReference.child("PersonnelReport").child(uid).child(vesselName).push().setValue(HashString1);
-                                            //databaseReference1.child("AdminImagesReport").child(vesselName).push().setValue(HashString1);
+                                            databaseReference1.child("AdminImagesReport").child(vesselName).push().setValue(HashString1);
                                             //databaseReference3.child("ReportAdminPassengerStats").child(dayOfWeek).child("imageUrl").push().setValue(HashString1);
                                         }
 
@@ -627,6 +636,9 @@ public class SendReportActivity extends AppCompatActivity {
                                         //total number of passengers
                                         int totalNumberPassenger = Integer.parseInt(numberInfant) + Integer.parseInt(numberChildren) + Integer.parseInt(numberAdult) + Integer.parseInt(numberCrew);
 
+                                        pushKey = databaseReport.getKey();
+
+                                        HashString.put("pushKey", pushKey);
                                         HashString.put("timeUploaded", date);
                                         HashString.put("vesselName", vesselName);
                                         HashString.put("inspector", getFullname);
@@ -645,32 +657,53 @@ public class SendReportActivity extends AppCompatActivity {
                                         //HashString.put("actualNumberPassenger", actualNumberOfPassenger);
                                         //HashString.put("inspectionRemarks", vesselRemarks);
 
-
                                         databaseReport.setValue(HashString).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                databaseNumberPassenger.setValue(HashString);
+
+                                                databaseNumberPassenger.child(vesselName).setValue(HashString);
+                                                //databaseReportImages.child(pushKey)
+
                                                 Toast.makeText(SendReportActivity.this, "Successfuly Submitted", Toast.LENGTH_SHORT).show();
+                                                databaseReference1.child("AdminImagesReport").child(vesselName).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        databaseReportImages.child(pushKey).setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
+                                                            @Override
+                                                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+
+                                                                if (databaseError != null){
+                                                                    Toast.makeText(SendReportActivity.this, "Copy Failed", Toast.LENGTH_SHORT).show();
+                                                                } else {
+                                                                    Toast.makeText(SendReportActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                                                    finish();
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+                                                        Toast.makeText(SendReportActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                        mDatabase.setValue(HashString).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(SendReportActivity.this, "Upload Complete", Toast.LENGTH_SHORT).show();
+
+                                                databaseNumberPassenger.setValue(HashString);
+                                                mDatabase.setValue(HashString);
+
                                                 finish();
                                             }
                                         });
 
-//                                        mDatabase.setValue(HashString).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void aVoid) {
-//                                                Toast.makeText(SendReportActivity.this, "Upload Complete", Toast.LENGTH_SHORT).show();
-//
-//                                                databaseNumberPassenger.setValue(HashString);
-//                                                mDatabase.setValue(HashString);
-//
-//
-//
-//                                                finish();
-//                                            }
-//                                        });
-
-//                                        DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("ReportAdmin").child(vesselName);
-//                                        databaseReference2.setValue(HashString);
+                                        DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("ReportAdmin").child(vesselName);
+                                        databaseReference2.setValue(HashString);
                                         uploadListAdapter.notifyDataSetChanged();
                                     }
                                 }

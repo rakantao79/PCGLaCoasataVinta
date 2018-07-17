@@ -18,7 +18,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
+import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.DetailViewHistoryReportsActivity;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.SendReportActivity;
+import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Datas.DataHistoryReport;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Datas.DataSendReport;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.ViewHolders.ReportsViewHiolder;
 import com.rakantao.pcg.lacostazamboanga.R;
@@ -38,6 +40,7 @@ public class ReportFragment extends Fragment {
     private String dayOfWeek;
 
     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabaseHistory;
     private LinearLayoutManager linearLayoutManager;
 
     public ReportFragment() {
@@ -84,7 +87,9 @@ public class ReportFragment extends Fragment {
         btnreport = view.findViewById(R.id.btnGoSendReport);
         recyclerView = view.findViewById(R.id.recyclerListOfReports);
         linearLayoutManager = new LinearLayoutManager(getContext());
+
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid).child(dayOfWeek);
+        mDatabaseHistory = FirebaseDatabase.getInstance().getReference("HistoryReportRecords");
         recyclerView.setLayoutManager(linearLayoutManager);
 
         btnreport.setOnClickListener(new View.OnClickListener() {
@@ -101,31 +106,36 @@ public class ReportFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter <DataSendReport, ReportsViewHiolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<DataSendReport, ReportsViewHiolder>(
+        FirebaseRecyclerAdapter<DataHistoryReport, ReportsViewHiolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<DataHistoryReport, ReportsViewHiolder>(
 
-                DataSendReport.class,
+                DataHistoryReport.class,
                 R.layout.list_report,
                 ReportsViewHiolder.class,
-                mDatabase
+                mDatabaseHistory
 
         ) {
             @Override
-            protected void populateViewHolder(ReportsViewHiolder viewHolder, final DataSendReport model, int position) {
+            protected void populateViewHolder(ReportsViewHiolder viewHolder, DataHistoryReport model, int position) {
+
+                final String valueKey = model.getPushKey();
+                final String vesselName = model.getVesselName();
 
                 viewHolder.tvVesselName.setText("Vessel Name : " + model.getVesselName());
                 viewHolder.tvInspector.setText("Inspected by : " + model.getInspector());
                 viewHolder.tvTimeUploaded.setText("Date/Time Inspected : " + model.getTimeUploaded());
-                viewHolder.tvActualNumOfPassengers.setText("Actual No. Passengers : " + model.actualNumberPassenger);
+                viewHolder.tvActualNumOfPassengers.setText("Actual Number Of Passengers/Crews : " + model.getNumberTotalPassenger());
 
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), ViewDetailedVessels.class);
-                        intent.putExtra("vesselName", model.getVesselName());
-                        startActivity(intent);
+                    public void onClick(View v) {
+
+                    Intent intent = new Intent(getContext(), DetailViewHistoryReportsActivity.class);
+                    intent.putExtra("valueKey", valueKey);
+                    intent.putExtra("vesselName", vesselName);
+                    startActivity(intent);
+
                     }
                 });
-
             }
         };
         recyclerView.setAdapter(firebaseRecyclerAdapter);

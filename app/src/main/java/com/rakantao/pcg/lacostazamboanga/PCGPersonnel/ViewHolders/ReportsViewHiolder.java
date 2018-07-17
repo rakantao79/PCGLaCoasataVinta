@@ -14,9 +14,12 @@ public class ReportsViewHiolder extends RecyclerView.ViewHolder {
     public TextView tvInspector;
     public ImageView tvImageVessel;
     public TextView tvActualNumOfPassengers;
+    View view;
 
     public ReportsViewHiolder(View itemView) {
         super(itemView);
+
+        view = itemView;
 
         tvVesselName = itemView.findViewById(R.id.reportVesselName);
         tvTimeUploaded = itemView.findViewById(R.id.reportDate);
