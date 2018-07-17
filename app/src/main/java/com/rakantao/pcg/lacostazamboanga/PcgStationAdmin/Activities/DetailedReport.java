@@ -1,5 +1,6 @@
 package com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class DetailedReport extends AppCompatActivity {
 
     ImageView vImag1e;
@@ -32,6 +35,11 @@ public class DetailedReport extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private DatabaseReference mUserDatabase,databaseReferencenew;
     String getkey,getVesselname;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +89,7 @@ public class DetailedReport extends AppCompatActivity {
                         R.layout.detailedvessel_listrow,
                         DetailedVesselViewHolder.class,
                         childRef.child(getVesselname)
+
                 ) {
                     @Override
                     protected void populateViewHolder(final DetailedVesselViewHolder viewHolder, final DataImageReport model, int position) {
@@ -100,16 +109,32 @@ public class DetailedReport extends AppCompatActivity {
                                     vETA.setText(dataVesselSched.getArrivalTime());
                                     vETD.setText(dataVesselSched.getDepartureTime());
                                     vOrigin.setText(dataVesselSched.getOrigin());
-                                    vPassengerCap.setText(dataVesselSched.getPassengerCapacity());
-                                    vNoOfCrew.setText(dataVesselSched.getNumberOfCrew());
 
 
-                                    databaseReferencenew = FirebaseDatabase.getInstance().getReference();
+                                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-                                    databaseReferencenew.child("ReportAdminPassengerStats").child(dataVesselSched.getVesselName()).addValueEventListener(new ValueEventListener() {
+                                    databaseReference.child("Vessels").child(dataVesselSched.getVesselName()).addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             if (dataSnapshot.exists()){
+                                                vPassengerCap.setText(dataSnapshot.child("VesselPassengerCapacity").getValue().toString());
+                                                vNoOfCrew.setText(dataSnapshot.child("VesselNumberOfCrew").getValue().toString());
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+                                    databaseReferencenew = FirebaseDatabase.getInstance().getReference();
+
+                                    databaseReferencenew.child("ReportAdmin").child(dataVesselSched.getVesselName()).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()){
+
 
                                                 vInvestigator.setText(dataSnapshot.child("inspector").getValue().toString());
                                                 vTimeStamp.setText(dataSnapshot.child("timeUploaded").getValue().toString());

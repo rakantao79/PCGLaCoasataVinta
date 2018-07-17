@@ -1,18 +1,11 @@
 package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments;
 
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -23,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Activities.DetailedReport;
@@ -43,7 +35,7 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NotifAdminFragment extends Fragment {
+public class DistressReports extends Fragment {
 
 
     View view;
@@ -52,26 +44,28 @@ public class NotifAdminFragment extends Fragment {
     private DatabaseReference childRef;
     private LinearLayoutManager linearLayoutManager;
 
-    public NotifAdminFragment() {
+    public DistressReports() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_notif_admin, container, false);
+        view = inflater.inflate(R.layout.fragment_distress_reports, container, false);
 
         linearLayoutManager = new LinearLayoutManager(getContext());
-        Recyclerview = view.findViewById(R.id.recyclerNotificationAdmin);
+        Recyclerview = view.findViewById(R.id.recyclerDistressList);
         Recyclerview.setLayoutManager(linearLayoutManager);
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
         childRef = mDatabaseRef.child("AdminNotifHeader");
 
+
         return view;
     }
+
 
     @Override
     public void onStart() {
@@ -165,7 +159,7 @@ public class NotifAdminFragment extends Fragment {
                                         .getReference("AdminNotifHeader")
                                         .child(model.getKey())
                                         .child("NotifStatus");
-                            databaseReference.setValue("read");
+                                databaseReference.setValue("read");
 
                                 Intent intent = new Intent(getContext(), DetailedReport.class);
                                 intent.putExtra("key", model.getKey());
@@ -180,4 +174,4 @@ public class NotifAdminFragment extends Fragment {
         Recyclerview.setAdapter(firebaseRecyclerAdapter);
 
     }
-    }
+}

@@ -18,6 +18,8 @@
             android:src="@drawable/zz" />
 
         <TextView
+            fontPath="fonts/RobotoCondensed-Regular.ttf"
+            tools:ignore="MissingPrefix"
             android:id="@+id/TVDetailReportVesselName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +27,8 @@
             android:text="MV Mary Joy"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+             />
 
         <TextView
             android:id="@+id/TVDetailReportVesselType"
@@ -169,6 +172,8 @@
             android:layout_height="wrap_content">
 
             <TextView
+                fontPath="fonts/RobotoCondensed-Regular.ttf"
+                tools:ignore="MissingPrefix"
                 android:layout_margin="15dp"
                 android:textStyle="bold"
                 android:textSize="20dp"
@@ -272,6 +277,8 @@
             android:layout_height="wrap_content">
 
             <TextView
+                fontPath="fonts/RobotoCondensed-Regular.ttf"
+                tools:ignore="MissingPrefix"
                 android:layout_margin="15dp"
                 android:textStyle="bold"
                 android:textSize="20dp"
@@ -287,11 +294,12 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:text="Distress description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:textSize="16dp"
                     android:id="@+id/TVDetailReportDistressDescription"
                     android:textColor="@color/black"
                     android:layout_gravity="center_horizontal"
@@ -312,11 +320,12 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:textSize="16dp"
+                            android:textSize="18dp"
                             android:text="Distress Type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
+                            android:textSize="16dp"
                             android:id="@+id/TVDetailReportDistressType"
                             android:textColor="@color/black"
                             android:text="Men over Board"
@@ -333,11 +342,12 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:textSize="16dp"
+                            android:textSize="18dp"
                             android:text="Remarks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
+                            android:textSize="16dp"
                             android:id="@+id/TVDetailReportDistressRemarks"
                             android:textColor="@color/black"
                             android:text="On-going Investigation"

@@ -23,6 +23,7 @@ import com.nightonke.boommenu.ButtonEnum;
 import com.nightonke.boommenu.Piece.PiecePlaceEnum;
 import com.rakantao.pcg.lacostazamboanga.LoginActivity;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.ChatAdminFragment;
+import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.DistressReports;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.NewsFeedAdminFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.NotifAdminFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.ParentTabTimeMonitorFragment;
@@ -80,14 +81,16 @@ public class PCGAdminHome extends AppCompatActivity {
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(R.drawable.newspaper);
         tabLayout.getTabAt(1).setIcon(R.drawable.timleft);
-        tabLayout.getTabAt(2).setIcon(R.drawable.chat1);
-        tabLayout.getTabAt(3).setIcon(R.drawable.notification);
+        tabLayout.getTabAt(2).setIcon(R.drawable.alarm);
+        tabLayout.getTabAt(3).setIcon(R.drawable.chat1);
+        tabLayout.getTabAt(4).setIcon(R.drawable.notification);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new NewsFeedAdminFragment(), "");
         adapter.addFragment(new ParentTabTimeMonitorFragment(), "");
+        adapter.addFragment(new DistressReports(), "");
         adapter.addFragment(new ChatAdminFragment(), "");
         adapter.addFragment(new NotifAdminFragment(), "");
         viewPager.setAdapter(adapter);

@@ -26,6 +26,7 @@ import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.NotifAdminFragment;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments.ParentTabTimeMonitorFragment;
 import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments.ScheduleMonitoringFragment;
 import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments.StationAdminNotif;
+import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments.StationDistressList;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Fragments.FragmentWeather;
 import com.rakantao.pcg.lacostazamboanga.R;
 
@@ -68,13 +69,16 @@ public class PcgStationAdminHome extends AppCompatActivity {
 
         private void setupTabIcons() {
             tabLayout.getTabAt(0).setIcon(R.drawable.timleft);
-            tabLayout.getTabAt(1).setIcon(R.drawable.chat1);
-            tabLayout.getTabAt(2).setIcon(R.drawable.notification);
+            tabLayout.getTabAt(1).setIcon(R.drawable.alarm);
+            tabLayout.getTabAt(2).setIcon(R.drawable.chat1);
+            tabLayout.getTabAt(3).setIcon(R.drawable.notification);
+
         }
 
         private void setupViewPager(ViewPager viewPager) {
             ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
             adapter.addFragment(new ScheduleMonitoringFragment(), "");
+            adapter.addFragment(new StationDistressList(), "");
             adapter.addFragment(new ChatAdminFragment(), "");
             adapter.addFragment(new StationAdminNotif(), "");
             viewPager.setAdapter(adapter);
