@@ -695,7 +695,7 @@ public class SendReportActivity extends AppCompatActivity {
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(SendReportActivity.this, "Upload Complete", Toast.LENGTH_SHORT).show();
 
-                                                databaseNumberPassenger.child(dayOfWeek).child(vesselName).setValue(HashString);
+                                                databaseNumberPassenger.child(dayOfWeek).push().setValue(HashString);
                                                 mDatabase.setValue(HashString);
 
                                                 finish();
