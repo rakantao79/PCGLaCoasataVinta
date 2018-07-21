@@ -661,7 +661,7 @@ public class SendReportActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
 
-                                                databaseNumberPassenger.child(vesselName).setValue(HashString);
+                                                //databaseNumberPassenger.child(vesselName).setValue(HashString);
                                                 //databaseReportImages.child(pushKey)
 
                                                 Toast.makeText(SendReportActivity.this, "Successfuly Submitted", Toast.LENGTH_SHORT).show();
@@ -695,7 +695,7 @@ public class SendReportActivity extends AppCompatActivity {
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(SendReportActivity.this, "Upload Complete", Toast.LENGTH_SHORT).show();
 
-                                                databaseNumberPassenger.setValue(HashString);
+                                                databaseNumberPassenger.child(dayOfWeek).child(vesselName).setValue(HashString);
                                                 mDatabase.setValue(HashString);
 
                                                 finish();
