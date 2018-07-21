@@ -527,8 +527,8 @@ public class SendReportActivity extends AppCompatActivity {
         final String uid = current_user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid).child(dayOfWeek).push();
 
-        //final DatabaseReference databaseNumberPassenger = FirebaseDatabase.getInstance().getReference().child("ReportAdminPassengerStats").child(dayOfWeek).push();
-        final DatabaseReference databaseNumberPassenger = FirebaseDatabase.getInstance().getReference().child("ReportAdminPassengerStats");
+        final DatabaseReference databaseNumberPassenger = FirebaseDatabase.getInstance().getReference().child("ReportAdminPassengerStats").child(dayOfWeek).push();
+        //final DatabaseReference databaseNumberPassenger = FirebaseDatabase.getInstance().getReference().child("ReportAdminPassengerStats");
         final DatabaseReference databaseReport = FirebaseDatabase.getInstance().getReference().child("HistoryReportRecords").push();
         final DatabaseReference databaseReportImages = FirebaseDatabase.getInstance().getReference().child("HistoryReportImages");
 
@@ -576,7 +576,7 @@ public class SendReportActivity extends AppCompatActivity {
                         Toast.makeText(SendReportActivity.this, "Select Bording Member D", Toast.LENGTH_SHORT).show();
                     } else if (mRemarks.equals("OnHold")){
                         Toast.makeText(SendReportActivity.this, "Still on Process", Toast.LENGTH_SHORT).show();
-                    } else if (mRemarks.equals(null)){
+                    } else if (TextUtils.isEmpty(mRemarks)){
                         Toast.makeText(SendReportActivity.this, "Please Select Remarks", Toast.LENGTH_SHORT).show();
                     } else if (bordA.equals(bordB) || bordA.equals(bordC) || bordA.equals(bordD) ) {
                         Toast.makeText(SendReportActivity.this, "Please Select Other Team Members", Toast.LENGTH_SHORT).show();
@@ -663,6 +663,8 @@ public class SendReportActivity extends AppCompatActivity {
 
                                                 //databaseNumberPassenger.child(vesselName).setValue(HashString);
                                                 //databaseReportImages.child(pushKey)
+                                                //databaseNumberPassenger.child(dayOfWeek).push().setValue(HashString);
+                                                databaseNumberPassenger.setValue(HashString);
 
                                                 Toast.makeText(SendReportActivity.this, "Successfuly Submitted", Toast.LENGTH_SHORT).show();
                                                 databaseReference1.child("AdminImagesReport").child(vesselName).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -695,8 +697,8 @@ public class SendReportActivity extends AppCompatActivity {
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(SendReportActivity.this, "Upload Complete", Toast.LENGTH_SHORT).show();
 
-                                                databaseNumberPassenger.child(dayOfWeek).push().setValue(HashString);
-                                                mDatabase.setValue(HashString);
+                                                //databaseNumberPassenger.child(dayOfWeek).push().setValue(HashString);
+                                                //mDatabase.setValue(HashString);
 
                                                 finish();
                                             }
@@ -718,7 +720,6 @@ public class SendReportActivity extends AppCompatActivity {
             }
         }
     }
-
 
     public String getFileName(Uri uri) {
         String result = null;

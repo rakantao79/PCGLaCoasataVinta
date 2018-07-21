@@ -121,7 +121,7 @@ public class ReportFragment extends Fragment {
                 final String vesselName = model.getVesselName();
 
                 viewHolder.tvVesselName.setText("Vessel Name : " + model.getVesselName());
-                viewHolder.tvInspector.setText("Inspected by : " + model.getInspector());
+                viewHolder.tvInspector.setText("POIC : " + model.getInspector());
                 viewHolder.tvTimeUploaded.setText("Date/Time Inspected : " + model.getTimeUploaded());
                 viewHolder.tvActualNumOfPassengers.setText("Actual Number Of Passengers/Crews : " + model.getNumberTotalPassenger());
 
