@@ -93,6 +93,9 @@
         <activity android:name=".PcgSubStationAdmin.Activities.SubStationAdminHome" />
         <activity android:name=".PcgStationAdmin.Activities.DetailedReport" />
         <activity android:name=".PCGPersonnel.Activities.DetailViewHistoryReportsActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="0a61a7ff3e0bcd5a1fa55bbddab5c3bb54887ebf" />
     </application>
 
 </manifest>
