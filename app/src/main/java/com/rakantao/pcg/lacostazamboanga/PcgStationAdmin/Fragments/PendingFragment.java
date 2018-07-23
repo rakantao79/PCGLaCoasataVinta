@@ -221,7 +221,7 @@ public class PendingFragment extends Fragment {
                                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                Intent intent = new Intent(getContext(), ViewDetailedVessels.class);
+                                                Intent intent = new Intent(getContext(), DetailViewHistoryReportsActivity.class);
                                                 intent.putExtra("vesselName", model.getVesselName());
                                                 startActivity(intent);
                                             }

@@ -30,6 +30,7 @@ public class ViewDetailedVessels extends AppCompatActivity {
 
     ImageView vImag1e;
     TextView vName,vType,vOrigin,vDestination,vETA,vETD,vInvestigator,vTimeStamp;
+    private TextView TVDetailedvTeam;
     RecyclerView recyclerView;
     private DatabaseReference mDatabaseRef;
     private DatabaseReference childRef;
@@ -57,6 +58,8 @@ public class ViewDetailedVessels extends AppCompatActivity {
         vETD = findViewById(R.id.TVDetailedvETD);
         vInvestigator = findViewById(R.id.TVDetailedvInspector);
         vTimeStamp = findViewById(R.id.TVDetailedvTimeStamp);
+
+        TVDetailedvTeam = findViewById(R.id.TVDetailedvTeam);
 
         recyclerView = findViewById(R.id.recyclerVesselDetail);
 
@@ -106,10 +109,14 @@ public class ViewDetailedVessels extends AppCompatActivity {
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             if (dataSnapshot.exists()){
 
+                                                String boardingA = dataSnapshot.child("bordingA").getValue().toString();
+                                                String boardingB = dataSnapshot.child("bordingB").getValue().toString();
+                                                String boardingC = dataSnapshot.child("bordingC").getValue().toString();
+                                                String boardingD = dataSnapshot.child("bordingD").getValue().toString();
+
                                                 vInvestigator.setText(dataSnapshot.child("inspector").getValue().toString());
                                                 vTimeStamp.setText(dataSnapshot.child("timeUploaded").getValue().toString());
-
-
+                                                TVDetailedvTeam.setText(boardingA + ", " + boardingB + ", " + boardingC + ", " + boardingD);
 
                                                 DatabaseReference mUserDatabase1 = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(dataVesselSched.getVesselName());
 

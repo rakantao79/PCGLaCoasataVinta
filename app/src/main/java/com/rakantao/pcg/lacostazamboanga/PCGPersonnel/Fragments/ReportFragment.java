@@ -111,7 +111,7 @@ public class ReportFragment extends Fragment {
                 DataHistoryReport.class,
                 R.layout.list_report,
                 ReportsViewHiolder.class,
-                mDatabaseHistory
+                mDatabaseHistory.limitToLast(10)
 
         ) {
             @Override
