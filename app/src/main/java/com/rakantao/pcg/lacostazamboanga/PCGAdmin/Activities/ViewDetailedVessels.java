@@ -116,7 +116,7 @@ public class ViewDetailedVessels extends AppCompatActivity {
 
                                                 vInvestigator.setText(dataSnapshot.child("inspector").getValue().toString());
                                                 vTimeStamp.setText(dataSnapshot.child("timeUploaded").getValue().toString());
-                                                TVDetailedvTeam.setText(boardingA + "\n" + boardingB + "\n" + boardingC + "\n" + boardingD);
+                                                TVDetailedvTeam.setText("POIC : " + boardingA + "\n Members : " + boardingB + "\n" + boardingC + "\n" + boardingD);
 
                                                 DatabaseReference mUserDatabase1 = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(dataVesselSched.getVesselName());
 

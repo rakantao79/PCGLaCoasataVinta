@@ -133,7 +133,7 @@ public class DetailViewHistoryReportsActivity extends AppCompatActivity {
                     tvDetailHistoryPersonC.setText(bordingC);
                     tvDetailHistoryPersonD.setText(bordingD);
                     tvDetailHistoryTime.setText(timeUploaded);
-                    tvDetailHistoryRemarks.setText(inspectionRemarks);
+                    tvDetailHistoryRemarks.setText("Remarks : " + inspectionRemarks);
                     tvDetailHistoryPassengers.setText(numberTotalPassenger);
                     tvDetailHistoryInfant.setText(numberInfant);
                     tvDetailHistoryChildren.setText(numberChildren);
