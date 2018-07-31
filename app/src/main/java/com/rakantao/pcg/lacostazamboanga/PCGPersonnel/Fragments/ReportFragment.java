@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.DetailViewHistoryReportsActivity;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.SendReportActivity;
@@ -87,9 +88,11 @@ public class ReportFragment extends Fragment {
         btnreport = view.findViewById(R.id.btnGoSendReport);
         recyclerView = view.findViewById(R.id.recyclerListOfReports);
         linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Report").child(uid).child(dayOfWeek);
-        mDatabaseHistory = FirebaseDatabase.getInstance().getReference("HistoryReportRecords");
+        mDatabaseHistory = FirebaseDatabase.getInstance().getReference().child("HistoryReportRecords");
         recyclerView.setLayoutManager(linearLayoutManager);
 
         btnreport.setOnClickListener(new View.OnClickListener() {
@@ -106,12 +109,14 @@ public class ReportFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        Query sortPost = mDatabaseHistory.orderByChild("counter");
+
         FirebaseRecyclerAdapter<DataHistoryReport, ReportsViewHiolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<DataHistoryReport, ReportsViewHiolder>(
 
                 DataHistoryReport.class,
                 R.layout.list_report,
                 ReportsViewHiolder.class,
-                mDatabaseHistory.limitToLast(10)
+                sortPost
 
         ) {
             @Override

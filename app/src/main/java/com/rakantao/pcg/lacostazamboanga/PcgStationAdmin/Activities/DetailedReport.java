@@ -208,8 +208,6 @@ public class DetailedReport extends AppCompatActivity {
 
                                         }
                                     });
-
-
                                 }
                             }
 

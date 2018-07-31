@@ -91,13 +91,14 @@ public class SendReportActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase,getPersonnalDatas;
     private DatabaseReference databaseDailyVessels;
+    private DatabaseReference databaseHistoryReports;
     public String userID;
     private String dayOfWeek;
 
     private String mRemarks;
     private String pushKey;
 
-
+    private long countpost = 0;
 
     private FloatingActionButton mFab;
 
@@ -182,6 +183,23 @@ public class SendReportActivity extends AppCompatActivity {
 
         databaseDailyVessels = FirebaseDatabase.getInstance().getReference();
         databaseDailyVessels = getPersonnalDatas.child("VesselSchedule").child(dayOfWeek).child("Pending");
+        databaseHistoryReports = FirebaseDatabase.getInstance().getReference().child("HistoryReportRecords");
+
+        databaseHistoryReports.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    countpost = dataSnapshot.getChildrenCount();
+                } else {
+                    countpost = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         loadRadioGroup();
@@ -634,7 +652,8 @@ public class SendReportActivity extends AppCompatActivity {
 
                                         DatabaseReference AddReport = mDatabase;
 
-                                        final HashMap<String, String> HashString = new HashMap<String, String>();
+                                        final HashMap HashString = new HashMap();
+
 
                                         //total number of passengers
                                         int totalNumberPassenger = Integer.parseInt(numberInfant) + Integer.parseInt(numberChildren) + Integer.parseInt(numberAdult) + Integer.parseInt(numberCrew);
@@ -655,6 +674,7 @@ public class SendReportActivity extends AppCompatActivity {
                                         HashString.put("bordingB", bordB);
                                         HashString.put("bordingC", bordC);
                                         HashString.put("bordingD", bordD);
+                                        HashString.put("counter", countpost);
 
                                         tvBordingA.setText(getFullname);
 
