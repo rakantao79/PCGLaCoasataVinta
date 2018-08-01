@@ -15,7 +15,6 @@ public class PendingViewholder extends RecyclerView.ViewHolder {
     public Button btnclear;
     View view;
 
-
     public PendingViewholder(View itemView) {
         super(itemView);
         view = itemView;
@@ -29,7 +28,6 @@ public class PendingViewholder extends RecyclerView.ViewHolder {
         runnabletime = itemView.findViewById(R.id.TVPendingRunningTime);
         schedday = itemView.findViewById(R.id.TVPendingSchedDay);
         getMin = itemView.findViewById(R.id.getMin);
-
 
         vesselimage = itemView.findViewById(R.id.IVPendingImageVessel);
 
