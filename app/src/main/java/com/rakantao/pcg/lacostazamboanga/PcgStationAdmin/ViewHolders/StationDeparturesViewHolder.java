@@ -13,7 +13,6 @@ public class StationDeparturesViewHolder extends RecyclerView.ViewHolder {
     public StationDeparturesViewHolder(View itemView) {
         super(itemView);
 
-        tvdes = itemView.findViewById(R.id.StationDeparturesDashboardDestination);
         tvorigin = itemView.findViewById(R.id.StationDeparturesDashboardOrigin);
         tvvesNme = itemView.findViewById(R.id.StationDeparturesDashboardVessel);
         tvTime = itemView.findViewById(R.id.StationDeparturesDashboardTime);

@@ -121,8 +121,6 @@ public class PostContentActivity extends AppCompatActivity implements View.OnCli
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GALLERY && resultCode == RESULT_OK || requestCode == CAMERA && resultCode == RESULT_OK){
 
-
-
         }
     }
 }

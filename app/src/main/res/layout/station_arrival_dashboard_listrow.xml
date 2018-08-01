@@ -6,68 +6,58 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:background="@color/colorPrimaryDark"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/StationArrivalDashboardVessel"
+            fontPath="fonts/Lato-Bold.ttf"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:text="Vessel"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:ignore="MissingPrefix" />
 
-            <TextView
-                android:id="@+id/StationArrivalDashboardTime"
-                fontPath="fonts/Lato-Bold.ttf"
-                tools:ignore="MissingPrefix"
-                android:text="12:30"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textAlignment="center"
-                android:layout_weight="1.1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/StationArrivalDashboardDestination"
-                fontPath="fonts/Lato-Bold.ttf"
-                tools:ignore="MissingPrefix"
-                android:text="Destination"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textAlignment="center"
-                android:layout_weight="1.0"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/StationArrivalDashboardOrigin"
-                fontPath="fonts/Lato-Bold.ttf"
-                tools:ignore="MissingPrefix"
-                android:text="Origin"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textAlignment="center"
-                android:layout_weight="1.1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/StationArrivalDashboardDestination"
+            fontPath="fonts/Lato-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="Destination"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:ignore="MissingPrefix" />
 
-            <TextView
-                android:id="@+id/StationArrivalDashboardVessel"
-                fontPath="fonts/Lato-Bold.ttf"
-                tools:ignore="MissingPrefix"
-                android:text="Vessel"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textAlignment="center"
-                android:layout_weight="1.1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/StationArrivalDashboardTime"
+            fontPath="fonts/Lato-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:text="12:30"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:ignore="MissingPrefix" />
 
-            <TextView
-                android:id="@+id/StationArrivalDashboardRemarks"
-                fontPath="fonts/Lato-Bold.ttf"
-                tools:ignore="MissingPrefix"
-                android:text="Remarks"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textAlignment="center"
-                android:layout_weight="1.1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/StationArrivalDashboardRemarks"
+            fontPath="fonts/Lato-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:text="Remarks"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:ignore="MissingPrefix" />
 
-        </LinearLayout>
+    </LinearLayout>
 </android.support.v7.widget.CardView>

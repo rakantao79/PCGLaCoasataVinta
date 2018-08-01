@@ -139,7 +139,6 @@ public class StationScheduleDashBoard extends Fragment {
                                 @Override
                                 protected void populateViewHolder(StationDeparturesViewHolder viewHolder, DataVesselSched model, int position) {
 
-                                    viewHolder.tvdes.setText(model.getDestination());
                                     viewHolder.tvorigin.setText(model.getOrigin());
                                     viewHolder.tvTime.setText(model.getDepartureTime());
                                     viewHolder.tvvesNme.setText(model.getVesselName());
@@ -162,10 +161,14 @@ public class StationScheduleDashBoard extends Fragment {
                                 protected void populateViewHolder(StationArrivalsViewHolder viewHolder, DataVesselSched model, int position) {
 
                                     viewHolder.tvdes.setText(model.getDestination());
-                                    viewHolder.tvorigin.setText(model.getOrigin());
                                     viewHolder.tvTime.setText(model.getDepartureTime());
                                     viewHolder.tvvesNme.setText(model.getVesselName());
-                                    viewHolder.tvRemarks.setText(model.getVesselStatus());
+
+                                    if (model.getVesselStatus().equals("Departed")){
+                                        viewHolder.tvRemarks.setText("Arriving");
+                                    }else {
+                                        viewHolder.tvRemarks.setText(model.getVesselStatus());
+                                    }
                                 }
                             };
                     arrival.setAdapter(firebaseRecyclerAdapter2);

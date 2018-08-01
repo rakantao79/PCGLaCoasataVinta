@@ -49,8 +49,8 @@ public class PCGAdminHome extends AppCompatActivity {
 
     BoomMenuButton boomMenuButton;
     FirebaseAuth firebaseAuth;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+        private TabLayout tabLayout;
+        private ViewPager viewPager;
 
     @Override
     protected void attachBaseContext(Context newBase) {
