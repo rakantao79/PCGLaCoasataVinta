@@ -38,6 +38,8 @@ public class DetailViewHistoryReportsActivity extends AppCompatActivity {
     private TextView tvDetailHistoryChildren;
     private TextView tvDetailHistoryAdult;
 
+    private TextView tvDetailHistoryCrewNumber;
+
     private DatabaseReference mDabatabaseHistory;
     private DatabaseReference mDatabaseHistoryImages;
     private DatabaseReference mDatabase;
@@ -74,6 +76,7 @@ public class DetailViewHistoryReportsActivity extends AppCompatActivity {
         tvDetailHistoryInfant  = findViewById(R.id.tvDetailHIstoryInfant);
         tvDetailHistoryChildren  = findViewById(R.id.tvDetailHIstorytvDetailHIstoryChildren);
         tvDetailHistoryAdult  = findViewById(R.id.tvDetailHIstoryAdult);
+        tvDetailHistoryCrewNumber = findViewById(R.id.TVDetailHistoryCrew);
 
         mRecyclerView = findViewById(R.id.recyclerHistoryImages);
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
@@ -130,7 +133,7 @@ public class DetailViewHistoryReportsActivity extends AppCompatActivity {
                     tvDetailHistoryPersonC.setText(bordingC);
                     tvDetailHistoryPersonD.setText(bordingD);
                     tvDetailHistoryTime.setText(timeUploaded);
-                    tvDetailHistoryRemarks.setText(inspectionRemarks);
+                    tvDetailHistoryRemarks.setText("Remarks : " + inspectionRemarks);
                     tvDetailHistoryPassengers.setText(numberTotalPassenger);
                     tvDetailHistoryInfant.setText(numberInfant);
                     tvDetailHistoryChildren.setText(numberChildren);
@@ -194,6 +197,7 @@ public class DetailViewHistoryReportsActivity extends AppCompatActivity {
                         if (dataSnapshot.exists()){
 
                             tvDetailHistoryCapacity.setText(dataSnapshot.child("VesselPassengerCapacity").getValue().toString());
+                            tvDetailHistoryCrewNumber.setText(dataSnapshot.child("VesselNumberOfCrew").getValue().toString());
 
                         }
                     }

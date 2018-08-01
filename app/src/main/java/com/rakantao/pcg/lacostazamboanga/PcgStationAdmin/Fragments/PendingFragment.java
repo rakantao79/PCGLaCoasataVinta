@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.ViewDetailedVessels;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas.DataVesselSched;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders.PendingViewholder;
+import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.DetailViewHistoryReportsActivity;
 import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Activities.StationDashBoard;
 import com.rakantao.pcg.lacostazamboanga.R;
 import com.squareup.picasso.Callback;
@@ -220,9 +221,31 @@ public class PendingFragment extends Fragment {
                                         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                Intent intent = new Intent(getContext(), ViewDetailedVessels.class);
-                                                intent.putExtra("vesselName", model.getVesselName());
-                                                startActivity(intent);
+
+                                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+                                                databaseReference.child("AdminImagesReport").child(model.getVesselName()).addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        if (dataSnapshot.exists()){
+                                                            //Intent intent = new Intent(getContext(), DetailViewHistoryReportsActivity.class);
+                                                            Intent intent = new Intent(getContext(), ViewDetailedVessels.class);
+                                                            intent.putExtra("vesselName", model.getVesselName());
+                                                            startActivity(intent);
+                                                        } else {
+                                                            Toast.makeText(getContext(), "Vessel is still on scheduled for Inspection", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+
+//                                                Intent intent = new Intent(getContext(), ViewDetailedVessels.class);
+//                                                intent.putExtra("vesselName", model.getVesselName());
+//                                                startActivity(intent);
                                             }
                                         });
 

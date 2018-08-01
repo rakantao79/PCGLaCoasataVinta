@@ -152,7 +152,7 @@
                     android:textSize="16dp" />
 
                 <TextView
-                    android:id="@+id/TVDetailHistoryNoOfCrews"
+                    android:id="@+id/TVDetailHistoryCrew"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -194,11 +194,26 @@
                     android:textSize="16dp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="POIC : "
+                    android:textSize="16dp" />
+
+                <TextView
                     android:id="@+id/tvDetailHistoryPersonA"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="SN1 Rak Antao"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Members :"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
@@ -332,12 +347,24 @@
                     android:textColor="@color/black"
                     android:textSize="16dp" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="No. of Actual Crews"
+                    android:textSize="16dp" />
+
+                <TextView
+
+                    android:id="@+id/TVDetailHistoryNoOfCrews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="30"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
             </LinearLayout>
-
-
-
-
-
         </FrameLayout>
 
 

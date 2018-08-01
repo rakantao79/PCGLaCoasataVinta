@@ -91,13 +91,14 @@ public class SendReportActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase,getPersonnalDatas;
     private DatabaseReference databaseDailyVessels;
+    private DatabaseReference databaseHistoryReports;
     public String userID;
     private String dayOfWeek;
 
     private String mRemarks;
     private String pushKey;
 
-
+    private long countpost = 0;
 
     private FloatingActionButton mFab;
 
@@ -182,6 +183,23 @@ public class SendReportActivity extends AppCompatActivity {
 
         databaseDailyVessels = FirebaseDatabase.getInstance().getReference();
         databaseDailyVessels = getPersonnalDatas.child("VesselSchedule").child(dayOfWeek).child("Pending");
+        databaseHistoryReports = FirebaseDatabase.getInstance().getReference().child("HistoryReportRecords");
+
+        databaseHistoryReports.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    countpost = dataSnapshot.getChildrenCount();
+                } else {
+                    countpost = 0;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         loadRadioGroup();
@@ -323,47 +341,50 @@ public class SendReportActivity extends AppCompatActivity {
 
     private void loadBoardingTeam() {
 
-        tvBordingA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //tvBordingA.setText("");
 
-                DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference();
+//        tvBordingA.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                DatabaseReference databaseReference  = FirebaseDatabase.getInstance().getReference();
+//
+//                databaseReference.child("Personnel").addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        final List<String> persons = new ArrayList<String>();
+//
+//                        if (dataSnapshot.exists()){
+//
+//                            for (DataSnapshot personSnap: dataSnapshot.getChildren()) {
+//                                String personas = personSnap.child("LastName").getValue(String.class);
+//                                String fname = personSnap.child("FirstName").getValue(String.class);
+//                                Log.d("personas", personas);
+//                                persons.add(personas + ", " + fname);
+//                            }
+//                            final CharSequence[] boardingA = persons.toArray(new CharSequence[persons.size()]);
+//                            AlertDialog.Builder builderz = new AlertDialog.Builder(SendReportActivity.this);
+//                            builderz.setTitle("Add members to your team");
+//                            builderz.setItems(boardingA, new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    tvBordingA.setText(boardingA[i]);
+//                                }
+//                            });
+//                            AlertDialog alertDialogz = builderz.create();
+//                            alertDialogz.show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//            }
+//        });
 
-                databaseReference.child("Personnel").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        final List<String> persons = new ArrayList<String>();
-
-                        if (dataSnapshot.exists()){
-
-                            for (DataSnapshot personSnap: dataSnapshot.getChildren()) {
-                                String personas = personSnap.child("LastName").getValue(String.class);
-                                String fname = personSnap.child("FirstName").getValue(String.class);
-                                Log.d("personas", personas);
-                                persons.add(personas + ", " + fname);
-                            }
-                            final CharSequence[] boardingA = persons.toArray(new CharSequence[persons.size()]);
-                            AlertDialog.Builder builderz = new AlertDialog.Builder(SendReportActivity.this);
-                            builderz.setTitle("Add members to your team");
-                            builderz.setItems(boardingA, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    tvBordingA.setText(boardingA[i]);
-                                }
-                            });
-                            AlertDialog alertDialogz = builderz.create();
-                            alertDialogz.show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-            }
-        });
 
         tvBordingB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -631,7 +652,8 @@ public class SendReportActivity extends AppCompatActivity {
 
                                         DatabaseReference AddReport = mDatabase;
 
-                                        final HashMap<String, String> HashString = new HashMap<String, String>();
+                                        final HashMap HashString = new HashMap();
+
 
                                         //total number of passengers
                                         int totalNumberPassenger = Integer.parseInt(numberInfant) + Integer.parseInt(numberChildren) + Integer.parseInt(numberAdult) + Integer.parseInt(numberCrew);
@@ -652,6 +674,9 @@ public class SendReportActivity extends AppCompatActivity {
                                         HashString.put("bordingB", bordB);
                                         HashString.put("bordingC", bordC);
                                         HashString.put("bordingD", bordD);
+                                        HashString.put("counter", countpost);
+
+                                        tvBordingA.setText(getFullname);
 
                                         //HashString.put("imageUrl", thumb_downloadUrl);
                                         //HashString.put("actualNumberPassenger", actualNumberOfPassenger);
@@ -758,6 +783,7 @@ public class SendReportActivity extends AppCompatActivity {
                     String lastname = user.LastName;
                     
                     fullname.setText(lastname + ", "+ firstname +" " + middlename);
+                    tvBordingA.setText(lastname + ", "+ firstname +" " + middlename);
 
                 }
             }

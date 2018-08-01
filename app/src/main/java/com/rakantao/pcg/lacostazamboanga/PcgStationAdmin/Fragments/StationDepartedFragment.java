@@ -64,6 +64,7 @@ public class StationDepartedFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     String userID;
     public String Origin;
+    private String dayOfWeek;
 
     public StationDepartedFragment() {
         // Required empty public constructor
@@ -86,30 +87,37 @@ public class StationDepartedFragment extends Fragment {
             case Calendar.SUNDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
                 childRef = mDatabaseRef.child("VesselSchedule").child("Sunday").child("Departed");
+                dayOfWeek = "Sunday";
                 break;
             case Calendar.MONDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
                 childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Monday")).child("Departed");
+                dayOfWeek = "Monday";
                 break;
             case Calendar.TUESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
                 childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Tuesday")).child("Departed");
+                dayOfWeek = "Tuesday";
                 break;
             case Calendar.WEDNESDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
                 childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Wednesday")).child("Departed");
+                dayOfWeek = "Wednesday";
                 break;
             case Calendar.THURSDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
                 childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Thursday")).child("Departed");
+                dayOfWeek = "Thursday";
                 break;
             case Calendar.FRIDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
                 childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Friday")).child("Departed");
+                dayOfWeek = "Friday";
                 break;
             case Calendar.SATURDAY:
                 mDatabaseRef = FirebaseDatabase.getInstance().getReference();
                 childRef = mDatabaseRef.child("VesselSchedule").child(String.valueOf("Saturday")).child("Departed");
+                dayOfWeek = "Saturday";
                 break;
         }
 
@@ -294,7 +302,7 @@ public class StationDepartedFragment extends Fragment {
 
                                                             DateFormat df = new SimpleDateFormat("yyyy/MM/dd h:mm a");
                                                             final String date = df.format(Calendar.getInstance().getTime());
-                                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DistressReport");
+                                                            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("DistressReport");
 
                                                             final String key = databaseReference.push().getKey();
 
@@ -433,6 +441,10 @@ public class StationDepartedFragment extends Fragment {
 
                                                                             }
                                                                         });
+
+                                                                        DatabaseReference dailyDistressRef = FirebaseDatabase.getInstance().getReference().child("DistressDailyReport");
+                                                                        dailyDistressRef.child(dayOfWeek).child(key).setValue(HashString1);
+
                                                                         dialog.dismiss();
                                                                     }
                                                                 }

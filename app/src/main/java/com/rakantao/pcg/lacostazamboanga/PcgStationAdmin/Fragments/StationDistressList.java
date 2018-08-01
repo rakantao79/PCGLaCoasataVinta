@@ -245,9 +245,6 @@ public class StationDistressList extends Fragment {
                                         viewHolder.notifLayout.setBackgroundColor(getResources().getColor(R.color.white));
                                     }
 
-
-
-
                                     final Handler handler = new Handler();
                                     final int delay = 1000; //milliseconds
 
