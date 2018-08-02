@@ -94,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="ETD"
+                    android:textStyle="bold"
                     android:textSize="16dp" />
 
                 <TextView
