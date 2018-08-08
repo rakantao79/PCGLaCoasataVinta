@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ImageButton btnBack;
 
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -196,7 +195,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 User.put("Password", password);
                                 User.put("Rank", rank);
                                 User.put("Usertype", "personnel");
-
 
                                 databaseReference = firebaseDatabase.getReference("Users").child(user_id);
                                 databaseReference.setValue(User);

@@ -201,7 +201,6 @@ public class SendReportActivity extends AppCompatActivity {
             }
         });
 
-
         loadRadioGroup();
         loadBoardingTeam();
 
@@ -385,7 +384,6 @@ public class SendReportActivity extends AppCompatActivity {
 //            }
 //        });
 
-
         tvBordingB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -466,7 +464,6 @@ public class SendReportActivity extends AppCompatActivity {
 
                     }
                 });
-
             }
         });
 
@@ -508,10 +505,8 @@ public class SendReportActivity extends AppCompatActivity {
 
                     }
                 });
-
             }
         });
-
     }
 
     private void loadRadioGroup() {
