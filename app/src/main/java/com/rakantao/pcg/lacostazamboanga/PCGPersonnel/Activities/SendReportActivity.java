@@ -8,9 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.OpenableColumns;
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -42,8 +40,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rakantao.pcg.lacostazamboanga.DataUser;
-import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.SetVesselScheduleActivity;
-import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Datas.DataHistoryReport;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.UploadListAdapter;
 import com.rakantao.pcg.lacostazamboanga.R;
 

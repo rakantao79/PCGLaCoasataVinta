@@ -16,6 +16,7 @@ public class DataVesselSched {
     private String DestinationStation;
     private String PassengerCapacity;
     private String NumberOfCrew;
+    private String DistressStatus;
 
     public DataVesselSched(){
 
@@ -23,7 +24,8 @@ public class DataVesselSched {
 
     public DataVesselSched(String VesselType, String VesselName, String ScheduleDay, String Origin, String DepartureTime,
                            String Destination, String ArrivalTime, String ActualDepartedTime, String Key, String VesselStatus,
-                           String OriginStation, String DestinationStation, String PassengerCapacity, String NumberOfCrew){
+                           String OriginStation, String DestinationStation, String PassengerCapacity, String NumberOfCrew,
+                           String DistressStatus){
 
         this.VesselType = VesselType;
         this.VesselName = VesselName;
@@ -39,7 +41,16 @@ public class DataVesselSched {
         this.DestinationStation = DestinationStation;
         this.PassengerCapacity = PassengerCapacity;
         this.NumberOfCrew = NumberOfCrew;
+        this.DistressStatus = DistressStatus;
 
+    }
+
+    public String getDistressStatus() {
+        return DistressStatus;
+    }
+
+    public void setDistressStatus(String distressStatus) {
+        DistressStatus = distressStatus;
     }
 
     public String getPassengerCapacity() {

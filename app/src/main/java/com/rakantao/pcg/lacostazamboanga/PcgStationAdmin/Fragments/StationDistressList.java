@@ -52,7 +52,7 @@ public class StationDistressList extends Fragment {
     public String Origin;
 
     public StationDistressList() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -60,123 +60,6 @@ public class StationDistressList extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_station_distress_list, container, false);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -207,7 +90,7 @@ public class StationDistressList extends Fragment {
 
 
                     mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-                    childRef = mDatabaseRef.child("StationNotifHeader").child(Origin);
+                    childRef = mDatabaseRef.child("MyStationNotifHeader").child(Origin);
 
 
                     FirebaseRecyclerAdapter<DataStationAdminNotif, StationNotifViewHolder> firebaseRecyclerAdapter =

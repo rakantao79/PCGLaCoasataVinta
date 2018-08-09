@@ -6,8 +6,10 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,11 +167,32 @@ public class StationDepartedFragment extends Fragment {
                                         viewHolder.ATD.setText(model.getActualDepartedTime());
 
 
+                                            if (model.getDistressStatus().equals("Distress")){
+                                                viewHolder.distressnotifieradmin.setVisibility(View.VISIBLE);
+                                                viewHolder.distressnotifieradmin.setTextColor(Color.RED);
+                                            }else {
+                                                viewHolder.distressnotifieradmin.setVisibility(View.GONE);
+                                            }
+
+
+
                                         final Handler handler = new Handler();
                                         final int delay = 1000; //milliseconds
 
                                         handler.postDelayed(new Runnable(){
                                             public void run(){
+
+                                                if (viewHolder.distressnotifieradmin.getVisibility() == View.VISIBLE){
+                                                if (model.getDistressStatus().equals("Distress")){
+                                                    if (viewHolder.distressnotifieradmin.getCurrentTextColor() == Color.RED) {
+                                                        viewHolder.distressnotifieradmin.setTextColor(Color.BLACK);
+                                                        viewHolder.vesselname.setTextColor(Color.BLACK);
+                                                    }else {
+                                                        viewHolder.distressnotifieradmin.setTextColor(Color.RED);
+                                                        viewHolder.vesselname.setTextColor(Color.RED);
+                                                    }
+                                                    }
+                                                }
                                                 //do something
                                                 SimpleDateFormat format = new SimpleDateFormat("h:mm a");
                                                 DateFormat df = new SimpleDateFormat("h:mm a");
@@ -343,6 +367,28 @@ public class StationDepartedFragment extends Fragment {
                                                                                                         @Override
                                                                                                         public void onComplete(@NonNull Task<Void> task) {
                                                                                                             if (task.isSuccessful()){
+
+                                                                                                                DatabaseReference datanotiforigin = FirebaseDatabase.getInstance().getReference("MyStationNotifHeader");
+
+                                                                                                                datanotiforigin.child(model.getOriginStation())
+                                                                                                                        .child(key)
+                                                                                                                        .setValue(HashString1);
+
+                                                                                                                DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("VesselsDashBoardAdmin");
+
+                                                                                                                databaseReference2.child(model.getScheduleDay())
+                                                                                                                        .child(model.getKey())
+                                                                                                                        .child("DistressStatus")
+                                                                                                                        .setValue("Distress");
+
+                                                                                                                DatabaseReference databaseReference3 = FirebaseDatabase.getInstance().getReference("VesselSchedule");
+
+                                                                                                                databaseReference3.child(model.getScheduleDay())
+                                                                                                                        .child("Departed")
+                                                                                                                        .child(model.getKey())
+                                                                                                                        .child("DistressStatus")
+                                                                                                                        .setValue("Distress");
+                                                                                                                //////
                                                                                                                 Snackbar snackbar = Snackbar
                                                                                                                         .make(getActivity().findViewById(R.id.myFrame), "Distress Sent.", Snackbar.LENGTH_LONG)
                                                                                                                         .setAction("Review", new View.OnClickListener() {
@@ -369,6 +415,28 @@ public class StationDepartedFragment extends Fragment {
                                                                                             @Override
                                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                                 if (task.isSuccessful()){
+                                                                                                    DatabaseReference datanotiforigin = FirebaseDatabase.getInstance().getReference("MyStationNotifHeader");
+
+                                                                                                    datanotiforigin.child(model.getOriginStation())
+                                                                                                            .child(key)
+                                                                                                            .setValue(HashString1);
+
+
+                                                                                                    DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("VesselsDashBoardAdmin");
+
+                                                                                                    databaseReference2.child(model.getScheduleDay())
+                                                                                                            .child(model.getKey())
+                                                                                                            .child("DistressStatus")
+                                                                                                            .setValue("Distress");
+
+                                                                                                    DatabaseReference databaseReference3 = FirebaseDatabase.getInstance().getReference("VesselSchedule");
+
+                                                                                                    databaseReference3.child(model.getScheduleDay())
+                                                                                                            .child("Departed")
+                                                                                                            .child(model.getKey())
+                                                                                                            .child("DistressStatus")
+                                                                                                            .setValue("Distress");
+
                                                                                                     DatabaseReference datanotifAdmin = FirebaseDatabase.getInstance().getReference("AdminNotifHeader");
 
                                                                                                     datanotifAdmin.child(key)
@@ -376,6 +444,7 @@ public class StationDepartedFragment extends Fragment {
                                                                                                         @Override
                                                                                                         public void onComplete(@NonNull Task<Void> task) {
                                                                                                             if (task.isSuccessful()){
+
                                                                                                                 Snackbar snackbar = Snackbar
                                                                                                                         .make(getActivity().findViewById(R.id.myFrame), "Distress Sent.", Snackbar.LENGTH_LONG)
                                                                                                                         .setAction("Review", new View.OnClickListener() {
@@ -405,8 +474,30 @@ public class StationDepartedFragment extends Fragment {
                                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                                 if (task.isSuccessful()){
 
-                                                                                                    DatabaseReference datanotifAdmin = FirebaseDatabase.getInstance().getReference("AdminNotifHeader");
+                                                                                                    DatabaseReference datanotiforigin = FirebaseDatabase.getInstance().getReference("MyStationNotifHeader");
 
+                                                                                                    datanotiforigin.child(model.getOriginStation())
+                                                                                                            .child(key)
+                                                                                                            .setValue(HashString1);
+
+                                                                                                    DatabaseReference databaseReference3 = FirebaseDatabase.getInstance().getReference("VesselSchedule");
+
+                                                                                                    databaseReference3.child(model.getScheduleDay())
+                                                                                                            .child("Departed")
+                                                                                                            .child(model.getKey())
+                                                                                                            .child("DistressStatus")
+                                                                                                            .setValue("Distress");
+
+
+
+                                                                                                    DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("VesselsDashBoardAdmin");
+
+                                                                                                    databaseReference2.child(model.getScheduleDay())
+                                                                                                            .child(model.getKey())
+                                                                                                            .child("DistressStatus")
+                                                                                                            .setValue("Distress");
+
+                                                                                                    DatabaseReference datanotifAdmin = FirebaseDatabase.getInstance().getReference("AdminNotifHeader");
                                                                                                     datanotifAdmin.child(key)
                                                                                                             .setValue(HashString1).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                                         @Override

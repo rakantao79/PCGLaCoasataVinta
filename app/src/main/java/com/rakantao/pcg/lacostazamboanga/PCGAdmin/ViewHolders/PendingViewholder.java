@@ -10,7 +10,7 @@ import com.rakantao.pcg.lacostazamboanga.R;
 
 public class PendingViewholder extends RecyclerView.ViewHolder {
 
-    public TextView vesselname,vesseltype,origin,destination,departime,arrivaltime,runnabletime,schedday,getMin;
+    public TextView vesselname,vesseltype,origin,destination,departime,arrivaltime,runnabletime,schedday,getMin,distressnotifieradmin;
     public ImageView vesselimage;
     public Button btnclear;
     View view;
@@ -28,6 +28,7 @@ public class PendingViewholder extends RecyclerView.ViewHolder {
         runnabletime = itemView.findViewById(R.id.TVPendingRunningTime);
         schedday = itemView.findViewById(R.id.TVPendingSchedDay);
         getMin = itemView.findViewById(R.id.getMin);
+        distressnotifieradmin = itemView.findViewById(R.id.TvDistressNotifierAdmin);
 
         vesselimage = itemView.findViewById(R.id.IVPendingImageVessel);
 

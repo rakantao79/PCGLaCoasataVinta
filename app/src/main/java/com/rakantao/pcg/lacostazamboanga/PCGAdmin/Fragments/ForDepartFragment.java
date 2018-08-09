@@ -140,6 +140,16 @@ public class ForDepartFragment extends Fragment {
                         viewHolder.arrivaltime.setText(model.getArrivalTime());
                         viewHolder.schedday.setText(model.getScheduleDay());
 
+                        if (model.getDistressStatus().isEmpty()){
+                            Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
+                        }else {
+                            if (model.getDistressStatus().equals("Distress")){
+                                viewHolder.distressnotifieradmin.setVisibility(View.VISIBLE);
+                            }else {
+                                viewHolder.distressnotifieradmin.setVisibility(View.GONE);
+                            }
+                        }
+
                         final Handler handler = new Handler();
                         final int delay = 1000; //milliseconds
 

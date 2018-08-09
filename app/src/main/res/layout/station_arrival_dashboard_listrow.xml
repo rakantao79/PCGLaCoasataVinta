@@ -24,6 +24,30 @@
             tools:ignore="MissingPrefix" />
 
         <TextView
+            android:id="@+id/StationArrivalDashboardOrigin"
+            fontPath="fonts/Lato-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:text="Origin"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            android:id="@+id/StationArrivalDashboardOriginTime"
+            fontPath="fonts/Lato-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:text="8:30"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
             android:id="@+id/StationArrivalDashboardDestination"
             fontPath="fonts/Lato-Bold.ttf"
             android:layout_width="match_parent"
