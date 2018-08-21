@@ -1,6 +1,7 @@
 package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.AutoResizeEditText;
@@ -75,8 +78,6 @@ public class PostContentActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_content);
 
-
-
         camImage = findViewById(R.id.btnCamera);
         btnBack = findViewById(R.id.btnBackPost);
         btnChoose = findViewById(R.id.btnChoose);
@@ -91,6 +92,7 @@ public class PostContentActivity extends AppCompatActivity implements View.OnCli
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mPostDatabase = FirebaseDatabase.getInstance().getReference().child("NewsFeedPosts").push();
+        mStorage = FirebaseStorage.getInstance().getReference("NewsFeedImages");
 
         camImage.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -101,7 +103,7 @@ public class PostContentActivity extends AppCompatActivity implements View.OnCli
         mDatabase.child("NewsFeedPosts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
                     countpost = dataSnapshot.getChildrenCount();
                 } else {
                     countpost = 0;
@@ -118,14 +120,14 @@ public class PostContentActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnBackPost:
                 startActivity(new Intent(PostContentActivity.this, PCGAdminHome.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 break;
-            case  R.id.btnChoose:
+            case R.id.btnChoose:
                 final CharSequence[] items2 = {
-                        "Everyone", "Personnel","Public User"
+                        "Everyone", "Personnel", "Public User"
                 };
 
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(PostContentActivity.this);
@@ -134,17 +136,17 @@ public class PostContentActivity extends AppCompatActivity implements View.OnCli
                     public void onClick(DialogInterface dialog, int item) {
                         // Do something with the selection
                         btnChoose.setText(items2[item]);
-                        if (items2[item].equals("Everyone")){
+                        if (items2[item].equals("Everyone")) {
                             btnChoose.setText("Everyone");
                             audience = "Everyone";
                             target(audience);
                             btnChoose.setCompoundDrawablesWithIntrinsicBounds(R.drawable.world, 0, R.drawable.down1, 0);
-                        }else if (items2[item].equals("Personnel")){
+                        } else if (items2[item].equals("Personnel")) {
                             btnChoose.setText("Personnel");
                             audience = "Personnel";
                             target(audience);
                             btnChoose.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lieutenant, 0, R.drawable.down1, 0);
-                        }else if (items2[item].equals("Public User")){
+                        } else if (items2[item].equals("Public User")) {
                             btnChoose.setText("Public User");
                             audience = "Public User";
                             target(audience);
@@ -177,43 +179,54 @@ public class PostContentActivity extends AppCompatActivity implements View.OnCli
         final String articleContent = rET.getText().toString().trim();
         final String articleAudience = btnChoose.getText().toString().trim();
 
-        if (TextUtils.isEmpty(articleTitle)){
+        if (TextUtils.isEmpty(articleTitle)) {
             Toast.makeText(this, "Please Provide a Title", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(articleContent)){
+        } else if (TextUtils.isEmpty(articleContent)) {
             Toast.makeText(this, "Please Provide a Content", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(articleAudience)){
+        } else if (TextUtils.isEmpty(articleAudience)) {
             Toast.makeText(this, "Please Select Your Audience", Toast.LENGTH_SHORT).show();
+        } else if (imageUri == null) {
+            Toast.makeText(this, "No Image Selected", Toast.LENGTH_SHORT).show();
         } else {
 
+            StorageReference filereference = mStorage.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
-            pushKey = mPostDatabase.getKey();
-
-            HashMap postMap = new HashMap();
-
-            postMap.put("article_title", articleTitle);
-            postMap.put("article_content", articleContent);
-            postMap.put("article_userID", uid);
-            postMap.put("date_posted", date);
-            postMap.put("counter", countpost);
-            postMap.put("audience", articleAudience);
-            postMap.put("pushKey", pushKey);
-
-            mPostDatabase.setValue(postMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+            filereference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(PostContentActivity.this, "Posted", Toast.LENGTH_SHORT).show();
-                    finish();
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    pushKey = mPostDatabase.getKey();
+
+                    HashMap postMap = new HashMap();
+
+                    postMap.put("article_title", articleTitle);
+                    postMap.put("article_content", articleContent);
+                    postMap.put("article_userID", uid);
+                    postMap.put("article_image", taskSnapshot.getDownloadUrl().toString());
+                    postMap.put("date_posted", date);
+                    postMap.put("counter", countpost);
+                    postMap.put("audience", articleAudience);
+                    postMap.put("pushKey", pushKey);
+
+                    mPostDatabase.setValue(postMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(PostContentActivity.this, "Posted", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+
                 }
             });
         }
     }
 
-    public void TakePicture(){
+    public void TakePicture() {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA);
     }
 
-    public void SelectFromGallery(){
+    public void SelectFromGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         galleryIntent.setType("image/*");
@@ -245,10 +258,16 @@ public class PostContentActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == GALLERY && resultCode == RESULT_OK || requestCode == CAMERA && resultCode == RESULT_OK){
+        if (requestCode == GALLERY && resultCode == RESULT_OK || requestCode == CAMERA && resultCode == RESULT_OK) {
 
             imageUri = data.getData();
 
         }
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 }
