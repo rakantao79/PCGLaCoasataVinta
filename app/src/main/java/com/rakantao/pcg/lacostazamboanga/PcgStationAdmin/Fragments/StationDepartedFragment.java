@@ -290,12 +290,24 @@ public class StationDepartedFragment extends Fragment {
                                                     @Override
                                                     public void onClick(View view) {
                                                         final CharSequence[] items2 = {
-                                                                "Men overboard",
-                                                                "Fire at port",
-                                                                "Fire at board",
-                                                                "Derangement",
-                                                                "Steering wheel",
-                                                                "Abandon Ship"
+                                                                "ENGINE TROUBLE",
+                                                                "AGROUNDING",
+                                                                "SINKING",
+                                                                "CAPSIZING/ SUBMERGED",
+                                                                "COLLISION",
+                                                                "ALLISION/HITING/RAMMED",
+                                                                "MAN OVERBOARD"	,
+                                                                "FIRE ONBOARD",
+                                                                "DEATH ONBOARD",
+                                                                "STEERING CASUALTY",
+                                                                "LISTING",
+                                                                "DROWNING",
+                                                                "PIRACY/ ARMED ROBBERY",
+                                                                "ILLEGAL FISHING",
+                                                                "CADAVER SIGHTINGS",
+                                                                "MISSING",
+                                                                "OTHERS"
+
                                                         };
                                                         android.app.AlertDialog.Builder builder2 = new android.app.AlertDialog.Builder(getActivity());
                                                         builder2.setTitle("Make your selection");

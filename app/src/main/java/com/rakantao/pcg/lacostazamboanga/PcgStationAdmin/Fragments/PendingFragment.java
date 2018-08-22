@@ -254,70 +254,89 @@ public class PendingFragment extends Fragment {
                                             @Override
                                             public void onClick(View view) {
 
+                                                DatabaseReference databaseReference000 = FirebaseDatabase.getInstance().getReference();
 
-                                                 DatabaseReference databaseReference9 = FirebaseDatabase.getInstance().getReference();
-
-                                                databaseReference9.child("AdminImagesReport").child(model.getVesselName()).addValueEventListener(new ValueEventListener() {
+                                                databaseReference000.child("AdminImagesReport").child(model.getVesselName()).addValueEventListener(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                         if (dataSnapshot.exists()){
-                                                            DateFormat df = new SimpleDateFormat("h:mm a");
-                                                            String date = df.format(Calendar.getInstance().getTime());
-
-                                                            DatabaseReference databaseReference;
-
-                                                            databaseReference = FirebaseDatabase.getInstance()
-                                                                    .getReference("VesselDetails")
-                                                                    .child(model.getVesselName())
-                                                                    .child("VesselStatus");
-                                                            databaseReference.setValue("Departed");
-
-                                                            DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
-                                                                    .getReference("VesselDetails")
-                                                                    .child((String) viewHolder.vesselname.getText())
-                                                                    .child("ActualDepartedTime");
-                                                            databaseReference1.setValue(date);
 
 
-                                                            DatabaseReference databaseReference2 = FirebaseDatabase.getInstance()
-                                                                    .getReference("VesselSchedule")
-                                                                    .child(model.getScheduleDay())
-                                                                    .child("Pending")
-                                                                    .child(model.getKey())
-                                                                    .child("VesselStatus");
-                                                            databaseReference2.setValue("Departed");
+                                                            DatabaseReference databaseReference9 = FirebaseDatabase.getInstance().getReference();
 
-                                                            DatabaseReference databaseReference3 = FirebaseDatabase.getInstance()
-                                                                    .getReference("VesselSchedule")
-                                                                    .child(model.getScheduleDay())
-                                                                    .child("Pending")
-                                                                    .child(model.getKey())
-                                                                    .child("ActualDepartedTime");
-                                                            databaseReference3.setValue(date);
+                                                            databaseReference9.child("AdminImagesReport").child(model.getVesselName()).addValueEventListener(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                    if (dataSnapshot.exists()){
+                                                                        DateFormat df = new SimpleDateFormat("h:mm a");
+                                                                        String date = df.format(Calendar.getInstance().getTime());
 
-                                                            DatabaseReference databaseReference7 = FirebaseDatabase.getInstance()
-                                                                    .getReference("VesselsDashBoardAdmin")
-                                                                    .child(model.getScheduleDay())
-                                                                    .child(model.getKey())
-                                                                    .child("VesselStatus");
-                                                            databaseReference7.setValue("Departed");
+                                                                        DatabaseReference databaseReference;
 
-                                                            //Move Queries
+                                                                        databaseReference = FirebaseDatabase.getInstance()
+                                                                                .getReference("VesselDetails")
+                                                                                .child(model.getVesselName())
+                                                                                .child("VesselStatus");
+                                                                        databaseReference.setValue("Departed");
 
-                                                            DatabaseReference databaseReference6 = FirebaseDatabase.getInstance()
-                                                                    .getReference("VesselSchedule")
-                                                                    .child(model.getScheduleDay())
-                                                                    .child("Pending")
-                                                                    .child(model.getKey());
+                                                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance()
+                                                                                .getReference("VesselDetails")
+                                                                                .child((String) viewHolder.vesselname.getText())
+                                                                                .child("ActualDepartedTime");
+                                                                        databaseReference1.setValue(date);
 
-                                                            DatabaseReference databaseReference4 = FirebaseDatabase.getInstance()
-                                                                    .getReference("VesselSchedule")
-                                                                    .child(model.getScheduleDay())
-                                                                    .child("Departed")
-                                                                    .child(model.getKey());
 
-                                                            //Move Queries
-                                                            moveFirebaseRecord1(databaseReference6 ,databaseReference4);
+                                                                        DatabaseReference databaseReference2 = FirebaseDatabase.getInstance()
+                                                                                .getReference("VesselSchedule")
+                                                                                .child(model.getScheduleDay())
+                                                                                .child("Pending")
+                                                                                .child(model.getKey())
+                                                                                .child("VesselStatus");
+                                                                        databaseReference2.setValue("Departed");
+
+                                                                        DatabaseReference databaseReference3 = FirebaseDatabase.getInstance()
+                                                                                .getReference("VesselSchedule")
+                                                                                .child(model.getScheduleDay())
+                                                                                .child("Pending")
+                                                                                .child(model.getKey())
+                                                                                .child("ActualDepartedTime");
+                                                                        databaseReference3.setValue(date);
+
+                                                                        DatabaseReference databaseReference7 = FirebaseDatabase.getInstance()
+                                                                                .getReference("VesselsDashBoardAdmin")
+                                                                                .child(model.getScheduleDay())
+                                                                                .child(model.getKey())
+                                                                                .child("VesselStatus");
+                                                                        databaseReference7.setValue("Departed");
+
+                                                                        //Move Queries
+
+                                                                        DatabaseReference databaseReference6 = FirebaseDatabase.getInstance()
+                                                                                .getReference("VesselSchedule")
+                                                                                .child(model.getScheduleDay())
+                                                                                .child("Pending")
+                                                                                .child(model.getKey());
+
+                                                                        DatabaseReference databaseReference4 = FirebaseDatabase.getInstance()
+                                                                                .getReference("VesselSchedule")
+                                                                                .child(model.getScheduleDay())
+                                                                                .child("Departed")
+                                                                                .child(model.getKey());
+
+                                                                        //Move Queries
+                                                                        moveFirebaseRecord1(databaseReference6 ,databaseReference4);
+                                                                    } else {
+                                                                        Toast.makeText(getContext(), "Vessel is still on scheduled for Inspection", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                                }
+                                                            });
+
+
                                                         } else {
                                                             Toast.makeText(getContext(), "Vessel is still on scheduled for Inspection", Toast.LENGTH_SHORT).show();
                                                         }
@@ -328,8 +347,6 @@ public class PendingFragment extends Fragment {
 
                                                     }
                                                 });
-
-
                                             }
                                         });
 

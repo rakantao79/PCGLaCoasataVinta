@@ -34,12 +34,27 @@
     <string-array name="rank">
 
         <item> Select Rank </item>
-        <item> CDR </item>
-        <item> LCDR </item>
-        <item> LT </item>
-        <item> LTIG </item>
-        <item> ENS </item>
-        <item> AUX </item>
+        <item>ADM</item>
+        <item>VADM</item>
+        <item>RADM</item>
+        <item>COMMO</item>
+        <item>CAPT</item>
+        <item>CDR</item>
+        <item>LCDR</item>
+        <item>LTJG</item>
+        <item>LT</item>
+        <item>ENS</item>
+        <item>MCPO</item>
+        <item>SCPO</item>
+        <item>CPO</item>
+        <item>PO1</item>
+        <item>PO2</item>
+        <item>PO3</item>
+        <item>SN1</item>
+        <item>SW1</item>
+        <item>SN2</item>
+        <item>SW2</item>
+        <item>ASN</item>
 
     </string-array>
 

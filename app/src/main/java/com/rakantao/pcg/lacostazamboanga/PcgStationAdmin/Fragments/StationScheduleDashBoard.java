@@ -206,9 +206,9 @@ public class StationScheduleDashBoard extends Fragment {
 
 
                                     viewHolder.tvdes.setText(model.getDestination());
-                                    viewHolder.tvTime.setText(model.getDepartureTime());
+                                    viewHolder.tvTime.setText(model.getArrivalTime());
                                     viewHolder.tvvesNme.setText(model.getVesselName());
-                                    viewHolder.tvorigintime.setText(model.getArrivalTime());
+                                    viewHolder.tvorigintime.setText(model.getDepartureTime());
                                     viewHolder.tvorigin.setText(model.getOrigin());
 
                                     if (model.getDistressStatus().equals("Distress")){
