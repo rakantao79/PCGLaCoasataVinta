@@ -13,7 +13,6 @@ public class SetVesselScheduleViewHolder extends RecyclerView.ViewHolder {
     public TextView tvday;
     public TextView tvLocation;
     public TextView tvTime;
-    public Switch ScheduleDecision;
     public TextView tvDecision;
     public LinearLayout LLdelete;
 

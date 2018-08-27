@@ -49,7 +49,7 @@ public class ParentTabTimeMonitorFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new ForDepartFragment(), "PENDING");
+        adapter.addFragment(new ForDepartFragment(), "SCHEDULE");
         adapter.addFragment(new DepartedFragment(), "DEPARTED");
         adapter.addFragment(new ArrivedFragment(), "ARRIVED");
         viewPager.setAdapter(adapter);
