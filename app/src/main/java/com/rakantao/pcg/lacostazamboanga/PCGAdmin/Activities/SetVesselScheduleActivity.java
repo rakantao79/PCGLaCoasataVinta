@@ -182,17 +182,39 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
 
                 ) {
                     @Override
-                    protected void populateViewHolder(final SetVesselScheduleViewHolder viewHolder, DataSetVesselSched model, int position) {
+                    protected void populateViewHolder(final SetVesselScheduleViewHolder viewHolder, final DataSetVesselSched model, int position) {
                         viewHolder.tvday.setText(model.getDay()+"s");
                         viewHolder.tvLocation.setText(model.getLocation());
                         viewHolder.tvTime.setText(model.getTimes());
                         viewHolder.tvDecision.setText(model.getDecision());
 
-                        if (viewHolder.tvDecision.getText().equals("on-going")){
-                            viewHolder.ScheduleDecision.setChecked(true);
-                        }else {
-                            viewHolder.ScheduleDecision.setChecked(false);
-                        }
+
+
+
+                        viewHolder.LLdelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("VesselSchedule");
+
+                                databaseReference.child(model.getDay())
+                                        .child("Pending")
+                                        .child(model.getKey())
+                                        .removeValue();
+
+                                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference(model.getVesselName()+"DaysSched");
+
+                                databaseReference1.child(model.getKey())
+                                        .removeValue();
+
+                                DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference("VesselsDashBoardAdmin");
+
+                                databaseReference2.child(model.getDay())
+                                        .child(model.getKey())
+                                        .removeValue();
+
+                            }
+                        });
                     }
                 };
 
@@ -667,21 +689,22 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
 
                             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-                            HashMap<String, String> HashString = new HashMap<String, String>();
-                            HashString.put("day", getday);
-                            HashString.put("locations", getOrigin +" - "+ getDestination);
-                            HashString.put("times", "ETD : " +getTimeDepart+ " ETA : "+getTimeArrival);
-                            HashString.put("decision", "on-going");
+
 
                             FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
                             DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference(("VesselSchedule"));
                             String key = databaseReference2.child(getday).child("Pending").push().getKey();
 
+                            HashMap<String, String> HashString = new HashMap<String, String>();
+                            HashString.put("day", getday);
+                            HashString.put("locations", getOrigin +" - "+ getDestination);
+                            HashString.put("times", "ETD : " +getTimeDepart+ " ETA : "+getTimeArrival);
+                            HashString.put("decision", "on-going");
+                            HashString.put("Key", key);
+                            HashString.put("VesselName", VesselName);
 
                             databaseReference = firebaseDatabase.getReference(VesselName+"DaysSched");
                             databaseReference.child(key).setValue(HashString);
-
-
 
                             HashMap<String, String> HashString1 = new HashMap<String, String>();
                             HashString1.put("VesselName", VesselName);
@@ -699,6 +722,7 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                             HashString1.put("DayOfArrival", getDayofArrival);
                             HashString1.put("PassengerCapacity", PassengerCapacity);
                             HashString1.put("NumberOfCrew", NumberOfCrew);
+                            HashString1.put("DistressStatus", "None");
 
                             DatabaseReference databaseReference1 = firebaseDatabase1.getReference("VesselDetails").child(VesselName);
                             databaseReference1.setValue(HashString1);
@@ -713,6 +737,8 @@ public class SetVesselScheduleActivity extends AppCompatActivity implements View
                             databaseReference3.child(getday)
                                     .child(key)
                                     .setValue(HashString1);
+
+                            Toast.makeText(SetVesselScheduleActivity.this, "Schedule Saved", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

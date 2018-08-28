@@ -91,9 +91,7 @@ public class RegisterVessel extends AppCompatActivity {
                     getDatabaseReference.child("Vessels").orderByChild("Vessel_Name").equalTo(getVesselName).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            DataVesselInfo user = dataSnapshot.getValue(DataVesselInfo.class);
                             if (dataSnapshot.exists()){
-
 
                                 Toast.makeText(getApplicationContext(), "This vessel already exist, please use another name.", Toast.LENGTH_SHORT).show();
 

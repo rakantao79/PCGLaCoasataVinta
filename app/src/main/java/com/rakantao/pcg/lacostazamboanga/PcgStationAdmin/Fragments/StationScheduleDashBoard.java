@@ -1,7 +1,9 @@
 package com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -137,12 +139,53 @@ public class StationScheduleDashBoard extends Fragment {
 
                             ) {
                                 @Override
-                                protected void populateViewHolder(StationDeparturesViewHolder viewHolder, DataVesselSched model, int position) {
+                                protected void populateViewHolder(final StationDeparturesViewHolder viewHolder, final DataVesselSched model, int position) {
 
                                     viewHolder.tvorigin.setText(model.getOrigin());
                                     viewHolder.tvTime.setText(model.getDepartureTime());
                                     viewHolder.tvvesNme.setText(model.getVesselName());
                                     viewHolder.tvRemarks.setText(model.getVesselStatus());
+                                    viewHolder.tvdes.setText(model.getDestination());
+                                    viewHolder.tveta.setText(model.getArrivalTime());
+
+                                    if (model.getDistressStatus().equals("Distress")){
+                                        viewHolder.tvRemarks.setText(model.getDistressStatus());
+                                    }else {
+                                        if (model.getVesselStatus().equals("Departed")){
+                                            viewHolder.tvRemarks.setText("Arriving");
+                                        }else {
+                                            viewHolder.tvRemarks.setText(model.getVesselStatus());
+                                        }
+                                    }
+
+                                    final Handler handler = new Handler();
+                                    final int delay = 2000; //milliseconds
+
+                                    handler.postDelayed(new Runnable(){
+                                        public void run(){
+                                            if (model.getDistressStatus().equals("Distress")){
+                                                if (viewHolder.tvdes.getCurrentTextColor() == Color.WHITE){
+                                                    viewHolder.tvdes.setTextColor(Color.RED);
+                                                    viewHolder.tvTime.setTextColor(Color.RED);
+                                                    viewHolder.tvvesNme.setTextColor(Color.RED);
+                                                    viewHolder.tveta.setTextColor(Color.RED);
+                                                    viewHolder.tvorigin.setTextColor(Color.RED);
+                                                    viewHolder.tvRemarks.setTextColor(Color.RED);
+                                                }else {
+                                                    viewHolder.tvdes.setTextColor(Color.WHITE);
+                                                    viewHolder.tvTime.setTextColor(Color.WHITE);
+                                                    viewHolder.tvvesNme.setTextColor(Color.WHITE);
+                                                    viewHolder.tveta.setTextColor(Color.WHITE);
+                                                    viewHolder.tvorigin.setTextColor(Color.WHITE);
+                                                    viewHolder.tvRemarks.setTextColor(Color.WHITE);
+                                                }
+
+                                            }
+
+                                            handler.postDelayed(this, delay);
+                                        }
+                                    }, delay);
+
 
                                 }
                             };
@@ -158,17 +201,55 @@ public class StationScheduleDashBoard extends Fragment {
 
                             ) {
                                 @Override
-                                protected void populateViewHolder(StationArrivalsViewHolder viewHolder, DataVesselSched model, int position) {
+                                protected void populateViewHolder(final StationArrivalsViewHolder viewHolder, final DataVesselSched model, int position) {
+
+
 
                                     viewHolder.tvdes.setText(model.getDestination());
-                                    viewHolder.tvTime.setText(model.getDepartureTime());
+                                    viewHolder.tvTime.setText(model.getArrivalTime());
                                     viewHolder.tvvesNme.setText(model.getVesselName());
+                                    viewHolder.tvorigintime.setText(model.getDepartureTime());
+                                    viewHolder.tvorigin.setText(model.getOrigin());
 
-                                    if (model.getVesselStatus().equals("Departed")){
-                                        viewHolder.tvRemarks.setText("Arriving");
+                                    if (model.getDistressStatus().equals("Distress")){
+                                        viewHolder.tvRemarks.setText(model.getDistressStatus());
                                     }else {
-                                        viewHolder.tvRemarks.setText(model.getVesselStatus());
+                                        if (model.getVesselStatus().equals("Departed")){
+                                            viewHolder.tvRemarks.setText("Arriving");
+                                        }else {
+
+                                            viewHolder.tvRemarks.setText(model.getVesselStatus());
+
+                                        }
                                     }
+
+                                    final Handler handler = new Handler();
+                                    final int delay = 2000; //milliseconds
+
+                                    handler.postDelayed(new Runnable(){
+                                        public void run(){
+                                            if (model.getDistressStatus().equals("Distress")){
+                                                if (viewHolder.tvdes.getCurrentTextColor() == Color.WHITE){
+                                                    viewHolder.tvdes.setTextColor(Color.RED);
+                                                    viewHolder.tvTime.setTextColor(Color.RED);
+                                                    viewHolder.tvvesNme.setTextColor(Color.RED);
+                                                    viewHolder.tvorigintime.setTextColor(Color.RED);
+                                                    viewHolder.tvorigin.setTextColor(Color.RED);
+                                                    viewHolder.tvRemarks.setTextColor(Color.RED);
+                                                }else {
+                                                    viewHolder.tvdes.setTextColor(Color.WHITE);
+                                                    viewHolder.tvTime.setTextColor(Color.WHITE);
+                                                    viewHolder.tvvesNme.setTextColor(Color.WHITE);
+                                                    viewHolder.tvorigintime.setTextColor(Color.WHITE);
+                                                    viewHolder.tvorigin.setTextColor(Color.WHITE);
+                                                    viewHolder.tvRemarks.setTextColor(Color.WHITE);
+                                                }
+
+                                            }
+
+                                            handler.postDelayed(this, delay);
+                                        }
+                                    }, delay);
                                 }
                             };
                     arrival.setAdapter(firebaseRecyclerAdapter2);

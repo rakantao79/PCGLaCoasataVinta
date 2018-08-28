@@ -8,7 +8,7 @@ import com.rakantao.pcg.lacostazamboanga.R;
 
 public class StationArrivalsViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView tvdes,tvvesNme,tvTime,tvRemarks;
+    public TextView tvdes,tvvesNme,tvTime,tvorigin,tvorigintime,tvRemarks;
 
     public StationArrivalsViewHolder(View itemView) {
         super(itemView);
@@ -17,5 +17,8 @@ public class StationArrivalsViewHolder extends RecyclerView.ViewHolder {
         tvvesNme = itemView.findViewById(R.id.StationArrivalDashboardVessel);
         tvTime = itemView.findViewById(R.id.StationArrivalDashboardTime);
         tvRemarks = itemView.findViewById(R.id.StationArrivalDashboardRemarks);
+        tvorigin = itemView.findViewById(R.id.StationArrivalDashboardOrigin);
+        tvorigintime = itemView.findViewById(R.id.StationArrivalDashboardOriginTime);
+
     }
 }

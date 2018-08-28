@@ -61,7 +61,7 @@
     <Button
         android:id="@+id/BTNSendDistress"
         android:background="@drawable/btn_background"
-        android:text="send ditress"
+        android:text="send distress"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

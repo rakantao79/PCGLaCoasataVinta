@@ -135,8 +135,12 @@ public class DetailedReport extends AppCompatActivity {
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             if (dataSnapshot.exists()){
 
+                                                String boardingA = dataSnapshot.child("bordingA").getValue().toString();
+                                                String boardingB = dataSnapshot.child("bordingB").getValue().toString();
+                                                String boardingC = dataSnapshot.child("bordingC").getValue().toString();
+                                                String boardingD = dataSnapshot.child("bordingD").getValue().toString();
 
-                                                vInvestigator.setText(dataSnapshot.child("inspector").getValue().toString());
+                                                vInvestigator.setText("POIC : " + boardingA + "\n Members : \n" + boardingB + "\n" + boardingC + "\n" + boardingD);
                                                 vTimeStamp.setText(dataSnapshot.child("timeUploaded").getValue().toString());
                                                 iReportPc.setText(dataSnapshot.child("numberTotalPassenger").getValue().toString());
 

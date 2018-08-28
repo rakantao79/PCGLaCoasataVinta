@@ -2,6 +2,7 @@ package com.rakantao.pcg.lacostazamboanga.PCGAdmin.ViewHolders;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -12,8 +13,8 @@ public class SetVesselScheduleViewHolder extends RecyclerView.ViewHolder {
     public TextView tvday;
     public TextView tvLocation;
     public TextView tvTime;
-    public Switch ScheduleDecision;
     public TextView tvDecision;
+    public LinearLayout LLdelete;
 
     public SetVesselScheduleViewHolder(View itemView) {
         super(itemView);
@@ -22,6 +23,6 @@ public class SetVesselScheduleViewHolder extends RecyclerView.ViewHolder {
         tvLocation = itemView.findViewById(R.id.HolderTvLocation);
         tvTime = itemView.findViewById(R.id.HolderTvTime);
         tvDecision = itemView.findViewById(R.id.HolderTvDecision);
-        ScheduleDecision = itemView.findViewById(R.id.SwitchDecideSched);
+        LLdelete = itemView.findViewById(R.id.LLdelete);
     }
 }

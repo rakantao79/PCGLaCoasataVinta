@@ -2,6 +2,7 @@ package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Fragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -122,12 +123,34 @@ public class DepartedFragment extends Fragment {
                         viewHolder.btnDistress.setVisibility(View.GONE);
                         viewHolder.btnarrive.setVisibility(View.GONE);
 
+                        if (model.getDistressStatus().equals("Distress")){
+                            viewHolder.distressnotifieradmin.setVisibility(View.VISIBLE);
+                            viewHolder.distressnotifieradmin.setTextColor(Color.RED);
+                        }else {
+                            viewHolder.distressnotifieradmin.setVisibility(View.GONE);
+                        }
+
+
+
 
                         final Handler handler = new Handler();
                         final int delay = 1000; //milliseconds
 
                         handler.postDelayed(new Runnable(){
                             public void run(){
+
+                                if (viewHolder.distressnotifieradmin.getVisibility() == View.VISIBLE){
+                                    if (model.getDistressStatus().equals("Distress")){
+                                        if (viewHolder.distressnotifieradmin.getCurrentTextColor() == Color.RED) {
+                                            viewHolder.distressnotifieradmin.setTextColor(Color.BLACK);
+                                            viewHolder.vesselname.setTextColor(Color.BLACK);
+                                        }else {
+                                            viewHolder.distressnotifieradmin.setTextColor(Color.RED);
+                                            viewHolder.vesselname.setTextColor(Color.RED);
+                                        }
+                                    }
+                                }
+
                                 //do something
                                 SimpleDateFormat format = new SimpleDateFormat("h:mm a");
                                 DateFormat df = new SimpleDateFormat("h:mm a");

@@ -2,20 +2,48 @@ package com.rakantao.pcg.lacostazamboanga.PCGAdmin.Datas;
 
 public class DataSetVesselSched {
 
-    public String day;
-    public String locations;
-    public String times;
-    public String decision;
+    private String day;
+    private String locations;
+    private String times;
+    private String decision;
+    private String Key;
+    private String VesselName;
 
     public DataSetVesselSched() {
 
     }
 
-    public DataSetVesselSched(String day, String locations, String times, String decision) {
+    public DataSetVesselSched(String day, String locations, String times, String decision, String Key,String VesselName) {
         this.day = day;
         this.locations = locations;
         this.times = times;
         this.decision = decision;
+        this.Key = Key;
+        this.VesselName = VesselName;
+    }
+
+    public String getVesselName() {
+        return VesselName;
+    }
+
+    public void setVesselName(String vesselName) {
+        VesselName = vesselName;
+    }
+
+    public String getLocations() {
+        return locations;
+    }
+
+    public void setLocations(String locations) {
+        this.locations = locations;
+    }
+
+    public String getKey() {
+        return Key;
+    }
+
+    public void setKey(String key) {
+        Key = key;
     }
 
     public String getDay() {

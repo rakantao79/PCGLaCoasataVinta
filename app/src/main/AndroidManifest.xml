@@ -92,10 +92,13 @@
             android:screenOrientation="landscape" />
         <activity android:name=".PcgSubStationAdmin.Activities.SubStationAdminHome" />
         <activity android:name=".PcgStationAdmin.Activities.DetailedReport" />
-        <activity android:name=".PCGPersonnel.Activities.DetailViewHistoryReportsActivity"></activity>
+        <activity android:name=".PCGPersonnel.Activities.DetailViewHistoryReportsActivity" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="0a61a7ff3e0bcd5a1fa55bbddab5c3bb54887ebf" />
+
+        <activity android:name=".PCGAdmin.FirebaseQueryActivity"></activity>
     </application>
 
 </manifest>
