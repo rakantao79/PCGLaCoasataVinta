@@ -325,8 +325,6 @@ public class StationArrivingFragment extends Fragment {
                                     }
                                 };
                         Recyclerview.setAdapter(firebaseRecyclerAdapter);
-
-
                 }
             }
 

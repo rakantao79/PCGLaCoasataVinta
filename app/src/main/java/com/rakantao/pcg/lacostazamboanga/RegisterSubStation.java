@@ -3,9 +3,9 @@ package com.rakantao.pcg.lacostazamboanga;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,30 +28,30 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class RegisterStationAdmin extends AppCompatActivity implements View.OnClickListener {
+public class RegisterSubStation extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etEmail;
     private EditText etPassword;
     private EditText etStation;
-     Button btnRegister;
-     ImageButton btnBack;
+    Button btnRegister;
+    ImageButton btnBack;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_station_admin);
+        setContentView(R.layout.activity_register_sub_station);
+
 
         mAuth = FirebaseAuth.getInstance();
 
-        etEmail = findViewById(R.id.tvEmailStationAdmin);
-        etPassword = findViewById(R.id.tvPasswordStationAdmin);
-        etStation = findViewById(R.id.ETSelectStation);
-        btnBack = findViewById(R.id.btnBackRegStationAdmin);
-        btnRegister = findViewById(R.id.btnRegisterStationAdmin);
-        progressBar = findViewById(R.id.progressBarRegStation);
+        etEmail = findViewById(R.id.tvEmailSubStationAdmin);
+        etPassword = findViewById(R.id.tvPasswordSubStationAdmin);
+        etStation = findViewById(R.id.ETSelectSubStation);
+        btnBack = findViewById(R.id.btnBackRegSubStationAdmin);
+        btnRegister = findViewById(R.id.btnRegisterSubStationAdmin);
+        progressBar = findViewById(R.id.progressBarRegSubStation);
 
         etStation.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -66,7 +66,7 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                         "CGS CEBU",
                         "CGS BOHOL"
                 };
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(RegisterStationAdmin.this);
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(RegisterSubStation.this);
                 builder2.setTitle("Make your selection");
                 builder2.setItems(items2, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, final int item) {
@@ -76,12 +76,12 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()){
-                                    new AlertDialog.Builder(RegisterStationAdmin.this)
+                                    new AlertDialog.Builder(RegisterSubStation.this)
                                             .setIcon(android.R.drawable.ic_dialog_alert)
-                                            .setMessage("Sorry, but this station's admin already registered. Please contact the district HQ for more info.")
+                                            .setMessage("Sorry, but this sub station's admin already registered. Please contact the district HQ for more info.")
                                             .setNeutralButton("Ok", null)
                                             .show();
-                                    etStation.setText(" ");
+                                    etStation.setText("");
                                 }else {
                                     etStation.setText(items2[item]);
                                 }
@@ -100,7 +100,7 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                 alert2.show();
                 break;
             case R.id.btnBackRegStationAdmin:
-                new AlertDialog.Builder(RegisterStationAdmin.this)
+                new AlertDialog.Builder(RegisterSubStation.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setMessage("Are you sure you want to go back?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener()
@@ -108,7 +108,7 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                startActivity(new Intent(RegisterStationAdmin.this, LoginActivity.class));
+                                startActivity(new Intent(RegisterSubStation.this, LoginActivity.class));
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             }
 
@@ -125,7 +125,7 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                 if (TextUtils.isEmpty(getStation)||
                         TextUtils.isEmpty(getEmail) ||
                         TextUtils.isEmpty(getPassword)){
-                    new AlertDialog.Builder(RegisterStationAdmin.this)
+                    new AlertDialog.Builder(RegisterSubStation.this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setMessage("Please don't leave any blank field(s).")
                             .setNeutralButton("Ok", null)
@@ -143,7 +143,7 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
                                 HashMap<String, String> User = new HashMap<>();
-                                User.put("Station", getStation);
+                                User.put("SubStation", getStation);
                                 User.put("Email", getEmail);
                                 User.put("Usertype", "pcgstation");
 
@@ -151,16 +151,16 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                                 DatabaseReference databaseReference = firebaseDatabase.getReference("Users").child(user_id);
                                 databaseReference.setValue(User);
 
-                                Toast.makeText(RegisterStationAdmin.this, "You've Successfully Registered", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterSubStation.this, "You've Successfully Registered", Toast.LENGTH_LONG).show();
                                 progressBar.setVisibility(View.INVISIBLE);
 
                                 mAuth.signOut();
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                startActivity(new Intent(RegisterStationAdmin.this, LoginActivity.class));
+                                startActivity(new Intent(RegisterSubStation.this, LoginActivity.class));
                             }else {
                                 progressBar.setVisibility(View.INVISIBLE);
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                Toast.makeText(RegisterStationAdmin.this, "" + task.getException(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterSubStation.this, "" + task.getException(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
