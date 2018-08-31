@@ -63,22 +63,42 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
         switch (view.getId()){
             case R.id.ETSelectStation:
                 final CharSequence[] items2 = {
-                        "CGS CEBU",
-                        "CGS BOHOL"
+                        "MANDAUE",
+                        "HAGNAYA",
+                        "NAGA",
+                        "TOLEDO",
+                        "CAMOTES",
+                        "DANAO",
+                        "BANTAYAN",
+                        "ADUANA",
+                        "TABUELAN",
+                        "TINAGO",
+                        "BATO",
+                        "ARGAO",
+                        "TANGIL",
+                        "JAGNA",
+                        "UBAY",
+                        "TALIBON",
+                        "TUBIGON",
+                        "PANGLAO",
+                        "LOAY",
+                        "GETAFE",
+                        "PRESIDENT CARLOS P GARCIA"
                 };
+
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(RegisterSubStation.this);
                 builder2.setTitle("Make your selection");
                 builder2.setItems(items2, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, final int item) {
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
-                        databaseReference.orderByChild("Station").equalTo(String.valueOf(items2[item])).addValueEventListener(new ValueEventListener() {
+                        databaseReference.orderByChild("SubStation").equalTo(String.valueOf(items2[item])).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()){
                                     new AlertDialog.Builder(RegisterSubStation.this)
                                             .setIcon(android.R.drawable.ic_dialog_alert)
-                                            .setMessage("Sorry, but this sub station's admin already registered. Please contact the district HQ for more info.")
+                                            .setMessage("Sorry, but this sub station is already registered. Please contact the district HQ for more info.")
                                             .setNeutralButton("Ok", null)
                                             .show();
                                     etStation.setText("");
@@ -86,13 +106,11 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
                                     etStation.setText(items2[item]);
                                 }
                             }
-
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
 
                             }
                         });
-
 
                     }
                 });
@@ -145,8 +163,7 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
                                 HashMap<String, String> User = new HashMap<>();
                                 User.put("SubStation", getStation);
                                 User.put("Email", getEmail);
-                                User.put("Usertype", "pcgstation");
-
+                                User.put("Usertype", "pcgsubstation");
 
                                 DatabaseReference databaseReference = firebaseDatabase.getReference("Users").child(user_id);
                                 databaseReference.setValue(User);

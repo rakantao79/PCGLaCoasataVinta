@@ -81,7 +81,7 @@ public class RegisterStationAdmin extends AppCompatActivity implements View.OnCl
                                             .setMessage("Sorry, but this station's admin already registered. Please contact the district HQ for more info.")
                                             .setNeutralButton("Ok", null)
                                             .show();
-                                    etStation.setText(" ");
+                                    etStation.setText("");
                                 }else {
                                     etStation.setText(items2[item]);
                                 }
