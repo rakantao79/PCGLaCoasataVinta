@@ -113,7 +113,7 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
                         });
 
                     }
-                });
+                });////////////////////////////////////////
                 AlertDialog alert2 = builder2.create();
                 alert2.show();
                 break;
