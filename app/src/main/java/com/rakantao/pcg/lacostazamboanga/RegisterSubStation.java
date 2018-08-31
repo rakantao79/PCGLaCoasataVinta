@@ -61,7 +61,7 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.ETSelectStation:
+            case R.id.ETSelectSubStation:
                 final CharSequence[] items2 = {
                         "MANDAUE",
                         "HAGNAYA",
@@ -117,7 +117,7 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
                 AlertDialog alert2 = builder2.create();
                 alert2.show();
                 break;
-            case R.id.btnBackRegStationAdmin:
+                case R.id.btnBackRegSubStationAdmin:
                 new AlertDialog.Builder(RegisterSubStation.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setMessage("Are you sure you want to go back?")
@@ -134,7 +134,7 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
                         .setNegativeButton("No", null)
                         .show();
                 break;
-            case R.id.btnRegisterStationAdmin:
+        case R.id.btnRegisterSubStationAdmin:
 
                 final String getStation = etStation.getText().toString().trim();
                 final String getEmail = etEmail.getText().toString().trim();
