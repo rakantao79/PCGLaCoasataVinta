@@ -98,7 +98,8 @@
             android:name="io.fabric.ApiKey"
             android:value="0a61a7ff3e0bcd5a1fa55bbddab5c3bb54887ebf" />
 
-        <activity android:name=".PCGAdmin.FirebaseQueryActivity"></activity>
+        <activity android:name=".PCGAdmin.FirebaseQueryActivity" />
+        <activity android:name=".RegisterSubStation"></activity>
     </application>
 
 </manifest>

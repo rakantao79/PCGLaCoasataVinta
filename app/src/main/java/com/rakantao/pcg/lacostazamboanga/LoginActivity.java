@@ -31,6 +31,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.rakantao.pcg.lacostazamboanga.PCGAdmin.Activities.PCGAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PCGPersonnel.Activities.PCGHomeActivity;
 import com.rakantao.pcg.lacostazamboanga.PcgStationAdmin.Activities.PcgStationAdminHome;
+import com.rakantao.pcg.lacostazamboanga.PcgSubStationAdmin.Activities.SubStationAdminHome;
 import com.rakantao.pcg.lacostazamboanga.PublicUser.Activities.UserHomeActivity;
 
 import org.json.JSONException;
@@ -189,8 +190,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }else if (!container.equals("pcgstation")){
                         startActivity(new Intent(LoginActivity.this, RegisterStationAdmin.class));
                         finish();
-                    }
-                    else {
+                    }else if (!container.equals("substation")){
+                        startActivity(new Intent(LoginActivity.this, RegisterSubStation.class));
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+                    }else {
                         Toast.makeText(this, "Invalid QR Code" , Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
@@ -207,6 +211,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         finish();
                     }else if (var.equals("pcgstation")){
                         startActivity(new Intent(LoginActivity.this, RegisterStationAdmin.class));
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        finish();
+                    }else if (var.equals("substation")){
+                        startActivity(new Intent(LoginActivity.this, RegisterSubStation.class));
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
                     }else {
@@ -246,6 +254,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             }else if (usertype.equals("pcgstation")){
                                 startActivity(new Intent(LoginActivity.this, PcgStationAdminHome.class));
+                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            }else if (usertype.equals("pcgsubstation")){
+                                startActivity(new Intent(LoginActivity.this, SubStationAdminHome.class));
                                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             } else {
                                 Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
