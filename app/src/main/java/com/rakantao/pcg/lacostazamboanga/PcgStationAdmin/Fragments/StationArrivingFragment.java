@@ -197,7 +197,6 @@ public class StationArrivingFragment extends Fragment {
                                                     e.printStackTrace();
                                                 }
 
-
                                                 handler.postDelayed(this, delay);
                                             }
                                         }, delay);
@@ -335,6 +334,7 @@ public class StationArrivingFragment extends Fragment {
         });
 
     }
+
     public void moveFirebaseRecord1(final DatabaseReference fromPath, final DatabaseReference toPath) {
         fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
 

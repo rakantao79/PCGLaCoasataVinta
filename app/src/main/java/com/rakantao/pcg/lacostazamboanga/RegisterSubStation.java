@@ -161,7 +161,7 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
                                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
                                 HashMap<String, String> User = new HashMap<>();
-                                User.put("SubStation", getStation);
+                                User.put("SubStation", "CGSS "+getStation);
                                 User.put("Email", getEmail);
                                 User.put("Usertype", "pcgsubstation");
 
