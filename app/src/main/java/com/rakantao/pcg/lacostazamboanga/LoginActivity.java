@@ -54,7 +54,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void attachBaseContext(Context newBase) {
+
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+
     }
 
     @Override

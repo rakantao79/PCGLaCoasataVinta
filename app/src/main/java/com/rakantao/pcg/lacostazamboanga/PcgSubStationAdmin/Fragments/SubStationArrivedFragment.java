@@ -60,7 +60,7 @@ public class SubStationArrivedFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         linearLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerview = view.findViewById(R.id.recyclerArrivingSubStationAdmin);
+        mRecyclerview = view.findViewById(R.id.recyclerArrivedSubStationAdmin);
 
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
@@ -109,13 +109,12 @@ public class SubStationArrivedFragment extends Fragment {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         userID =  currentUser.getUid();
 
-        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("Users");
 
-        databaseReference1.addValueEventListener(new ValueEventListener() {
+        databaseReference1.child(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
-
 
                     Origin = dataSnapshot.child("SubStation").getValue().toString();
 

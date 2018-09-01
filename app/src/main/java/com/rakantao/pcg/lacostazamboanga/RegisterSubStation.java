@@ -149,8 +149,39 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
                             .setNeutralButton("Ok", null)
                             .show();
                 }else {
+
+                    String MyStation = null;
+                    if (getStation.equals("MANDAUE")
+                            || getStation.equals("HAGNAYA")
+                            || getStation.equals("NAGA")
+                            || getStation.equals("TOLEDO")
+                            || getStation.equals("CAMOTES")
+                            || getStation.equals("DANAO")
+                            || getStation.equals("BANTAYAN")
+                            || getStation.equals("ADUANA")
+                            || getStation.equals("TABUELAN")
+                            || getStation.equals("TINAGO")
+                            || getStation.equals("BATO")
+                            || getStation.equals("ARGAO")
+                            || getStation.equals("TANGIL")){
+
+                        MyStation = "CGS CEBU";
+                    }else if (getStation.equals("JAGNA")
+                            || getStation.equals("UBAY")
+                            || getStation.equals("TALIBON")
+                            || getStation.equals("TUBIGON")
+                            || getStation.equals("PANGLAO")
+                            || getStation.equals("LOAY")
+                            || getStation.equals("GETAFE")
+                            || getStation.equals("PRESIDENT CARLOS P GARCIA")) {
+
+                        MyStation = "CGS BOHOL";
+                    }
+
+
                     progressBar.setVisibility(View.VISIBLE);
 
+                    final String finalMyStation = MyStation;
                     mAuth.createUserWithEmailAndPassword(getEmail, getPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -164,6 +195,7 @@ public class RegisterSubStation extends AppCompatActivity implements View.OnClic
                                 User.put("SubStation", "CGSS "+getStation);
                                 User.put("Email", getEmail);
                                 User.put("Usertype", "pcgsubstation");
+                                User.put("MyStation", finalMyStation);
 
                                 DatabaseReference databaseReference = firebaseDatabase.getReference("Users").child(user_id);
                                 databaseReference.setValue(User);

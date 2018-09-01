@@ -682,7 +682,6 @@ public class SendReportActivity extends AppCompatActivity {
                                                 //databaseNumberPassenger.child(dayOfWeek).push().setValue(HashString);
                                                 databaseNumberPassenger.setValue(HashString);
 
-                                                Toast.makeText(SendReportActivity.this, "Successfuly Submitted", Toast.LENGTH_SHORT).show();
                                                 databaseReference1.child("AdminImagesReport").child(vesselName).addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
