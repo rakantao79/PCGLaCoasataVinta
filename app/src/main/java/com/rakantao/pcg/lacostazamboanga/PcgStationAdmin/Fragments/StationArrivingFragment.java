@@ -588,8 +588,7 @@ public class StationArrivingFragment extends Fragment {
 
                                             }
                                         });
-
-
+                                        
                                         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("VesselImage").child(model.getVesselName());
 
                                         mUserDatabase.addValueEventListener(new ValueEventListener() {

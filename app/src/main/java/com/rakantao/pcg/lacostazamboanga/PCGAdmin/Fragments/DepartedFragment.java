@@ -131,8 +131,6 @@ public class DepartedFragment extends Fragment {
                         }
 
 
-
-
                         final Handler handler = new Handler();
                         final int delay = 1000; //milliseconds
 
