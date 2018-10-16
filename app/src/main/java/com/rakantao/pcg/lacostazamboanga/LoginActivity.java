@@ -39,7 +39,7 @@ import org.json.JSONObject;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etEmail;
     private EditText etPassword;
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth firebaseAuth;
     private ProgressBar mProgressBar;
     DatabaseReference databaseReference;
-    public String  userID;
+    public String userID;
     ImageButton btnQr;
     private IntentIntegrator qrScan;
 
@@ -71,10 +71,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btnQr = findViewById(R.id.btnQr);
         etEmail = findViewById(R.id.et_username);
-        etPassword =  findViewById(R.id.et_password);
-        btnLogin =  findViewById(R.id.btn_login);
+        etPassword = findViewById(R.id.et_password);
+        btnLogin = findViewById(R.id.btn_login);
         tvNoAccount = findViewById(R.id.tvNoAccount);
-        mProgressBar =  findViewById(R.id.progressBarLogin);
+        mProgressBar = findViewById(R.id.progressBarLogin);
 
         btnQr.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
@@ -84,9 +84,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     boolean twice;
+
     @Override
     public void onBackPressed() {
-        if (twice == true){
+        if (twice == true) {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -114,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnQr:
                 qrScan.initiateScan();
                 break;
@@ -149,18 +150,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     // There was an error; don't attempt login and focus the first
                     // form field with an error.
                     focusView.requestFocus();
-                }else {
+                } else {
                     mProgressBar.setVisibility(View.VISIBLE);
-                    firebaseAuth.signInWithEmailAndPassword(getEmail,getPass)
+                    firebaseAuth.signInWithEmailAndPassword(getEmail, getPass)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         getUserData();
 
-                                    }else {
+                                    } else {
                                         mProgressBar.setVisibility(View.INVISIBLE);
-                                        Toast.makeText(LoginActivity.this, ""+task.getException(), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, "" + task.getException(), Toast.LENGTH_LONG).show();
 
                                     }
                                 }
@@ -186,18 +187,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     String container;
                     container = (obj.getString(""));
 
-                    if (!container.equals("login")){
+                    if (!container.equals("login")) {
                         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                         finish();
-                    }else if (!container.equals("pcgstation")){
+                    } else if (!container.equals("pcgstation")) {
                         startActivity(new Intent(LoginActivity.this, RegisterStationAdmin.class));
                         finish();
-                    }else if (!container.equals("substation")){
+                    } else if (!container.equals("substation")) {
                         startActivity(new Intent(LoginActivity.this, RegisterSubStation.class));
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
-                    }else {
-                        Toast.makeText(this, "Invalid QR Code" , Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "Invalid QR Code", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -207,20 +208,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     //to a toast
                     String var = result.getContents();
 
-                    if (var.equals("login")){
+                    if (var.equals("login")) {
                         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
-                    }else if (var.equals("pcgstation")){
+                    } else if (var.equals("pcgstation")) {
                         startActivity(new Intent(LoginActivity.this, RegisterStationAdmin.class));
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
-                    }else if (var.equals("substation")){
+                    } else if (var.equals("substation")) {
                         startActivity(new Intent(LoginActivity.this, RegisterSubStation.class));
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                         finish();
-                    }else {
-                        Toast.makeText(this, "Invalid QR Code" , Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "Invalid QR Code", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -234,38 +235,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        userID =  currentUser.getUid();
+        userID = currentUser.getUid();
 
         databaseReference.child("Users").child(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 DataUser user = dataSnapshot.getValue(DataUser.class);
-                if(dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
 
                     String usertype = (user.Usertype);
 
                     if (firebaseAuth.getCurrentUser() != null) {
-                            if (usertype.equals("admin")){
-                                startActivity(new Intent(LoginActivity.this, PCGAdminHome.class));
-                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            }else if (usertype.equals("personnel")){
-                                startActivity(new Intent(LoginActivity.this, PCGHomeActivity.class));
-                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            }else if (usertype.equals("user")){
-                                startActivity(new Intent(LoginActivity.this, UserHomeActivity.class));
-                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            }else if (usertype.equals("pcgstation")){
-                                startActivity(new Intent(LoginActivity.this, PcgStationAdminHome.class));
-                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            }else if (usertype.equals("pcgsubstation")){
-                                startActivity(new Intent(LoginActivity.this, SubStationAdminHome.class));
-                                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            } else {
-                                Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
-                                firebaseAuth.signOut();
-                                startActivity(new Intent(LoginActivity.this, LoginActivity.class));
-                            }
-                    }else {
+                        if (usertype.equals("admin")) {
+                            startActivity(new Intent(LoginActivity.this, PCGAdminHome.class));
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        } else if (usertype.equals("personnel")) {
+                            startActivity(new Intent(LoginActivity.this, PCGHomeActivity.class));
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        } else if (usertype.equals("user")) {
+                            startActivity(new Intent(LoginActivity.this, UserHomeActivity.class));
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        } else if (usertype.equals("pcgstation")) {
+                            startActivity(new Intent(LoginActivity.this, PcgStationAdminHome.class));
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        } else if (usertype.equals("pcgsubstation")) {
+                            startActivity(new Intent(LoginActivity.this, SubStationAdminHome.class));
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
+                            firebaseAuth.signOut();
+                            startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+                        }
+                    } else {
                         Toast.makeText(LoginActivity.this, "Please, check your internet connection", Toast.LENGTH_LONG).show();
                     }
                 }

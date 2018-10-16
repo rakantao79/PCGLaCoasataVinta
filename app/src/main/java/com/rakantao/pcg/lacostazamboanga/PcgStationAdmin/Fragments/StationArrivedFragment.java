@@ -101,14 +101,14 @@ public class StationArrivedFragment extends Fragment {
         super.onStart();
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        userID =  currentUser.getUid();
+        userID = currentUser.getUid();
 
         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
 
         databaseReference1.child("Users").child(userID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
+                if (dataSnapshot.exists()) {
 
                     Origin = dataSnapshot.child("Station").getValue().toString();
 
@@ -149,16 +149,16 @@ public class StationArrivedFragment extends Fragment {
                                     mUserDatabase.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                            if (dataSnapshot.exists()){
+                                            if (dataSnapshot.exists()) {
                                                 final String image = dataSnapshot.child("image").getValue().toString();
 
-                                                if (!image.equals("default")){
+                                                if (!image.equals("default")) {
                                                     Picasso.with(getContext())
                                                             .load(image)
                                                             .fit().centerCrop()
                                                             .networkPolicy(NetworkPolicy.OFFLINE)
                                                             .placeholder(R.drawable.zz)
-                                                            .into(viewHolder.vImage , new Callback() {
+                                                            .into(viewHolder.vImage, new Callback() {
                                                                 @Override
                                                                 public void onSuccess() {
 
@@ -193,8 +193,6 @@ public class StationArrivedFragment extends Fragment {
 
             }
         });
-
-
     }
 
 }

@@ -135,7 +135,6 @@
 
         </FrameLayout>
 
-
         <ImageView
             android:id="@+id/IVPendingImageVessel"
             android:layout_width="110dp"

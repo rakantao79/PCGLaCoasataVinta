@@ -48,7 +48,7 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/logo_vinta_small" />
+            android:src="@drawable/logo_pcg" />
 
         <EditText
             android:imeOptions="actionNext"

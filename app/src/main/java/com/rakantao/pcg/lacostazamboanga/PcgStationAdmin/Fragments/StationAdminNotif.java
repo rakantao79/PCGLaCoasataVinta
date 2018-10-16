@@ -65,12 +65,9 @@ public class StationAdminNotif extends Fragment {
     String userID;
     public String Origin;
 
-
-
     public StationAdminNotif() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,7 +87,6 @@ public class StationAdminNotif extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         userID = currentUser.getUid();
@@ -169,9 +165,6 @@ public class StationAdminNotif extends Fragment {
                                         viewHolder.notifLayout.setBackgroundColor(getResources().getColor(R.color.white));
                                     }
 
-
-
-
                                     final Handler handler = new Handler();
                                     final int delay = 1000; //milliseconds
 
@@ -212,7 +205,6 @@ public class StationAdminNotif extends Fragment {
                                             handler.postDelayed(this, delay);
                                         }
                                     }, delay);
-
 
                                     viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                                         @Override
